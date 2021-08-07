@@ -2,6 +2,7 @@ service: cc-authorizer-api
 
 plugins:
   - serverless-webpack
+  - serverless-offline
 
 provider:
   name: aws
