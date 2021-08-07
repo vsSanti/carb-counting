@@ -1,0 +1,11 @@
+{
+  "name": "carb-counting-repo",
+  "version": "0.0.0",
+  "description": "Carb Counting project monorepo",
+  "keywords": [],
+  "author": "Vinicius Santiago <viniciussdsilva@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "git-commit-msg-linter": "^3.2.6"
+  }
+}
