@@ -6,12 +6,15 @@
   "description": "Carb counting API using Serverless",
   "main": "serverless.ts",
   "scripts": {
+    "prepare": "cd .. && husky install authentication-api/.husky",
     "pretest": "jest --clearCache",
     "test": "jest --passWithNoTests --no-cache --silent --noStackTrace --runInBand",
+    "test:coverage": "npm test -- --coverage",
+    "test:staged": "npm test -- --findRelatedTests",
     "test:unit": "npm test -- --watch -c jest-unit-config.js"
   },
   "engines": {
-    "node": ">=12.18.4"
+    "node": "12.x"
   },
   "dependencies": {
     "source-map-support": "^0.5.19"
@@ -26,7 +29,9 @@
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
+    "husky": "^7.0.1",
     "jest": "^27.0.6",
+    "lint-staged": "^11.1.2",
     "prettier": "^2.3.2",
     "serverless": "^2.23.0",
     "serverless-offline": "^8.0.0",
