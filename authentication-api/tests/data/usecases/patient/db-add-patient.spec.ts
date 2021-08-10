@@ -1,23 +1,30 @@
 import { DbAddPatient } from '@/data/usecases/patient/db-add-patient';
 
 import { mockAddPatientParams, mockPatientModel, throwError } from '@/tests/domain/mocks';
-import { HasherSpy, LoadPatientByEmailRepositorySpy } from '@/tests/data/mocks';
+import {
+  AddPatientRepositorySpy,
+  HasherSpy,
+  LoadPatientByEmailRepositorySpy,
+} from '@/tests/data/mocks';
 
 type SutTypes = {
   sut: DbAddPatient;
   loadPatientByEmailRepositorySpy: LoadPatientByEmailRepositorySpy;
   hasherSpy: HasherSpy;
+  addPatientRepositorySpy: AddPatientRepositorySpy;
 };
 
 const makeSut = (): SutTypes => {
   const loadPatientByEmailRepositorySpy = new LoadPatientByEmailRepositorySpy();
   const hasherSpy = new HasherSpy();
-  const sut = new DbAddPatient(loadPatientByEmailRepositorySpy, hasherSpy);
+  const addPatientRepositorySpy = new AddPatientRepositorySpy();
+  const sut = new DbAddPatient(loadPatientByEmailRepositorySpy, hasherSpy, addPatientRepositorySpy);
 
   return {
     sut,
     loadPatientByEmailRepositorySpy,
     hasherSpy,
+    addPatientRepositorySpy,
   };
 };
 
@@ -38,9 +45,7 @@ describe('DbAddPatient Usecase', () => {
 
   it('should throw if LoadPatientByEmailRepository throws', async () => {
     const { sut, loadPatientByEmailRepositorySpy } = makeSut();
-
     jest.spyOn(loadPatientByEmailRepositorySpy, 'loadByEmail').mockImplementationOnce(throwError);
-
     const errorPromise = sut.add(mockAddPatientParams());
     await expect(errorPromise).rejects.toThrow();
   });
@@ -54,10 +59,18 @@ describe('DbAddPatient Usecase', () => {
 
   it('should throw if Hasher throws', async () => {
     const { sut, hasherSpy } = makeSut();
-
     jest.spyOn(hasherSpy, 'hash').mockImplementationOnce(throwError);
-
     const errorPromise = sut.add(mockAddPatientParams());
     await expect(errorPromise).rejects.toThrow();
+  });
+
+  it('should call AddPatientRepository with correct values', async () => {
+    const { sut, hasherSpy, addPatientRepositorySpy } = makeSut();
+    const addPatientParams = mockAddPatientParams();
+    await sut.add(addPatientParams);
+    expect(addPatientRepositorySpy.params).toEqual({
+      ...addPatientParams,
+      password: hasherSpy.digest,
+    });
   });
 });
