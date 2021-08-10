@@ -11,14 +11,15 @@ export class DbAddPatient implements AddPatient {
   ) {}
 
   async add(params: AddPatientParams): Promise<PatientModel> {
-    await this.loadPatientByEmailRepository.loadByEmail(params.email);
+    const patient = await this.loadPatientByEmailRepository.loadByEmail(params.email);
+    if (patient) return null;
 
     const hashedPassword = await this.hasher.hash(params.password);
-    await this.addPatientRepository.add({
+    const newPatient = await this.addPatientRepository.add({
       ...params,
       password: hashedPassword,
     });
 
-    return null;
+    return newPatient;
   }
 }
