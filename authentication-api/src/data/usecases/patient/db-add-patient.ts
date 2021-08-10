@@ -6,7 +6,7 @@ export class DbAddPatient implements AddPatient {
   constructor(private readonly loadPatientByEmailRepository: LoadPatientByEmailRepository) {}
 
   async add(params: AddPatientParams): Promise<PatientModel> {
-    this.loadPatientByEmailRepository.loadByEmail(params.email);
+    await this.loadPatientByEmailRepository.loadByEmail(params.email);
 
     return null;
   }
