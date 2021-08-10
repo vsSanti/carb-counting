@@ -51,4 +51,13 @@ describe('DbAddPatient Usecase', () => {
     await sut.add(addPatientParams);
     expect(hasherSpy.plainText).toBe(addPatientParams.password);
   });
+
+  it('should throw if Hasher throws', async () => {
+    const { sut, hasherSpy } = makeSut();
+
+    jest.spyOn(hasherSpy, 'hash').mockImplementationOnce(throwError);
+
+    const errorPromise = sut.add(mockAddPatientParams());
+    await expect(errorPromise).rejects.toThrow();
+  });
 });
