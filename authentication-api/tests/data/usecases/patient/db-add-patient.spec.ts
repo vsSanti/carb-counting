@@ -1,6 +1,6 @@
 import { DbAddPatient } from '@/data/usecases/patient/db-add-patient';
 
-import { mockAddPatientParams, mockPatientModel } from '@/tests/domain/mocks';
+import { mockAddPatientParams, mockPatientModel, throwError } from '@/tests/domain/mocks';
 import { LoadPatientByEmailRepositorySpy } from '@/tests/data/mocks';
 
 type SutTypes = {
@@ -31,5 +31,14 @@ describe('DbAddPatient Usecase', () => {
     loadPatientByEmailRepositorySpy.result = mockPatientModel();
     const patient = await sut.add(mockAddPatientParams());
     expect(patient).toBeNull();
+  });
+
+  it('should throw if LoadPatientByEmailRepository throws', async () => {
+    const { sut, loadPatientByEmailRepositorySpy } = makeSut();
+
+    jest.spyOn(loadPatientByEmailRepositorySpy, 'loadByEmail').mockImplementationOnce(throwError);
+
+    const errorPromise = sut.add(mockAddPatientParams());
+    await expect(errorPromise).rejects.toThrow();
   });
 });
