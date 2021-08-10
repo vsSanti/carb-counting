@@ -38,7 +38,7 @@ describe('DbAddPatient Usecase', () => {
 
   it("should return null if LoadPatientByEmailRepository doesn't returns null", async () => {
     const { sut, loadPatientByEmailRepositorySpy } = makeSut();
-    loadPatientByEmailRepositorySpy.result = mockPatientModel();
+    loadPatientByEmailRepositorySpy.patientModel = mockPatientModel();
     const patient = await sut.add(mockAddPatientParams());
     expect(patient).toBeNull();
   });
@@ -79,5 +79,11 @@ describe('DbAddPatient Usecase', () => {
     jest.spyOn(addPatientRepositorySpy, 'add').mockImplementationOnce(throwError);
     const errorPromise = sut.add(mockAddPatientParams());
     await expect(errorPromise).rejects.toThrow();
+  });
+
+  it('should return a patient on success', async () => {
+    const { sut, addPatientRepositorySpy } = makeSut();
+    const account = await sut.add(mockAddPatientParams());
+    expect(account).toEqual(addPatientRepositorySpy.patientModel);
   });
 });

@@ -6,20 +6,20 @@ import { mockPatientModel } from '@/tests/domain/mocks';
 
 export class AddPatientRepositorySpy implements AddPatientRepository {
   params: AddPatientParams;
-  result = mockPatientModel();
+  patientModel = mockPatientModel();
 
   async add(params: AddPatientParams): Promise<PatientModel> {
     this.params = params;
-    return this.result;
+    return this.patientModel;
   }
 }
 
 export class LoadPatientByEmailRepositorySpy implements LoadPatientByEmailRepository {
-  result = null;
+  patientModel: PatientModel;
   email: string;
 
   async loadByEmail(email: string): Promise<PatientModel> {
     this.email = email;
-    return this.result;
+    return this.patientModel;
   }
 }
