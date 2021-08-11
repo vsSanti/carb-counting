@@ -45,4 +45,20 @@ describe('PgUserAccountRepository', () => {
       expect(patient).toBeUndefined();
     });
   });
+
+  describe('add', () => {
+    it('should return a patient on add success', async () => {
+      const patient = await sut.add(addPatientParams);
+
+      expect(patient).toBeTruthy();
+      expect(patient.id).toBeTruthy();
+      expect(patient.createdAt).toBeTruthy();
+      expect(patient.updatedAt).toBeTruthy();
+      expect(patient.deletedAt).toBeFalsy();
+      expect(patient.password).toBeFalsy();
+
+      delete addPatientParams.password;
+      expect(patient).toEqual(addPatientParams);
+    });
+  });
 });
