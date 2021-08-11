@@ -18,7 +18,10 @@
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
-    "source-map-support": "^0.5.19"
+    "pg": "^8.7.1",
+    "reflect-metadata": "^0.1.13",
+    "source-map-support": "^0.5.19",
+    "typeorm": "^0.2.29"
   },
   "devDependencies": {
     "@serverless/typescript": "^2.23.0",
@@ -36,6 +39,7 @@
     "husky": "^7.0.1",
     "jest": "^27.0.6",
     "lint-staged": "^11.1.2",
+    "pg-mem": "^1.9.15",
     "prettier": "^2.3.2",
     "serverless": "^2.23.0",
     "serverless-offline": "^8.0.0",
