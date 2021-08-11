@@ -39,5 +39,10 @@ describe('PgUserAccountRepository', () => {
       delete addPatientParams.password;
       expect(patient).toEqual(addPatientParams);
     });
+
+    it("should return null if email isn't already registered", async () => {
+      const patient = await sut.loadByEmail(addPatientParams.email);
+      expect(patient).toBeUndefined();
+    });
   });
 });
