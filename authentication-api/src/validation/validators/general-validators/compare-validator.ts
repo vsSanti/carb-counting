@@ -1,9 +1,13 @@
 import { PropertyValidation, PropertyValidationParams } from '@/presentation/protocols';
 
 export class CompareValidator implements PropertyValidation {
-  constructor(private readonly fieldNameToCompare) {}
+  constructor(private readonly fieldNameToCompare: string) {}
 
   validate({ fieldName, input }: PropertyValidationParams): string {
-    return;
+    const value = input[fieldName];
+    const valueToCompare = input[this.fieldNameToCompare];
+    if (value !== valueToCompare) {
+      return "Values aren't equal.";
+    }
   }
 }
