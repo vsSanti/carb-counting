@@ -8,6 +8,6 @@ export class DbAuthentication implements Authentication {
   async auth(params: AuthenticationParams): Promise<AuthenticationModel> {
     const { email } = params;
     await this.loadPatientByEmailRepository.loadByEmail(email);
-    return;
+    return null;
   }
 }
