@@ -1,4 +1,4 @@
-import { AddPatient } from '@/domain/usecases';
+import { AddPatient, Authentication } from '@/domain/usecases';
 import { ParameterInUseError } from '@/presentation/errors';
 import {
   badRequest,
@@ -11,7 +11,8 @@ import { Controller, HttpRequest, HttpResponse, ObjectValidator } from '@/presen
 export class SignUpController implements Controller {
   constructor(
     private readonly validation: ObjectValidator,
-    private readonly addPatient: AddPatient
+    private readonly addPatient: AddPatient,
+    private readonly authentication: Authentication
   ) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
@@ -50,6 +51,11 @@ export class SignUpController implements Controller {
       if (!patient) {
         return conflict(new ParameterInUseError('email'));
       }
+
+      await this.authentication.auth({
+        email,
+        password,
+      });
 
       return created({});
     } catch (error) {
