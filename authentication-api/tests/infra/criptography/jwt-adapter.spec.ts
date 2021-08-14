@@ -1,0 +1,25 @@
+import jwt from 'jsonwebtoken';
+
+import { JwtAdapter } from '@/infra/criptography';
+
+jest.mock('jsonwebtoken', () => ({
+  async sign(): Promise<string> {
+    return 'token';
+  },
+}));
+
+describe('Jwt Adapter', () => {
+  let sut: JwtAdapter;
+
+  beforeEach(() => {
+    sut = new JwtAdapter('secret');
+  });
+
+  describe('sign()', () => {
+    it('should call sign with correct values', async () => {
+      const signSpy = jest.spyOn(jwt, 'sign');
+      await sut.encrypt('any_id');
+      expect(signSpy).toHaveBeenCalledWith({ sub: 'any_id' }, 'secret', { expiresIn: '1h' });
+    });
+  });
+});
