@@ -6,6 +6,7 @@
   "description": "Carb counting API using Serverless",
   "main": "serverless.ts",
   "scripts": {
+    "lint:fix": "eslint 'src/**' --fix",
     "prepare": "cd .. && husky install authentication-api/.husky",
     "pretest": "jest --clearCache",
     "test": "jest --passWithNoTests --no-cache --silent --noStackTrace --runInBand",
