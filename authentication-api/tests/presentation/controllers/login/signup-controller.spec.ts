@@ -1,11 +1,11 @@
 import { SignUpController } from '@/presentation/controllers/login';
-import { badRequest } from '@/presentation/helpers/http/http-helper';
+import { badRequest, serverError } from '@/presentation/helpers/http/http-helper';
 import { HttpRequest } from '@/presentation/protocols';
 import { conflict } from '@/presentation/helpers/http/http-helper';
 import { ParameterInUseError } from '@/presentation/errors';
 
 import { ObjectValidatorSpy } from '@/tests/validation/mocks';
-import { mockAddPatientParams } from '@/tests/domain/mocks';
+import { mockAddPatientParams, throwError } from '@/tests/domain/mocks';
 import { AddPatientSpy } from '@/tests/presentation/mocks';
 
 const mockRequest = (): HttpRequest => {
@@ -51,8 +51,15 @@ describe('SignUp Controller', () => {
 
   it('should return 409 if AddPatient returns null', async () => {
     addPatientSpy.patientModel = null;
-    const httpResponse = await sut.handle(mockRequest());
+    const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse.statusCode).toBe(409);
     expect(httpResponse).toEqual(conflict(new ParameterInUseError('email')));
+  });
+
+  it('should return 500 if AddPatient throws', async () => {
+    jest.spyOn(addPatientSpy, 'add').mockImplementationOnce(throwError);
+    const httpResponse = await sut.handle(httpRequest);
+    expect(httpResponse.statusCode).toBe(500);
+    expect(httpResponse).toEqual(serverError(new Error()));
   });
 });
