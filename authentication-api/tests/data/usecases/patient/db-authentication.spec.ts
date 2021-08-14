@@ -67,4 +67,11 @@ describe('DbAuthentication Usecase', () => {
     const promise = sut.auth(authenticationParams);
     await expect(promise).rejects.toThrow();
   });
+
+  it('should return an AuthenticationModel on success', async () => {
+    const { accessToken, refreshToken } = await sut.auth(authenticationParams);
+    expect(encrypterSpy.calledTimes).toBe(2);
+    expect(accessToken).toBe(encrypterSpy.cipherText[0]);
+    expect(refreshToken).toBe(encrypterSpy.cipherText[1]);
+  });
 });

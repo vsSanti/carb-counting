@@ -3,16 +3,18 @@ import faker from 'faker';
 import { Encrypter, HashComparer, Hasher } from '@/data/protocols/criptography';
 
 export class EncrypterSpy implements Encrypter {
-  cipherText = faker.datatype.uuid();
+  cipherText: string[] = [];
   plainText: string;
   expiresIn: string[] = [];
   calledTimes = 0;
 
   async encrypt(plainText: string, expiresIn?: string): Promise<string> {
+    const cipherText = faker.datatype.uuid();
+    this.cipherText.push(cipherText);
     this.calledTimes += 1;
     this.plainText = plainText;
     this.expiresIn.push(expiresIn);
-    return this.cipherText;
+    return cipherText;
   }
 }
 
