@@ -1,6 +1,8 @@
 import { SignUpController } from '@/presentation/controllers/login';
 import { badRequest } from '@/presentation/helpers/http/http-helper';
 import { HttpRequest } from '@/presentation/protocols';
+import { conflict } from '@/presentation/helpers/http/http-helper';
+import { ParameterInUseError } from '@/presentation/errors';
 
 import { ObjectValidatorSpy } from '@/tests/validation/mocks';
 import { mockAddPatientParams } from '@/tests/domain/mocks';
@@ -45,5 +47,12 @@ describe('SignUp Controller', () => {
     await sut.handle(httpRequest);
     delete httpRequest.body.confirmPassword;
     expect(addPatientSpy.addPatientParams).toEqual(httpRequest.body);
+  });
+
+  it('should return 409 if AddPatient returns null', async () => {
+    addPatientSpy.patientModel = null;
+    const httpResponse = await sut.handle(mockRequest());
+    expect(httpResponse.statusCode).toBe(409);
+    expect(httpResponse).toEqual(conflict(new ParameterInUseError('email')));
   });
 });
