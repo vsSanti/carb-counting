@@ -12,6 +12,9 @@ export class GenericObjectValidator implements ObjectValidator {
     for (const propertyBuilder of this.propertyBuilders) {
       propertyBuilder.validate(params);
     }
-    return;
+    return {
+      errors: {},
+      hasErrors: false,
+    };
   }
 }

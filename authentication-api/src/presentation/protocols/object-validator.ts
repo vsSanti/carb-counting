@@ -1,5 +1,8 @@
 export type ObjectValidatorReturn = {
-  [key: string]: string[];
+  errors?: {
+    [key: string]: string[];
+  };
+  hasErrors: boolean;
 };
 
 export type ObjectValidatorParams = {
