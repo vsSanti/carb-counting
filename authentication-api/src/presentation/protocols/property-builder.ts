@@ -3,5 +3,6 @@ export type PropertyBuilderParams = {
 };
 
 export interface PropertyBuilder {
+  fieldName: string;
   validate: (params: PropertyBuilderParams) => string[];
 }

@@ -6,7 +6,7 @@ import {
 
 export class GenericPropertyBuilder implements PropertyBuilder {
   constructor(
-    private readonly fieldName: string,
+    public readonly fieldName: string,
     private readonly validations: PropertyValidation[]
   ) {}
 
