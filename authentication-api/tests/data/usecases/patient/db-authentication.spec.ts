@@ -39,4 +39,10 @@ describe('DbAuthentication Usecase', () => {
     expect(hashComparerSpy.plainText).toBe(authenticationParams.password);
     expect(hashComparerSpy.digest).toBe(loadPatientByEmailRepositorySpy.patientModel.password);
   });
+
+  it('should throw if HashComparer throws', async () => {
+    jest.spyOn(hashComparerSpy, 'compare').mockImplementationOnce(throwError);
+    const promise = sut.auth(mockAuthenticationParams());
+    await expect(promise).rejects.toThrow();
+  });
 });
