@@ -1,7 +1,7 @@
 import { DbAuthentication } from '@/data/usecases/patient/db-authentication';
 import { AuthenticationParams } from '@/domain/usecases';
 
-import { mockAuthenticationParams } from '@/tests/domain/mocks';
+import { mockAuthenticationParams, throwError } from '@/tests/domain/mocks';
 import { LoadPatientByEmailRepositorySpy } from '@/tests/data/mocks';
 
 describe('DbAuthentication Usecase', () => {
@@ -18,5 +18,11 @@ describe('DbAuthentication Usecase', () => {
   it('should call LoadPatientByEmailRepository with correct email', async () => {
     await sut.auth(authenticationParams);
     expect(loadPatientByEmailRepositorySpy.email).toBe(authenticationParams.email);
+  });
+
+  it('should throw if LoadAccountByEmailRepository throws', async () => {
+    jest.spyOn(loadPatientByEmailRepositorySpy, 'loadByEmail').mockImplementationOnce(throwError);
+    const promise = sut.auth(authenticationParams);
+    await expect(promise).rejects.toThrow();
   });
 });
