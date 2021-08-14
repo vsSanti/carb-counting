@@ -20,9 +20,15 @@ describe('DbAuthentication Usecase', () => {
     expect(loadPatientByEmailRepositorySpy.email).toBe(authenticationParams.email);
   });
 
-  it('should throw if LoadAccountByEmailRepository throws', async () => {
+  it('should throw if LoadPatientByEmailRepository throws', async () => {
     jest.spyOn(loadPatientByEmailRepositorySpy, 'loadByEmail').mockImplementationOnce(throwError);
     const promise = sut.auth(authenticationParams);
     await expect(promise).rejects.toThrow();
+  });
+
+  it('should return null if LoadPatientByEmailRepository returns null', async () => {
+    loadPatientByEmailRepositorySpy.patientModel = null;
+    const model = await sut.auth(authenticationParams);
+    expect(model).toBe(null);
   });
 });
