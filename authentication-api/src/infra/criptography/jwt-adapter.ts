@@ -3,11 +3,11 @@ import jwt from 'jsonwebtoken';
 import { Encrypter } from '@/data/protocols/criptography';
 
 export class JwtAdapter implements Encrypter {
-  constructor(private readonly secret: string, private readonly expiresIn: string = '1h') {}
+  constructor(private readonly secret: string) {}
 
-  async encrypt(plainText: string): Promise<string> {
+  async encrypt(plainText: string, expiresIn = '1h'): Promise<string> {
     const payload = { sub: plainText };
-    const options = { expiresIn: this.expiresIn };
+    const options = { expiresIn };
     const token = await jwt.sign(payload, this.secret, options);
     return token;
   }
