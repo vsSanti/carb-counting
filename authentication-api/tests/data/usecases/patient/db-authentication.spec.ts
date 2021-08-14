@@ -2,16 +2,18 @@ import { DbAuthentication } from '@/data/usecases/patient/db-authentication';
 import { AuthenticationParams } from '@/domain/usecases';
 
 import { mockAuthenticationParams, throwError } from '@/tests/domain/mocks';
-import { LoadPatientByEmailRepositorySpy } from '@/tests/data/mocks';
+import { HashComparerSpy, LoadPatientByEmailRepositorySpy } from '@/tests/data/mocks';
 
 describe('DbAuthentication Usecase', () => {
-  let sut: DbAuthentication;
   let loadPatientByEmailRepositorySpy: LoadPatientByEmailRepositorySpy;
+  let hashComparerSpy: HashComparerSpy;
+  let sut: DbAuthentication;
   let authenticationParams: AuthenticationParams;
 
   beforeEach(() => {
     loadPatientByEmailRepositorySpy = new LoadPatientByEmailRepositorySpy();
-    sut = new DbAuthentication(loadPatientByEmailRepositorySpy);
+    hashComparerSpy = new HashComparerSpy();
+    sut = new DbAuthentication(loadPatientByEmailRepositorySpy, hashComparerSpy);
     authenticationParams = mockAuthenticationParams();
   });
 
@@ -30,5 +32,11 @@ describe('DbAuthentication Usecase', () => {
     loadPatientByEmailRepositorySpy.patientModel = null;
     const model = await sut.auth(authenticationParams);
     expect(model).toBe(null);
+  });
+
+  it('should call HashComparer with correct values', async () => {
+    await sut.auth(authenticationParams);
+    expect(hashComparerSpy.plainText).toBe(authenticationParams.password);
+    expect(hashComparerSpy.digest).toBe(loadPatientByEmailRepositorySpy.patientModel.password);
   });
 });
