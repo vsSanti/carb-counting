@@ -1,7 +1,10 @@
 import { PropertyValidation, PropertyValidationParams } from '@/presentation/protocols';
 
 export class StringValidator implements PropertyValidation {
-  validate(params: PropertyValidationParams): string {
-    return;
+  validate({ fieldName, input }: PropertyValidationParams): string {
+    const value = input[fieldName];
+    if (typeof value !== 'string') {
+      return "It isn't a string.";
+    }
   }
 }
