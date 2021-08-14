@@ -21,6 +21,15 @@ describe('GenericObject Validator', () => {
   it('should return an object with hasErrors as false if there are no errors', () => {
     const response = sut.validate(params);
     expect(response).toHaveProperty('errors');
+    expect(response.errors).toHaveProperty(fieldName);
     expect(response.hasErrors).toBe(false);
+  });
+
+  it('should return an object with errors if there are errors', () => {
+    propertyBuilderSpy.errors = ['mocked error'];
+    const response = sut.validate(params);
+    expect(response).toHaveProperty('errors');
+    expect(response.errors).toHaveProperty(fieldName);
+    expect(response.hasErrors).toBe(true);
   });
 });
