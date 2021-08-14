@@ -21,5 +21,10 @@ describe('Jwt Adapter', () => {
       await sut.encrypt('any_id');
       expect(signSpy).toHaveBeenCalledWith({ sub: 'any_id' }, 'secret', { expiresIn: '1h' });
     });
+
+    it('should return a token on sign success', async () => {
+      const accessToken = await sut.encrypt('any_id');
+      expect(accessToken).toBe('token');
+    });
   });
 });
