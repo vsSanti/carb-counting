@@ -2,6 +2,13 @@
 import { ServerError } from '@/presentation/errors';
 import { HttpResponse } from '@/presentation/protocols';
 
+export const created = (data: any): HttpResponse => {
+  return {
+    statusCode: 201,
+    body: data,
+  };
+};
+
 export const badRequest = (data: any): HttpResponse => {
   return {
     statusCode: 400,

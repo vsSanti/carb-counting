@@ -1,6 +1,11 @@
 import { AddPatient } from '@/domain/usecases';
 import { ParameterInUseError } from '@/presentation/errors';
-import { badRequest, conflict, serverError } from '@/presentation/helpers/http/http-helper';
+import {
+  badRequest,
+  conflict,
+  created,
+  serverError,
+} from '@/presentation/helpers/http/http-helper';
 import { Controller, HttpRequest, HttpResponse, ObjectValidator } from '@/presentation/protocols';
 
 export class SignUpController implements Controller {
@@ -45,7 +50,8 @@ export class SignUpController implements Controller {
       if (!patient) {
         return conflict(new ParameterInUseError('email'));
       }
-      return;
+
+      return created({});
     } catch (error) {
       return serverError(error);
     }
