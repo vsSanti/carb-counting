@@ -1,6 +1,20 @@
 import faker from 'faker';
 
-import { HashComparer, Hasher } from '@/data/protocols/criptography';
+import { Encrypter, HashComparer, Hasher } from '@/data/protocols/criptography';
+
+export class EncrypterSpy implements Encrypter {
+  cipherText = faker.datatype.uuid();
+  plainText: string;
+  expiresIn: string[] = [];
+  calledTimes = 0;
+
+  async encrypt(plainText: string, expiresIn?: string): Promise<string> {
+    this.calledTimes += 1;
+    this.plainText = plainText;
+    this.expiresIn.push(expiresIn);
+    return this.cipherText;
+  }
+}
 
 export class HashComparerSpy implements HashComparer {
   isValid = true;

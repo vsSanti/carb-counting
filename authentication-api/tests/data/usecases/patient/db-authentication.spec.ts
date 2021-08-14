@@ -2,18 +2,20 @@ import { DbAuthentication } from '@/data/usecases/patient/db-authentication';
 import { AuthenticationParams } from '@/domain/usecases';
 
 import { mockAuthenticationParams, throwError } from '@/tests/domain/mocks';
-import { HashComparerSpy, LoadPatientByEmailRepositorySpy } from '@/tests/data/mocks';
+import { EncrypterSpy, HashComparerSpy, LoadPatientByEmailRepositorySpy } from '@/tests/data/mocks';
 
 describe('DbAuthentication Usecase', () => {
   let loadPatientByEmailRepositorySpy: LoadPatientByEmailRepositorySpy;
   let hashComparerSpy: HashComparerSpy;
+  let encrypterSpy: EncrypterSpy;
   let sut: DbAuthentication;
   let authenticationParams: AuthenticationParams;
 
   beforeEach(() => {
     loadPatientByEmailRepositorySpy = new LoadPatientByEmailRepositorySpy();
     hashComparerSpy = new HashComparerSpy();
-    sut = new DbAuthentication(loadPatientByEmailRepositorySpy, hashComparerSpy);
+    encrypterSpy = new EncrypterSpy();
+    sut = new DbAuthentication(loadPatientByEmailRepositorySpy, hashComparerSpy, encrypterSpy);
     authenticationParams = mockAuthenticationParams();
   });
 
@@ -50,5 +52,13 @@ describe('DbAuthentication Usecase', () => {
     hashComparerSpy.isValid = false;
     const model = await sut.auth(authenticationParams);
     expect(model).toBe(null);
+  });
+
+  it('should call Encrypter with correct plainText to generate tokens', async () => {
+    await sut.auth(authenticationParams);
+    expect(encrypterSpy.plainText).toBe(loadPatientByEmailRepositorySpy.patientModel.id);
+    expect(encrypterSpy.calledTimes).toBe(2);
+    expect(encrypterSpy.expiresIn[0]).toBe(undefined);
+    expect(encrypterSpy.expiresIn[1]).toBe('7d');
   });
 });
