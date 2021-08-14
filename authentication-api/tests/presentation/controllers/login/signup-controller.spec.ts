@@ -2,7 +2,7 @@ import { SignUpController } from '@/presentation/controllers/login';
 import { badRequest, created, serverError } from '@/presentation/helpers/http/http-helper';
 import { HttpRequest } from '@/presentation/protocols';
 import { conflict } from '@/presentation/helpers/http/http-helper';
-import { ParameterInUseError } from '@/presentation/errors';
+import { ParameterInUseError, ServerError } from '@/presentation/errors';
 
 import { ObjectValidatorSpy } from '@/tests/validation/mocks';
 import { mockAddPatientParams, throwError } from '@/tests/domain/mocks';
@@ -62,7 +62,7 @@ describe('SignUp Controller', () => {
     jest.spyOn(addPatientSpy, 'add').mockImplementationOnce(throwError);
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse.statusCode).toBe(500);
-    expect(httpResponse).toEqual(serverError(new Error()));
+    expect(httpResponse).toEqual(serverError(new ServerError()));
   });
 
   it('should call Authentication with correct values', async () => {
@@ -71,6 +71,12 @@ describe('SignUp Controller', () => {
       email: httpRequest.body.email,
       password: httpRequest.body.password,
     });
+  });
+
+  it('should return 500 if Authentication throws', async () => {
+    jest.spyOn(authenticationSpy, 'auth').mockImplementationOnce(throwError);
+    const httpResponse = await sut.handle(httpRequest);
+    expect(httpResponse).toEqual(serverError(new ServerError()));
   });
 
   it('should return 201 if everything succeeds', async () => {
