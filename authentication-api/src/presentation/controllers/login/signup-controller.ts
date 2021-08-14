@@ -52,12 +52,12 @@ export class SignUpController implements Controller {
         return conflict(new ParameterInUseError('email'));
       }
 
-      await this.authentication.auth({
+      const authenticationModel = await this.authentication.auth({
         email,
         password,
       });
 
-      return created({});
+      return created({ data: authenticationModel });
     } catch (error) {
       return serverError(error);
     }
