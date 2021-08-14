@@ -1,5 +1,5 @@
 import { SignUpController } from '@/presentation/controllers/login';
-import { badRequest, serverError } from '@/presentation/helpers/http/http-helper';
+import { badRequest, created, serverError } from '@/presentation/helpers/http/http-helper';
 import { HttpRequest } from '@/presentation/protocols';
 import { conflict } from '@/presentation/helpers/http/http-helper';
 import { ParameterInUseError } from '@/presentation/errors';
@@ -61,5 +61,10 @@ describe('SignUp Controller', () => {
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse.statusCode).toBe(500);
     expect(httpResponse).toEqual(serverError(new Error()));
+  });
+
+  it('should return 201 if everything succeeds', async () => {
+    const httpResponse = await sut.handle(httpRequest);
+    expect(httpResponse).toEqual(created({}));
   });
 });
