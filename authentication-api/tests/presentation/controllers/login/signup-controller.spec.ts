@@ -6,7 +6,7 @@ import { ParameterInUseError } from '@/presentation/errors';
 
 import { ObjectValidatorSpy } from '@/tests/validation/mocks';
 import { mockAddPatientParams, throwError } from '@/tests/domain/mocks';
-import { AddPatientSpy } from '@/tests/presentation/mocks';
+import { AddPatientSpy, AuthenticationSpy } from '@/tests/presentation/mocks';
 
 const mockRequest = (): HttpRequest => {
   const params = mockAddPatientParams();
@@ -21,13 +21,15 @@ const mockRequest = (): HttpRequest => {
 describe('SignUp Controller', () => {
   let objectValidatorSpy: ObjectValidatorSpy;
   let addPatientSpy: AddPatientSpy;
+  let authenticationSpy: AuthenticationSpy;
   let sut: SignUpController;
   let httpRequest: HttpRequest;
 
   beforeEach(() => {
     objectValidatorSpy = new ObjectValidatorSpy();
     addPatientSpy = new AddPatientSpy();
-    sut = new SignUpController(objectValidatorSpy, addPatientSpy);
+    authenticationSpy = new AuthenticationSpy();
+    sut = new SignUpController(objectValidatorSpy, addPatientSpy, authenticationSpy);
     httpRequest = mockRequest();
   });
 
@@ -61,6 +63,14 @@ describe('SignUp Controller', () => {
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse.statusCode).toBe(500);
     expect(httpResponse).toEqual(serverError(new Error()));
+  });
+
+  it('should call Authentication with correct values', async () => {
+    await sut.handle(httpRequest);
+    expect(authenticationSpy.params).toEqual({
+      email: httpRequest.body.email,
+      password: httpRequest.body.password,
+    });
   });
 
   it('should return 201 if everything succeeds', async () => {
