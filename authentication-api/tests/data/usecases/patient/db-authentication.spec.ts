@@ -61,4 +61,10 @@ describe('DbAuthentication Usecase', () => {
     expect(encrypterSpy.expiresIn[0]).toBe(undefined);
     expect(encrypterSpy.expiresIn[1]).toBe('7d');
   });
+
+  it('should throw if Encrypter throws', async () => {
+    jest.spyOn(encrypterSpy, 'encrypt').mockImplementationOnce(throwError);
+    const promise = sut.auth(authenticationParams);
+    await expect(promise).rejects.toThrow();
+  });
 });
