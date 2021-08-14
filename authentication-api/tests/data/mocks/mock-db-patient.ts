@@ -15,7 +15,7 @@ export class AddPatientRepositorySpy implements AddPatientRepository {
 }
 
 export class LoadPatientByEmailRepositorySpy implements LoadPatientByEmailRepository {
-  patientModel: PatientModel;
+  patientModel = mockPatientModel();
   email: string;
 
   async loadByEmail(email: string): Promise<PatientModel> {
