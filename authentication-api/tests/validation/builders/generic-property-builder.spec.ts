@@ -22,4 +22,12 @@ describe('GenericProperty Builder', () => {
     expect(errors).toBeTruthy();
     expect(errors).toEqual([]);
   });
+
+  it('should return an array of errors if validation fails', () => {
+    propertyValidationSpy.error = 'mocked error';
+    const errors = sut.validate(params);
+    expect(errors).toBeTruthy();
+    expect(errors.length).toBe(1);
+    expect(errors).toEqual(['mocked error']);
+  });
 });
