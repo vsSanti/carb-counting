@@ -3,6 +3,7 @@ import { GenericPropertyBuilder } from '@/validation/builders';
 import { PropertyValidationSpy } from '@/tests/validation/mocks';
 
 describe('GenericProperty Builder', () => {
+  const params = { fieldName: 'field', input: { field: 'value' } };
   let propertyValidationSpy: PropertyValidationSpy;
   let sut: GenericPropertyBuilder;
 
@@ -12,8 +13,13 @@ describe('GenericProperty Builder', () => {
   });
 
   it('should call PropertyValidation with correct params', () => {
-    const params = { fieldName: 'field', input: { field: 'value' } };
     sut.validate(params);
     expect(params).toEqual(propertyValidationSpy.params);
+  });
+
+  it('should return an empty array if there are no errors', () => {
+    const errors = sut.validate(params);
+    expect(errors).toBeTruthy();
+    expect(errors).toEqual([]);
   });
 });
