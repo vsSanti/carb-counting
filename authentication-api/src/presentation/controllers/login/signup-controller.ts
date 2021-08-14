@@ -1,5 +1,6 @@
 import { AddPatient } from '@/domain/usecases';
-import { badRequest } from '@/presentation/helpers/http/http-helper';
+import { ParameterInUseError } from '@/presentation/errors';
+import { badRequest, conflict } from '@/presentation/helpers/http/http-helper';
 import { Controller, HttpRequest, HttpResponse, ObjectValidator } from '@/presentation/protocols';
 
 export class SignUpController implements Controller {
@@ -28,7 +29,7 @@ export class SignUpController implements Controller {
       birthDate,
     } = body;
 
-    await this.addPatient.add({
+    const patient = await this.addPatient.add({
       email,
       password,
       name,
@@ -39,6 +40,10 @@ export class SignUpController implements Controller {
       weight,
       birthDate,
     });
+
+    if (!patient) {
+      return conflict(new ParameterInUseError('email'));
+    }
     return;
   }
 }

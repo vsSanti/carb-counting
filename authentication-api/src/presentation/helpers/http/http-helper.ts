@@ -7,3 +7,12 @@ export const badRequest = (data: any): HttpResponse => {
     body: data,
   };
 };
+
+export const conflict = (error: Error): HttpResponse => {
+  return {
+    statusCode: 409,
+    body: {
+      errorMessage: error.message,
+    },
+  };
+};
