@@ -8,9 +8,13 @@ export class GenericPropertyBuilder implements PropertyBuilder {
   constructor(private readonly validations: PropertyValidation[]) {}
 
   validate(params: PropertyBuilderParams): string[] {
+    const errors: string[] = [];
     for (const validation of this.validations) {
-      validation.validate(params);
+      const error = validation.validate(params);
+      if (error) {
+        errors.push(error);
+      }
     }
-    return [];
+    return errors;
   }
 }
