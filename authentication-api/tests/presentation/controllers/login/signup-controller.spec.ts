@@ -81,6 +81,6 @@ describe('SignUp Controller', () => {
 
   it('should return 201 if everything succeeds', async () => {
     const httpResponse = await sut.handle(httpRequest);
-    expect(httpResponse).toEqual(created({}));
+    expect(httpResponse).toEqual(created({ data: authenticationSpy.authenticationModel }));
   });
 });
