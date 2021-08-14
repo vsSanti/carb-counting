@@ -53,5 +53,10 @@ describe('Bcrypt Adapter', () => {
       const promise = sut.compare('any_value', 'any_hash');
       await expect(promise).rejects.toThrow();
     });
+
+    it('should return true when compare succeeds', async () => {
+      const hashedValue = await sut.compare('any_value', 'any_hash');
+      expect(hashedValue).toBe(true);
+    });
   });
 });
