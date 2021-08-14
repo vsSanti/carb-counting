@@ -2,6 +2,7 @@ export type HttpResponse = {
   statusCode: number;
   body: {
     errorMessage?: string;
+    [key: string]: any;
   };
 };
 
