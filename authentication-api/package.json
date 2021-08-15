@@ -8,6 +8,7 @@
   "scripts": {
     "lint:fix": "eslint 'src/**' --fix",
     "prepare": "cd .. && husky install authentication-api/.husky",
+    "offline": "sls offline start --httpPort 4000 --noTimeout",
     "pretest": "jest --clearCache",
     "test": "jest --passWithNoTests --no-cache --silent --noStackTrace --runInBand",
     "test:coverage": "npm test -- --coverage",
