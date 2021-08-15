@@ -2,6 +2,9 @@ import { PropertyValidation, PropertyValidationParams } from '@/presentation/pro
 
 export class NumberValidator implements PropertyValidation {
   validate({ fieldName, input }: PropertyValidationParams): string {
-    return "It isn't a number.";
+    const value = input[fieldName];
+    if (typeof value !== 'number') {
+      return "It isn't a number.";
+    }
   }
 }
