@@ -4,6 +4,9 @@ export class EnumValidator implements PropertyValidation {
   constructor(private readonly allowedValues: string[]) {}
 
   validate({ fieldName, input }: PropertyValidationParams): string {
-    return `It isn't a valid value. Allowed values: ${this.allowedValues.join(', ')}.`;
+    const value = input[fieldName];
+    if (!this.allowedValues.includes(value)) {
+      return `It isn't a valid value. Allowed values: ${this.allowedValues.join(', ')}.`;
+    }
   }
 }
