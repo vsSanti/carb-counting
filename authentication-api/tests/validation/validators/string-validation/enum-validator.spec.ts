@@ -8,6 +8,11 @@ describe('Enum Validator', () => {
     sut = new EnumValidator(allowedValues);
   });
 
+  it('should return undefined if parameter valid', () => {
+    const errorMessage = sut.validate({ fieldName: 'field', input: { field: 'abc' } });
+    expect(errorMessage).toBeUndefined();
+  });
+
   it("should return an error string if parameter isn't an allowed value", () => {
     const errorMessage = sut.validate({ fieldName: 'field', input: { field: 'xyz' } });
     expect(errorMessage).toBeTruthy();
