@@ -13,3 +13,6 @@ coverage
 
 # Mac
 .DS_Store
+
+# Configs
+ormconfig.js

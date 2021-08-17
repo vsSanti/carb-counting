@@ -1,5 +1,6 @@
 import { Controller, HttpRequest, HttpResponse } from '@/presentation/protocols';
 import { APIGatewayEvent, ProxyResult } from 'aws-lambda';
+import { openTypeORMConnection } from '../helper/open-typeorm-connection';
 
 export type LambdaRouteAdapterParams = {
   post: {
@@ -9,6 +10,8 @@ export type LambdaRouteAdapterParams = {
 
 export const lambdaRouteAdapter = ({ post }: LambdaRouteAdapterParams) => {
   return async (event: APIGatewayEvent): Promise<ProxyResult> => {
+    await openTypeORMConnection();
+
     const method = event.httpMethod;
     const httpRequest: HttpRequest = {
       body: JSON.parse(event.body),
