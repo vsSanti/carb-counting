@@ -3,6 +3,7 @@ service: cc-authorizer-api
 plugins:
   - serverless-webpack
   - serverless-offline
+  - serverless-ssm-fetch
 
 provider:
   name: aws
@@ -21,15 +22,16 @@ provider:
   environment:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
 
-functions:
-  test:
-    handler: src/index.handler
-    events:
-      - http:
-          path: test
-          method: POST
+functions: ${file(src/main/routes/index.yml)}
 
 custom:
+  serverlessSsmFetch:    
+    DB_HOST: /carb-counting-auth/${self:provider.stage}/DB_HOST
+    DB_DATABASE_NAME: /carb-counting-auth/${self:provider.stage}/DB_DATABASE_NAME
+    DB_USERNAME: /carb-counting-auth/${self:provider.stage}/DB_USERNAME
+    DB_PASSWORD: /carb-counting-auth/${self:provider.stage}/DB_PASSWORD
   webpack:
     webpackConfig: ./webpack.config.js
-    includeModules: true
+    includeModules: 
+      forceInclude:
+        - pg

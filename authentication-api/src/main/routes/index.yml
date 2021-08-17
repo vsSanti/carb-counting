@@ -1,0 +1,1 @@
+- ${file(src/main/routes/login/sign-up/stack.yml)}

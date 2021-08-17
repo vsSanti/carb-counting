@@ -6,6 +6,7 @@
   "description": "Carb counting API using Serverless",
   "main": "serverless.ts",
   "scripts": {
+    "deploy": "sls deploy",
     "lint:fix": "eslint 'src/**' --fix",
     "prepare": "cd .. && husky install authentication-api/.husky",
     "offline": "sls offline start --httpPort 4000 --noTimeout",
@@ -53,6 +54,7 @@
     "prettier": "^2.3.2",
     "serverless": "^2.23.0",
     "serverless-offline": "^8.0.0",
+    "serverless-ssm-fetch": "^1.0.2",
     "serverless-webpack": "^5.3.5",
     "ts-jest": "^27.0.4",
     "ts-loader": "^8.0.15",
