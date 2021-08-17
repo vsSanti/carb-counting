@@ -2,7 +2,7 @@ import { Column, Entity } from 'typeorm';
 
 import { PgAccount } from './account';
 
-@Entity()
+@Entity('patients')
 export class PgPatient extends PgAccount {
   @Column({ type: 'int' })
   weight: number;
