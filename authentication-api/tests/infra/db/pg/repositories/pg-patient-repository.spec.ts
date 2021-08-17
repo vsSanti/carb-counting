@@ -36,7 +36,6 @@ describe('PgUserAccountRepository', () => {
 
       const patient = await sut.loadByEmail(addPatientParams.email);
 
-      delete addPatientParams.password;
       expect(patient).toEqual(addPatientParams);
     });
 
@@ -55,9 +54,7 @@ describe('PgUserAccountRepository', () => {
       expect(patient.createdAt).toBeTruthy();
       expect(patient.updatedAt).toBeTruthy();
       expect(patient.deletedAt).toBeFalsy();
-      expect(patient.password).toBeFalsy();
 
-      delete addPatientParams.password;
       expect(patient).toEqual(addPatientParams);
     });
   });
