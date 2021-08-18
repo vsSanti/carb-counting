@@ -5,7 +5,7 @@ import { HttpRequest } from '@/presentation/protocols';
 
 import { ObjectValidatorSpy } from '@/tests/validation/mocks';
 import { mockAuthenticationParams, throwError } from '@/tests/domain/mocks';
-import { AuthenticationSpy } from '@/tests/presentation/mocks';
+import { AuthenticationSpy, GenerateTokensSpy } from '@/tests/presentation/mocks';
 
 const mockRequest = (): HttpRequest => {
   return {
@@ -16,13 +16,15 @@ const mockRequest = (): HttpRequest => {
 describe('Login Controller', () => {
   let objectValidatorSpy: ObjectValidatorSpy;
   let authenticationSpy: AuthenticationSpy;
+  let generateTokensSpy: GenerateTokensSpy;
   let sut: LoginController;
   let httpRequest: HttpRequest;
 
   beforeEach(() => {
     objectValidatorSpy = new ObjectValidatorSpy();
     authenticationSpy = new AuthenticationSpy();
-    sut = new LoginController(objectValidatorSpy, authenticationSpy);
+    generateTokensSpy = new GenerateTokensSpy();
+    sut = new LoginController(objectValidatorSpy, authenticationSpy, generateTokensSpy);
     httpRequest = mockRequest();
   });
 
@@ -55,5 +57,10 @@ describe('Login Controller', () => {
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse).toEqual(serverError(new ServerError()));
     expect(errorSpy).toHaveBeenCalled();
+  });
+
+  it('should call GenerateTokens with correct values', async () => {
+    await sut.handle(httpRequest);
+    expect(generateTokensSpy.id).toEqual(authenticationSpy.patientModel.id);
   });
 });
