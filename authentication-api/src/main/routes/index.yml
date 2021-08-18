@@ -1,1 +1,2 @@
+- ${file(src/main/routes/login/login/stack.yml)}
 - ${file(src/main/routes/login/sign-up/stack.yml)}
