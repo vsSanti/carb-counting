@@ -1,5 +1,5 @@
 import { Authentication } from '@/domain/usecases';
-import { badRequest, unauthorized } from '@/presentation/helpers/http/http-helper';
+import { badRequest, serverError, unauthorized } from '@/presentation/helpers/http/http-helper';
 import { Controller, HttpRequest, HttpResponse, ObjectValidator } from '@/presentation/protocols';
 
 export class LoginController implements Controller {
@@ -9,18 +9,23 @@ export class LoginController implements Controller {
   ) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
-    const { body } = httpRequest;
+    try {
+      const { body } = httpRequest;
 
-    const validation = this.validation.validate({ input: body });
-    if (validation.hasErrors) {
-      return badRequest({ validationErrors: validation.errors });
+      const validation = this.validation.validate({ input: body });
+      if (validation.hasErrors) {
+        return badRequest({ validationErrors: validation.errors });
+      }
+
+      const isAuthorized = await this.authentication.auth(body);
+      if (!isAuthorized) {
+        return unauthorized();
+      }
+
+      return null;
+    } catch (error) {
+      console.error(error);
+      return serverError(error);
     }
-
-    const isAuthorized = await this.authentication.auth(body);
-    if (!isAuthorized) {
-      return unauthorized();
-    }
-
-    return null;
   }
 }
