@@ -1,5 +1,5 @@
-import { AuthenticationModel } from '@/domain/models';
+import { TokensModel } from '@/domain/models';
 
 export interface GenerateTokens {
-  generate: (id: string) => Promise<AuthenticationModel>;
+  generate: (id: string) => Promise<TokensModel>;
 }

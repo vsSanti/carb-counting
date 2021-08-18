@@ -1,4 +1,4 @@
-export type AuthenticationModel = {
+export type TokensModel = {
   accessToken: string;
   refreshToken: string;
 };

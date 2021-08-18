@@ -52,7 +52,7 @@ describe('DbAuthentication Usecase', () => {
     expect(model).toBe(false);
   });
 
-  it('should return an AuthenticationModel on success', async () => {
+  it('should return true on success', async () => {
     const isAuthenticated = await sut.auth(authenticationParams);
     expect(isAuthenticated).toBeTruthy();
   });

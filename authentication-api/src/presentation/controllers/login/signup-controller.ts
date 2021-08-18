@@ -52,9 +52,9 @@ export class SignUpController implements Controller {
         return conflict(new ParameterInUseError('email'));
       }
 
-      const authenticationModel = await this.generateTokens.generate(patient.id);
+      const tokensModel = await this.generateTokens.generate(patient.id);
 
-      return created({ data: authenticationModel });
+      return created({ data: tokensModel });
     } catch (error) {
       return serverError(error);
     }

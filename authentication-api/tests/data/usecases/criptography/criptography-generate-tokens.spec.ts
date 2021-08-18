@@ -30,7 +30,7 @@ describe('CriptographyGenerateTokens Usecase', () => {
     await expect(promise).rejects.toThrow();
   });
 
-  it('should return an AuthenticationModel on success', async () => {
+  it('should return an TokensModel on success', async () => {
     const { accessToken, refreshToken } = await sut.generate(id);
     expect(encrypterSpy.calledTimes).toBe(2);
     expect(accessToken).toBe(encrypterSpy.cipherText[0]);
