@@ -1,11 +1,12 @@
-import { Authentication } from '@/domain/usecases';
+import { Authentication, GenerateTokens } from '@/domain/usecases';
 import { badRequest, serverError, unauthorized } from '@/presentation/helpers/http/http-helper';
 import { Controller, HttpRequest, HttpResponse, ObjectValidator } from '@/presentation/protocols';
 
 export class LoginController implements Controller {
   constructor(
     private readonly validation: ObjectValidator,
-    private readonly authentication: Authentication
+    private readonly authentication: Authentication,
+    private readonly generateTokens: GenerateTokens
   ) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
@@ -17,10 +18,12 @@ export class LoginController implements Controller {
         return badRequest({ validationErrors: validation.errors });
       }
 
-      const isAuthorized = await this.authentication.auth(body);
-      if (!isAuthorized) {
+      const patient = await this.authentication.auth(body);
+      if (!patient) {
         return unauthorized();
       }
+
+      await this.generateTokens.generate(patient.id);
 
       return null;
     } catch (error) {
