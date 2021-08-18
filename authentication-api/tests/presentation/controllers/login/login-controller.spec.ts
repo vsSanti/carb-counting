@@ -4,6 +4,7 @@ import { HttpRequest } from '@/presentation/protocols';
 
 import { ObjectValidatorSpy } from '@/tests/validation/mocks';
 import { mockAuthenticationParams } from '@/tests/domain/mocks';
+import { AuthenticationSpy } from '../../mocks';
 
 const mockRequest = (): HttpRequest => {
   return {
@@ -13,12 +14,14 @@ const mockRequest = (): HttpRequest => {
 
 describe('Login Controller', () => {
   let objectValidatorSpy: ObjectValidatorSpy;
+  let authenticationSpy: AuthenticationSpy;
   let sut: LoginController;
   let httpRequest: HttpRequest;
 
   beforeEach(() => {
     objectValidatorSpy = new ObjectValidatorSpy();
-    sut = new LoginController(objectValidatorSpy);
+    authenticationSpy = new AuthenticationSpy();
+    sut = new LoginController(objectValidatorSpy, authenticationSpy);
     httpRequest = mockRequest();
   });
 
@@ -32,5 +35,10 @@ describe('Login Controller', () => {
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse.statusCode).toBe(400);
     expect(httpResponse).toEqual(badRequest({ validationErrors: { field: ['error'] } }));
+  });
+
+  it('should call Authentication with correct params', async () => {
+    await sut.handle(httpRequest);
+    expect(authenticationSpy.params).toEqual(httpRequest.body);
   });
 });
