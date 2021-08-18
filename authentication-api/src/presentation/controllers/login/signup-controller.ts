@@ -56,6 +56,7 @@ export class SignUpController implements Controller {
 
       return created({ data: tokensModel });
     } catch (error) {
+      console.error(error);
       return serverError(error);
     }
   }
