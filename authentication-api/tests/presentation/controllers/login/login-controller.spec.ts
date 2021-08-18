@@ -1,10 +1,11 @@
 import { LoginController } from '@/presentation/controllers/login';
-import { badRequest, unauthorized } from '@/presentation/helpers/http/http-helper';
+import { ServerError } from '@/presentation/errors';
+import { badRequest, serverError, unauthorized } from '@/presentation/helpers/http/http-helper';
 import { HttpRequest } from '@/presentation/protocols';
 
 import { ObjectValidatorSpy } from '@/tests/validation/mocks';
-import { mockAuthenticationParams } from '@/tests/domain/mocks';
-import { AuthenticationSpy } from '../../mocks';
+import { mockAuthenticationParams, throwError } from '@/tests/domain/mocks';
+import { AuthenticationSpy } from '@/tests/presentation/mocks';
 
 const mockRequest = (): HttpRequest => {
   return {
@@ -46,5 +47,13 @@ describe('Login Controller', () => {
     authenticationSpy.isAuthorized = false;
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse).toEqual(unauthorized());
+  });
+
+  it('should return 500 if Authentication throws', async () => {
+    jest.spyOn(authenticationSpy, 'auth').mockImplementationOnce(throwError);
+    const errorSpy = jest.spyOn(console, 'error');
+    const httpResponse = await sut.handle(httpRequest);
+    expect(httpResponse).toEqual(serverError(new ServerError()));
+    expect(errorSpy).toHaveBeenCalled();
   });
 });

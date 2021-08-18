@@ -64,22 +64,8 @@ describe('SignUp Controller', () => {
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse.statusCode).toBe(500);
     expect(httpResponse).toEqual(serverError(new ServerError()));
-    expect(errorSpy).toHaveBeenCalledTimes(1);
+    expect(errorSpy).toHaveBeenCalled();
   });
-
-  // it('should call Authentication with correct values', async () => {
-  //   await sut.handle(httpRequest);
-  //   expect(authenticationSpy.params).toEqual({
-  //     email: httpRequest.body.email,
-  //     password: httpRequest.body.password,
-  //   });
-  // });
-
-  // it('should return 500 if Authentication throws', async () => {
-  //   jest.spyOn(authenticationSpy, 'auth').mockImplementationOnce(throwError);
-  //   const httpResponse = await sut.handle(httpRequest);
-  //   expect(httpResponse).toEqual(serverError(new ServerError()));
-  // });
 
   it('should call GenerateTokens with correct values', async () => {
     await sut.handle(httpRequest);
