@@ -29,4 +29,11 @@ describe('CriptographyGenerateTokens Usecase', () => {
     const promise = sut.generate(id);
     await expect(promise).rejects.toThrow();
   });
+
+  it('should return an AuthenticationModel on success', async () => {
+    const { accessToken, refreshToken } = await sut.generate(id);
+    expect(encrypterSpy.calledTimes).toBe(2);
+    expect(accessToken).toBe(encrypterSpy.cipherText[0]);
+    expect(refreshToken).toBe(encrypterSpy.cipherText[1]);
+  });
 });
