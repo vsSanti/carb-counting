@@ -1,4 +1,4 @@
-signUp:
+sign-up:
   handler: src/main/routes/login/sign-up/function.handler
   memorySize: 256
   events:
