@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { ServerError } from '@/presentation/errors';
+import { ServerError, UnauthorizedError } from '@/presentation/errors';
 import { HttpResponse } from '@/presentation/protocols';
 
 export const created = (data: any): HttpResponse => {
@@ -13,6 +13,15 @@ export const badRequest = (data: any): HttpResponse => {
   return {
     statusCode: 400,
     body: data,
+  };
+};
+
+export const unauthorized = (): HttpResponse => {
+  return {
+    statusCode: 401,
+    body: {
+      errorMessage: new UnauthorizedError().message,
+    },
   };
 };
 

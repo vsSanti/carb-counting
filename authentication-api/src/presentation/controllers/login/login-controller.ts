@@ -1,5 +1,5 @@
 import { Authentication } from '@/domain/usecases';
-import { badRequest } from '@/presentation/helpers/http/http-helper';
+import { badRequest, unauthorized } from '@/presentation/helpers/http/http-helper';
 import { Controller, HttpRequest, HttpResponse, ObjectValidator } from '@/presentation/protocols';
 
 export class LoginController implements Controller {
@@ -16,7 +16,10 @@ export class LoginController implements Controller {
       return badRequest({ validationErrors: validation.errors });
     }
 
-    await this.authentication.auth(body);
+    const isAuthorized = await this.authentication.auth(body);
+    if (!isAuthorized) {
+      return unauthorized();
+    }
 
     return null;
   }
