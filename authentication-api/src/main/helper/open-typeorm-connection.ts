@@ -21,11 +21,11 @@ export async function openTypeORMConnection(): Promise<any> {
   };
 
   try {
-    console.log(process.env.NODE_ENV);
     if (process.env.NODE_ENV === 'production') {
       return getConnection(options.name);
     }
 
+    await getConnection(options.name).close();
     return createConnection(options);
   } catch (error) {
     console.log('[DB] Creating a new DB connection.');
