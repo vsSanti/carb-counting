@@ -60,9 +60,11 @@ describe('SignUp Controller', () => {
 
   it('should return 500 if AddPatient throws', async () => {
     jest.spyOn(addPatientSpy, 'add').mockImplementationOnce(throwError);
+    const errorSpy = jest.spyOn(console, 'error');
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse.statusCode).toBe(500);
     expect(httpResponse).toEqual(serverError(new ServerError()));
+    expect(errorSpy).toHaveBeenCalledTimes(1);
   });
 
   // it('should call Authentication with correct values', async () => {
@@ -86,8 +88,10 @@ describe('SignUp Controller', () => {
 
   it('should return 500 if GenerateTokens throws', async () => {
     jest.spyOn(generateTokensSpy, 'generate').mockImplementationOnce(throwError);
+    const errorSpy = jest.spyOn(console, 'error');
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse).toEqual(serverError(new ServerError()));
+    expect(errorSpy).toHaveBeenCalled();
   });
 
   it('should return 201 if everything succeeds', async () => {
