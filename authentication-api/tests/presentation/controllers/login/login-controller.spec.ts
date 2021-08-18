@@ -1,6 +1,6 @@
 import { LoginController } from '@/presentation/controllers/login';
 import { ServerError } from '@/presentation/errors';
-import { badRequest, serverError, unauthorized } from '@/presentation/helpers/http/http-helper';
+import { badRequest, ok, serverError, unauthorized } from '@/presentation/helpers/http/http-helper';
 import { HttpRequest } from '@/presentation/protocols';
 
 import { ObjectValidatorSpy } from '@/tests/validation/mocks';
@@ -70,5 +70,10 @@ describe('Login Controller', () => {
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse).toEqual(serverError(new ServerError()));
     expect(errorSpy).toHaveBeenCalled();
+  });
+
+  it('should return 200 if everything succeeds', async () => {
+    const httpResponse = await sut.handle(httpRequest);
+    expect(httpResponse).toEqual(ok({ data: generateTokensSpy.tokensModel }));
   });
 });
