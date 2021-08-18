@@ -84,6 +84,12 @@ describe('SignUp Controller', () => {
     expect(generateTokensSpy.id).toEqual(addPatientSpy.patientModel.id);
   });
 
+  it('should return 500 if GenerateTokens throws', async () => {
+    jest.spyOn(generateTokensSpy, 'generate').mockImplementationOnce(throwError);
+    const httpResponse = await sut.handle(httpRequest);
+    expect(httpResponse).toEqual(serverError(new ServerError()));
+  });
+
   it('should return 201 if everything succeeds', async () => {
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse).toEqual(created({ data: generateTokensSpy.tokensModel }));
