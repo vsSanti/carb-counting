@@ -1,6 +1,4 @@
-import faker from 'faker';
-
-import { AuthenticationModel, PatientModel } from '@/domain/models';
+import { PatientModel } from '@/domain/models';
 import {
   AddPatient,
   AddPatientParams,
@@ -22,13 +20,10 @@ export class AddPatientSpy implements AddPatient {
 
 export class AuthenticationSpy implements Authentication {
   params: AuthenticationParams;
-  authenticationModel = {
-    accessToken: faker.datatype.uuid(),
-    refreshToken: faker.datatype.uuid(),
-  };
+  isAuthorized = true;
 
-  async auth(params: AuthenticationParams): Promise<AuthenticationModel> {
+  async auth(params: AuthenticationParams): Promise<boolean> {
     this.params = params;
-    return Promise.resolve(this.authenticationModel);
+    return Promise.resolve(this.isAuthorized);
   }
 }

@@ -2,20 +2,18 @@ import { DbAuthentication } from '@/data/usecases/patient/db-authentication';
 import { AuthenticationParams } from '@/domain/usecases';
 
 import { mockAuthenticationParams, throwError } from '@/tests/domain/mocks';
-import { EncrypterSpy, HashComparerSpy, LoadPatientByEmailRepositorySpy } from '@/tests/data/mocks';
+import { HashComparerSpy, LoadPatientByEmailRepositorySpy } from '@/tests/data/mocks';
 
 describe('DbAuthentication Usecase', () => {
   let loadPatientByEmailRepositorySpy: LoadPatientByEmailRepositorySpy;
   let hashComparerSpy: HashComparerSpy;
-  let encrypterSpy: EncrypterSpy;
   let sut: DbAuthentication;
   let authenticationParams: AuthenticationParams;
 
   beforeEach(() => {
     loadPatientByEmailRepositorySpy = new LoadPatientByEmailRepositorySpy();
     hashComparerSpy = new HashComparerSpy();
-    encrypterSpy = new EncrypterSpy();
-    sut = new DbAuthentication(loadPatientByEmailRepositorySpy, hashComparerSpy, encrypterSpy);
+    sut = new DbAuthentication(loadPatientByEmailRepositorySpy, hashComparerSpy);
     authenticationParams = mockAuthenticationParams();
   });
 
@@ -33,7 +31,7 @@ describe('DbAuthentication Usecase', () => {
   it('should return null if LoadPatientByEmailRepository returns null', async () => {
     loadPatientByEmailRepositorySpy.patientModel = null;
     const model = await sut.auth(authenticationParams);
-    expect(model).toBe(null);
+    expect(model).toBe(false);
   });
 
   it('should call HashComparer with correct values', async () => {
@@ -51,27 +49,11 @@ describe('DbAuthentication Usecase', () => {
   it('should return null if HashComparer returns false', async () => {
     hashComparerSpy.isValid = false;
     const model = await sut.auth(authenticationParams);
-    expect(model).toBe(null);
-  });
-
-  it('should call Encrypter with correct plainText to generate tokens', async () => {
-    await sut.auth(authenticationParams);
-    expect(encrypterSpy.plainText).toBe(loadPatientByEmailRepositorySpy.patientModel.id);
-    expect(encrypterSpy.calledTimes).toBe(2);
-    expect(encrypterSpy.expiresIn[0]).toBe(undefined);
-    expect(encrypterSpy.expiresIn[1]).toBe('7d');
-  });
-
-  it('should throw if Encrypter throws', async () => {
-    jest.spyOn(encrypterSpy, 'encrypt').mockImplementationOnce(throwError);
-    const promise = sut.auth(authenticationParams);
-    await expect(promise).rejects.toThrow();
+    expect(model).toBe(false);
   });
 
   it('should return an AuthenticationModel on success', async () => {
-    const { accessToken, refreshToken } = await sut.auth(authenticationParams);
-    expect(encrypterSpy.calledTimes).toBe(2);
-    expect(accessToken).toBe(encrypterSpy.cipherText[0]);
-    expect(refreshToken).toBe(encrypterSpy.cipherText[1]);
+    const isAuthenticated = await sut.auth(authenticationParams);
+    expect(isAuthenticated).toBeTruthy();
   });
 });
