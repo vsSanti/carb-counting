@@ -1,5 +1,6 @@
 import { HashComparer } from '@/data/protocols/criptography';
 import { LoadPatientByEmailRepository } from '@/data/protocols/db';
+import { PatientModel } from '@/domain/models';
 import { Authentication, AuthenticationParams } from '@/domain/usecases';
 
 export class DbAuthentication implements Authentication {
@@ -8,15 +9,15 @@ export class DbAuthentication implements Authentication {
     private readonly hashComparer: HashComparer
   ) {}
 
-  async auth(params: AuthenticationParams): Promise<boolean> {
+  async auth(params: AuthenticationParams): Promise<PatientModel> {
     const { email, password } = params;
 
-    const account = await this.loadPatientByEmailRepository.loadByEmail(email);
-    if (!account) return false;
+    const patient = await this.loadPatientByEmailRepository.loadByEmail(email);
+    if (!patient) return null;
 
-    const isValidPassword = await this.hashComparer.compare(password, account.password);
-    if (!isValidPassword) return false;
+    const isValidPassword = await this.hashComparer.compare(password, patient.password);
+    if (!isValidPassword) return null;
 
-    return true;
+    return patient;
   }
 }

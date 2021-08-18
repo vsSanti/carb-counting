@@ -31,7 +31,7 @@ describe('DbAuthentication Usecase', () => {
   it('should return null if LoadPatientByEmailRepository returns null', async () => {
     loadPatientByEmailRepositorySpy.patientModel = null;
     const model = await sut.auth(authenticationParams);
-    expect(model).toBe(false);
+    expect(model).toBe(null);
   });
 
   it('should call HashComparer with correct values', async () => {
@@ -49,11 +49,11 @@ describe('DbAuthentication Usecase', () => {
   it('should return null if HashComparer returns false', async () => {
     hashComparerSpy.isValid = false;
     const model = await sut.auth(authenticationParams);
-    expect(model).toBe(false);
+    expect(model).toBe(null);
   });
 
   it('should return true on success', async () => {
-    const isAuthenticated = await sut.auth(authenticationParams);
-    expect(isAuthenticated).toBeTruthy();
+    const patientModel = await sut.auth(authenticationParams);
+    expect(patientModel).toEqual(loadPatientByEmailRepositorySpy.patientModel);
   });
 });

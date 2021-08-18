@@ -20,10 +20,10 @@ export class AddPatientSpy implements AddPatient {
 
 export class AuthenticationSpy implements Authentication {
   params: AuthenticationParams;
-  isAuthorized = true;
+  patientModel = mockPatientModel();
 
-  async auth(params: AuthenticationParams): Promise<boolean> {
+  async auth(params: AuthenticationParams): Promise<PatientModel> {
     this.params = params;
-    return Promise.resolve(this.isAuthorized);
+    return Promise.resolve(this.patientModel);
   }
 }

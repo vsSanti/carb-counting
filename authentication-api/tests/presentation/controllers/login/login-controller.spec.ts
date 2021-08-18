@@ -44,7 +44,7 @@ describe('Login Controller', () => {
   });
 
   it('should return 401 if invalid credentials are provided', async () => {
-    authenticationSpy.isAuthorized = false;
+    authenticationSpy.patientModel = null;
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse).toEqual(unauthorized());
   });
