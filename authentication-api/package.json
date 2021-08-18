@@ -2,7 +2,7 @@
   "name": "authentication-api",
   "author": "Vinicius Santiago <viniciussdsilva@gmail.com>",
   "license": "MIT",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Carb counting API using Serverless",
   "main": "serverless.ts",
   "scripts": {
