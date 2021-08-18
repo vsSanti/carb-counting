@@ -3,6 +3,7 @@ import faker from 'faker';
 import { CriptographyGenerateTokens } from '@/data/usecases/criptography/criptography-generate-tokens';
 
 import { EncrypterSpy } from '@/tests/data/mocks';
+import { throwError } from '@/tests/domain/mocks';
 
 describe('CriptographyGenerateTokens Usecase', () => {
   let encrypterSpy: EncrypterSpy;
@@ -21,5 +22,11 @@ describe('CriptographyGenerateTokens Usecase', () => {
     expect(encrypterSpy.calledTimes).toBe(2);
     expect(encrypterSpy.expiresIn[0]).toBe(undefined);
     expect(encrypterSpy.expiresIn[1]).toBe('7d');
+  });
+
+  it('should throw if Encrypter throws', async () => {
+    jest.spyOn(encrypterSpy, 'encrypt').mockImplementationOnce(throwError);
+    const promise = sut.generate(id);
+    await expect(promise).rejects.toThrow();
   });
 });
