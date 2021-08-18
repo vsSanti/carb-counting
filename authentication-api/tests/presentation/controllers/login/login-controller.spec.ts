@@ -1,5 +1,5 @@
 import { LoginController } from '@/presentation/controllers/login';
-import { badRequest } from '@/presentation/helpers/http/http-helper';
+import { badRequest, unauthorized } from '@/presentation/helpers/http/http-helper';
 import { HttpRequest } from '@/presentation/protocols';
 
 import { ObjectValidatorSpy } from '@/tests/validation/mocks';
@@ -40,5 +40,11 @@ describe('Login Controller', () => {
   it('should call Authentication with correct params', async () => {
     await sut.handle(httpRequest);
     expect(authenticationSpy.params).toEqual(httpRequest.body);
+  });
+
+  it('should return 401 if invalid credentials are provided', async () => {
+    authenticationSpy.isAuthorized = false;
+    const httpResponse = await sut.handle(httpRequest);
+    expect(httpResponse).toEqual(unauthorized());
   });
 });
