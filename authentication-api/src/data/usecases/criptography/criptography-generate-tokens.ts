@@ -6,8 +6,12 @@ export class CriptographyGenerateTokens implements GenerateTokens {
   constructor(private readonly encrypter: Encrypter) {}
 
   async generate(id: string): Promise<AuthenticationModel> {
-    await this.encrypter.encrypt(id);
-    await this.encrypter.encrypt(id, '7d');
-    return null;
+    const accessToken = await this.encrypter.encrypt(id);
+    const refreshToken = await this.encrypter.encrypt(id, '7d');
+
+    return {
+      accessToken,
+      refreshToken,
+    };
   }
 }
