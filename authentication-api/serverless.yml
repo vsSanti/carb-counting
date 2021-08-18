@@ -30,6 +30,7 @@ custom:
     DB_DATABASE_NAME: /carb-counting-auth/${self:provider.stage}/DB_DATABASE_NAME
     DB_USERNAME: /carb-counting-auth/${self:provider.stage}/DB_USERNAME
     DB_PASSWORD: /carb-counting-auth/${self:provider.stage}/DB_PASSWORD
+    JWT_SECRET: /carb-counting-auth/${self:provider.stage}/JWT_SECRET
   webpack:
     webpackConfig: ./webpack.config.js
     includeModules: 
