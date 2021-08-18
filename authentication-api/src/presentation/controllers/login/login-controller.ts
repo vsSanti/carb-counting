@@ -1,3 +1,4 @@
+import { badRequest } from '@/presentation/helpers/http/http-helper';
 import { Controller, HttpRequest, HttpResponse, ObjectValidator } from '@/presentation/protocols';
 
 export class LoginController implements Controller {
@@ -6,7 +7,10 @@ export class LoginController implements Controller {
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     const { body } = httpRequest;
 
-    this.validation.validate({ input: body });
+    const validation = this.validation.validate({ input: body });
+    if (validation.hasErrors) {
+      return badRequest({ validationErrors: validation.errors });
+    }
 
     return null;
   }
