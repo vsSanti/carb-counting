@@ -63,5 +63,11 @@ describe('PgUserAccount Repository', () => {
       const patient = await sut.loadById(faker.datatype.uuid());
       expect(patient).toBeUndefined();
     });
+
+    it('should return a patient if id is already registered', async () => {
+      const insertedPatient = await pgPatientRepo.save(addPatientParams);
+      const patient = await sut.loadById(insertedPatient.id);
+      expect(patient).toEqual(insertedPatient);
+    });
   });
 });
