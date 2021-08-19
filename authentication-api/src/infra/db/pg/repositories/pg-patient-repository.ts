@@ -29,6 +29,9 @@ export class PgPatientRepository
   }
 
   async loadById(id: string): Promise<PatientModel> {
-    return;
+    const pgPatientRepository = getRepository(PgPatient);
+    const pgPatient = await pgPatientRepository.findOne({ id });
+
+    return pgPatient;
   }
 }
