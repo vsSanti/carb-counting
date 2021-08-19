@@ -31,8 +31,10 @@ describe('DbLoadPatientByToken Usecase', () => {
 
   it('should return null if Decrypter throws', async () => {
     jest.spyOn(decrypterSpy, 'decrypt').mockImplementationOnce(throwError);
+    const errorSpy = jest.spyOn(console, 'error');
     const patient = await sut.load(token);
     expect(patient).toBeNull();
+    expect(errorSpy).toHaveBeenCalled();
   });
 
   it('should call LoadPatientByIdRepository with correct value', async () => {
