@@ -1,6 +1,16 @@
 import faker from 'faker';
 
-import { Encrypter, HashComparer, Hasher } from '@/data/protocols/criptography';
+import { Decrypter, Encrypter, HashComparer, Hasher } from '@/data/protocols/criptography';
+
+export class DecrypterSpy implements Decrypter {
+  plainText = faker.datatype.uuid();
+  cipherText: string;
+
+  async decrypt(cipherText: string): Promise<string> {
+    this.cipherText = cipherText;
+    return this.plainText;
+  }
+}
 
 export class EncrypterSpy implements Encrypter {
   cipherText: string[] = [];
