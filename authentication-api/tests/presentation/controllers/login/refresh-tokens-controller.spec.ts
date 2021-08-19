@@ -64,4 +64,12 @@ describe('RefreshTokens Controller', () => {
     await sut.handle(httpRequest);
     expect(generateTokensSpy.id).toEqual(loadPatientByTokenSpy.patientModel.id);
   });
+
+  it('should return 500 if GenerateTokens throws', async () => {
+    jest.spyOn(generateTokensSpy, 'generate').mockImplementationOnce(throwError);
+    const errorSpy = jest.spyOn(console, 'error');
+    const httpResponse = await sut.handle(httpRequest);
+    expect(httpResponse).toEqual(serverError(new ServerError()));
+    expect(errorSpy).toHaveBeenCalled();
+  });
 });
