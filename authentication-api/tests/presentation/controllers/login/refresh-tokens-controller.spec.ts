@@ -5,7 +5,7 @@ import { HttpRequest } from '@/presentation/protocols';
 
 import { ObjectValidatorSpy } from '@/tests/validation/mocks';
 import { mockTokensModel, throwError } from '@/tests/domain/mocks';
-import { LoadPatientByTokenSpy } from '@/tests/presentation/mocks';
+import { GenerateTokensSpy, LoadPatientByTokenSpy } from '@/tests/presentation/mocks';
 
 const mockRequest = (): HttpRequest => {
   const { refreshToken } = mockTokensModel();
@@ -17,13 +17,15 @@ const mockRequest = (): HttpRequest => {
 describe('RefreshTokens Controller', () => {
   let objectValidatorSpy: ObjectValidatorSpy;
   let loadPatientByTokenSpy: LoadPatientByTokenSpy;
+  let generateTokensSpy: GenerateTokensSpy;
   let sut: RefreshTokensController;
   let httpRequest: HttpRequest;
 
   beforeEach(() => {
     objectValidatorSpy = new ObjectValidatorSpy();
     loadPatientByTokenSpy = new LoadPatientByTokenSpy();
-    sut = new RefreshTokensController(objectValidatorSpy, loadPatientByTokenSpy);
+    generateTokensSpy = new GenerateTokensSpy();
+    sut = new RefreshTokensController(objectValidatorSpy, loadPatientByTokenSpy, generateTokensSpy);
     httpRequest = mockRequest();
   });
 
@@ -56,5 +58,10 @@ describe('RefreshTokens Controller', () => {
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse).toEqual(serverError(new ServerError()));
     expect(errorSpy).toHaveBeenCalled();
+  });
+
+  it('should call GenerateTokens with correct values', async () => {
+    await sut.handle(httpRequest);
+    expect(generateTokensSpy.id).toEqual(loadPatientByTokenSpy.patientModel.id);
   });
 });
