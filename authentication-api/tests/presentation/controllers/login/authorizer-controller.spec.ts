@@ -25,4 +25,9 @@ describe('Authorizer Controller', () => {
     const promise = sut.handle({ authorizationToken: 'accessToken' });
     await expect(promise).rejects.toThrow();
   });
+
+  it('should throw if authorizationToken is empty', async () => {
+    const promise = sut.handle({ authorizationToken: 'Bearer ' });
+    await expect(promise).rejects.toThrow();
+  });
 });
