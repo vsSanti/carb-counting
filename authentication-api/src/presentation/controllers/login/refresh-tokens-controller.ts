@@ -1,5 +1,5 @@
 import { LoadPatientByToken } from '@/domain/usecases';
-import { badRequest } from '@/presentation/helpers/http/http-helper';
+import { badRequest, unauthorized } from '@/presentation/helpers/http/http-helper';
 import { Controller, HttpRequest, HttpResponse, ObjectValidator } from '@/presentation/protocols';
 
 export class RefreshTokensController implements Controller {
@@ -18,7 +18,8 @@ export class RefreshTokensController implements Controller {
 
     const { refreshToken } = body;
 
-    await this.loadPatientByToken.load(refreshToken);
+    const patient = await this.loadPatientByToken.load(refreshToken);
+    if (!patient) return unauthorized();
 
     return null;
   }
