@@ -39,4 +39,10 @@ describe('DbLoadPatientByToken Usecase', () => {
     await sut.load(token);
     expect(loadPatientByIdRepositorySpy.id).toBe(decrypterSpy.plainText);
   });
+
+  it('should return null if LoadPatientByIdRepository returns null', async () => {
+    loadPatientByIdRepositorySpy.patientModel = null;
+    const account = await sut.load(token);
+    expect(account).toBeNull();
+  });
 });
