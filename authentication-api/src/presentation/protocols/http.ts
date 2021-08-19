@@ -5,9 +5,11 @@ export type HttpResponse = {
     error?: Error;
     data?: any;
   };
+  [key: string]: any;
 };
 
 export type HttpRequest = {
   body?: any;
   authorizationToken?: string;
+  authorizationArn?: string;
 };
