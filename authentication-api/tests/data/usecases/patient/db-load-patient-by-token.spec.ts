@@ -45,4 +45,10 @@ describe('DbLoadPatientByToken Usecase', () => {
     const account = await sut.load(token);
     expect(account).toBeNull();
   });
+
+  it('should throw if LoadPatientByIdRepository throws', async () => {
+    jest.spyOn(loadPatientByIdRepositorySpy, 'loadById').mockImplementationOnce(throwError);
+    const errorPromise = sut.load(token);
+    await expect(errorPromise).rejects.toThrow();
+  });
 });
