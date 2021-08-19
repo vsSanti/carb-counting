@@ -15,7 +15,10 @@ export class AuthorizerController implements Controller {
       throw new UnauthorizedError();
     }
 
-    await this.loadPatientByToken.load(authorizationToken.replace('Bearer ', ''));
+    const patient = await this.loadPatientByToken.load(authorizationToken.replace('Bearer ', ''));
+    if (!patient) {
+      throw new UnauthorizedError();
+    }
 
     return null;
   }
