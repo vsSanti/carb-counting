@@ -4,6 +4,7 @@ import { HttpRequest } from '@/presentation/protocols';
 
 import { ObjectValidatorSpy } from '@/tests/validation/mocks';
 import { mockTokensModel } from '@/tests/domain/mocks';
+import { LoadPatientByTokenSpy } from '@/tests/presentation/mocks';
 
 const mockRequest = (): HttpRequest => {
   const { refreshToken } = mockTokensModel();
@@ -14,12 +15,14 @@ const mockRequest = (): HttpRequest => {
 
 describe('RefreshTokens Controller', () => {
   let objectValidatorSpy: ObjectValidatorSpy;
+  let loadPatientByTokenSpy: LoadPatientByTokenSpy;
   let sut: RefreshTokensController;
   let httpRequest: HttpRequest;
 
   beforeEach(() => {
     objectValidatorSpy = new ObjectValidatorSpy();
-    sut = new RefreshTokensController(objectValidatorSpy);
+    loadPatientByTokenSpy = new LoadPatientByTokenSpy();
+    sut = new RefreshTokensController(objectValidatorSpy, loadPatientByTokenSpy);
     httpRequest = mockRequest();
   });
 
@@ -33,5 +36,10 @@ describe('RefreshTokens Controller', () => {
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse.statusCode).toBe(400);
     expect(httpResponse).toEqual(badRequest({ validationErrors: { field: ['error'] } }));
+  });
+
+  it('should call LoadPatientByToken with correct value', async () => {
+    await sut.handle(httpRequest);
+    expect(loadPatientByTokenSpy.token).toEqual(httpRequest.body.refreshToken);
   });
 });
