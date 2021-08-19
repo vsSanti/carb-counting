@@ -1,7 +1,9 @@
 import faker from 'faker';
 
 import { DbLoadPatientByToken } from '@/data/usecases/patient/db-load-patient-by-token';
+
 import { DecrypterSpy } from '@/tests/data/mocks';
+import { throwError } from '@/tests/domain/mocks';
 
 describe('DbLoadPatientByToken Usecase', () => {
   let decrypterSpy: DecrypterSpy;
@@ -21,7 +23,13 @@ describe('DbLoadPatientByToken Usecase', () => {
 
   it('should return null if Decrypter returns null', async () => {
     decrypterSpy.plainText = null;
-    const account = await sut.load(token);
-    expect(account).toBeNull();
+    const patient = await sut.load(token);
+    expect(patient).toBeNull();
+  });
+
+  it('should return null if Decrypter throws', async () => {
+    jest.spyOn(decrypterSpy, 'decrypt').mockImplementationOnce(throwError);
+    const patient = await sut.load(token);
+    expect(patient).toBeNull();
   });
 });
