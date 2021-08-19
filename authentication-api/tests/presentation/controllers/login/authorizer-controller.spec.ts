@@ -1,23 +1,31 @@
+import faker from 'faker';
+
 import { AuthorizerController } from '@/presentation/controllers/login';
 import { HttpRequest } from '@/presentation/protocols';
 
-const mockRequest = (): HttpRequest => {
+import { LoadPatientByTokenSpy } from '@/tests/presentation/mocks';
+
+const mockRequest = (accessToken): HttpRequest => {
   return {
-    authorizationToken: 'Bearer accessToken',
+    authorizationToken: `Bearer ${accessToken}`,
   };
 };
 
 describe('Authorizer Controller', () => {
+  let loadPatientByTokenSpy: LoadPatientByTokenSpy;
   let sut: AuthorizerController;
+  let accessToken: string;
   let authorizationRequest: HttpRequest;
 
   beforeEach(() => {
-    sut = new AuthorizerController();
-    authorizationRequest = mockRequest();
+    loadPatientByTokenSpy = new LoadPatientByTokenSpy();
+    sut = new AuthorizerController(loadPatientByTokenSpy);
+    accessToken = faker.datatype.uuid();
+    authorizationRequest = mockRequest(accessToken);
   });
 
   it("should throw if there's no authorizationToken", async () => {
-    const promise = sut.handle(authorizationRequest);
+    const promise = sut.handle({});
     await expect(promise).rejects.toThrow();
   });
 
@@ -29,5 +37,10 @@ describe('Authorizer Controller', () => {
   it('should throw if authorizationToken is empty', async () => {
     const promise = sut.handle({ authorizationToken: 'Bearer ' });
     await expect(promise).rejects.toThrow();
+  });
+
+  it('should call LoadPatientByToken with correct value', async () => {
+    await sut.handle(authorizationRequest);
+    expect(loadPatientByTokenSpy.token).toEqual(accessToken);
   });
 });
