@@ -51,4 +51,9 @@ describe('DbLoadPatientByToken Usecase', () => {
     const errorPromise = sut.load(token);
     await expect(errorPromise).rejects.toThrow();
   });
+
+  it('should return a patient on success', async () => {
+    const account = await sut.load(token);
+    expect(account).toEqual(loadPatientByIdRepositorySpy.patientModel);
+  });
 });
