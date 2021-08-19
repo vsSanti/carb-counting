@@ -18,4 +18,10 @@ describe('DbLoadPatientByToken Usecase', () => {
     await sut.load(token);
     expect(decrypterSpy.cipherText).toBe(token);
   });
+
+  it('should return null if Decrypter returns null', async () => {
+    decrypterSpy.plainText = null;
+    const account = await sut.load(token);
+    expect(account).toBeNull();
+  });
 });
