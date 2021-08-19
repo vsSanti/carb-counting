@@ -1,11 +1,17 @@
 import { getRepository } from 'typeorm';
 
-import { AddPatientRepository, LoadPatientByEmailRepository } from '@/data/protocols/db';
+import {
+  AddPatientRepository,
+  LoadPatientByEmailRepository,
+  LoadPatientByIdRepository,
+} from '@/data/protocols/db';
 import { PatientModel } from '@/domain/models';
 import { PgPatient } from '@/infra/db/pg/entities';
 import { AddPatientParams } from '@/domain/usecases';
 
-export class PgPatientRepository implements AddPatientRepository, LoadPatientByEmailRepository {
+export class PgPatientRepository
+  implements AddPatientRepository, LoadPatientByEmailRepository, LoadPatientByIdRepository
+{
   async add(data: AddPatientParams): Promise<PatientModel> {
     const pgPatientRepository = getRepository(PgPatient);
 
@@ -20,5 +26,9 @@ export class PgPatientRepository implements AddPatientRepository, LoadPatientByE
     const pgPatient = await pgPatientRepository.findOne({ email });
 
     return pgPatient;
+  }
+
+  async loadById(id: string): Promise<PatientModel> {
+    return;
   }
 }
