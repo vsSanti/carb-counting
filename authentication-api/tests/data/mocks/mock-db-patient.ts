@@ -1,4 +1,8 @@
-import { AddPatientRepository, LoadPatientByEmailRepository } from '@/data/protocols/db';
+import {
+  AddPatientRepository,
+  LoadPatientByEmailRepository,
+  LoadPatientByIdRepository,
+} from '@/data/protocols/db';
 import { PatientModel } from '@/domain/models';
 import { AddPatientParams } from '@/domain/usecases';
 
@@ -20,6 +24,16 @@ export class LoadPatientByEmailRepositorySpy implements LoadPatientByEmailReposi
 
   async loadByEmail(email: string): Promise<PatientModel> {
     this.email = email;
+    return this.patientModel;
+  }
+}
+
+export class LoadPatientByIdRepositorySpy implements LoadPatientByIdRepository {
+  patientModel = mockPatientModel();
+  id: string;
+
+  async loadById(id: string): Promise<PatientModel> {
+    this.id = id;
     return this.patientModel;
   }
 }

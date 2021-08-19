@@ -2,17 +2,19 @@ import faker from 'faker';
 
 import { DbLoadPatientByToken } from '@/data/usecases/patient/db-load-patient-by-token';
 
-import { DecrypterSpy } from '@/tests/data/mocks';
+import { DecrypterSpy, LoadPatientByIdRepositorySpy } from '@/tests/data/mocks';
 import { throwError } from '@/tests/domain/mocks';
 
 describe('DbLoadPatientByToken Usecase', () => {
   let decrypterSpy: DecrypterSpy;
+  let loadPatientByIdRepositorySpy: LoadPatientByIdRepositorySpy;
   let sut: DbLoadPatientByToken;
   let token: string;
 
   beforeEach(() => {
     decrypterSpy = new DecrypterSpy();
-    sut = new DbLoadPatientByToken(decrypterSpy);
+    loadPatientByIdRepositorySpy = new LoadPatientByIdRepositorySpy();
+    sut = new DbLoadPatientByToken(decrypterSpy, loadPatientByIdRepositorySpy);
     token = faker.datatype.uuid();
   });
 
@@ -31,5 +33,10 @@ describe('DbLoadPatientByToken Usecase', () => {
     jest.spyOn(decrypterSpy, 'decrypt').mockImplementationOnce(throwError);
     const patient = await sut.load(token);
     expect(patient).toBeNull();
+  });
+
+  it('should call LoadPatientByIdRepository with correct value', async () => {
+    await sut.load(token);
+    expect(loadPatientByIdRepositorySpy.id).toBe(decrypterSpy.plainText);
   });
 });
