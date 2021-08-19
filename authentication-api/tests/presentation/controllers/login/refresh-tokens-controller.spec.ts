@@ -1,9 +1,10 @@
 import { RefreshTokensController } from '@/presentation/controllers/login';
-import { badRequest, unauthorized } from '@/presentation/helpers/http/http-helper';
+import { ServerError } from '@/presentation/errors';
+import { badRequest, serverError, unauthorized } from '@/presentation/helpers/http/http-helper';
 import { HttpRequest } from '@/presentation/protocols';
 
 import { ObjectValidatorSpy } from '@/tests/validation/mocks';
-import { mockTokensModel } from '@/tests/domain/mocks';
+import { mockTokensModel, throwError } from '@/tests/domain/mocks';
 import { LoadPatientByTokenSpy } from '@/tests/presentation/mocks';
 
 const mockRequest = (): HttpRequest => {
@@ -47,5 +48,13 @@ describe('RefreshTokens Controller', () => {
     loadPatientByTokenSpy.patientModel = null;
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse).toEqual(unauthorized());
+  });
+
+  it('should return 500 if LoadPatientByToken throws', async () => {
+    jest.spyOn(loadPatientByTokenSpy, 'load').mockImplementationOnce(throwError);
+    const errorSpy = jest.spyOn(console, 'error');
+    const httpResponse = await sut.handle(httpRequest);
+    expect(httpResponse).toEqual(serverError(new ServerError()));
+    expect(errorSpy).toHaveBeenCalled();
   });
 });
