@@ -1,5 +1,5 @@
 import { RefreshTokensController } from '@/presentation/controllers/login';
-import { badRequest } from '@/presentation/helpers/http/http-helper';
+import { badRequest, unauthorized } from '@/presentation/helpers/http/http-helper';
 import { HttpRequest } from '@/presentation/protocols';
 
 import { ObjectValidatorSpy } from '@/tests/validation/mocks';
@@ -41,5 +41,11 @@ describe('RefreshTokens Controller', () => {
   it('should call LoadPatientByToken with correct value', async () => {
     await sut.handle(httpRequest);
     expect(loadPatientByTokenSpy.token).toEqual(httpRequest.body.refreshToken);
+  });
+
+  it('should return 401 if no patient is found on LoadPatientByToken', async () => {
+    loadPatientByTokenSpy.patientModel = null;
+    const httpResponse = await sut.handle(httpRequest);
+    expect(httpResponse).toEqual(unauthorized());
   });
 });
