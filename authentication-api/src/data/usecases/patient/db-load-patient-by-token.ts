@@ -13,12 +13,14 @@ export class DbLoadPatientByToken implements LoadPatientByToken {
     let id: string;
     try {
       id = await this.decrypter.decrypt(token);
+      if (!id) return null;
     } catch (error) {
       return null;
     }
 
-    await this.loadPatientByIdRepository.loadById(id);
+    const patient = await this.loadPatientByIdRepository.loadById(id);
+    if (!patient) return null;
 
-    return null;
+    return patient;
   }
 }
