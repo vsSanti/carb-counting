@@ -20,4 +20,9 @@ describe('Authorizer Controller', () => {
     const promise = sut.handle(authorizationRequest);
     await expect(promise).rejects.toThrow();
   });
+
+  it("should throw if authorizationToken doesn't start with 'Bearer '", async () => {
+    const promise = sut.handle({ authorizationToken: 'accessToken' });
+    await expect(promise).rejects.toThrow();
+  });
 });
