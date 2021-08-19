@@ -1,5 +1,5 @@
 import { GenerateTokens, LoadPatientByToken } from '@/domain/usecases';
-import { badRequest, serverError, unauthorized } from '@/presentation/helpers/http/http-helper';
+import { badRequest, ok, serverError, unauthorized } from '@/presentation/helpers/http/http-helper';
 import { Controller, HttpRequest, HttpResponse, ObjectValidator } from '@/presentation/protocols';
 
 export class RefreshTokensController implements Controller {
@@ -23,9 +23,9 @@ export class RefreshTokensController implements Controller {
       const patient = await this.loadPatientByToken.load(refreshToken);
       if (!patient) return unauthorized();
 
-      await this.generateTokens.generate(patient.id);
+      const tokensModel = await this.generateTokens.generate(patient.id);
 
-      return null;
+      return ok({ data: tokensModel });
     } catch (error) {
       console.error(error);
       return serverError(error);
