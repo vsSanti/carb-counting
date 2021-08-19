@@ -1,11 +1,12 @@
-import { LoadPatientByToken } from '@/domain/usecases';
+import { GenerateTokens, LoadPatientByToken } from '@/domain/usecases';
 import { badRequest, serverError, unauthorized } from '@/presentation/helpers/http/http-helper';
 import { Controller, HttpRequest, HttpResponse, ObjectValidator } from '@/presentation/protocols';
 
 export class RefreshTokensController implements Controller {
   constructor(
     private readonly validation: ObjectValidator,
-    private readonly loadPatientByToken: LoadPatientByToken
+    private readonly loadPatientByToken: LoadPatientByToken,
+    private readonly generateTokens: GenerateTokens
   ) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
@@ -21,6 +22,8 @@ export class RefreshTokensController implements Controller {
 
       const patient = await this.loadPatientByToken.load(refreshToken);
       if (!patient) return unauthorized();
+
+      await this.generateTokens.generate(patient.id);
 
       return null;
     } catch (error) {
