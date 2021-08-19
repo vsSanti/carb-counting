@@ -3,6 +3,7 @@ import faker from 'faker';
 import { AuthorizerController } from '@/presentation/controllers/login';
 import { HttpRequest } from '@/presentation/protocols';
 
+import { throwError } from '@/tests/domain/mocks';
 import { LoadPatientByTokenSpy } from '@/tests/presentation/mocks';
 
 const mockRequest = (accessToken): HttpRequest => {
@@ -46,6 +47,12 @@ describe('Authorizer Controller', () => {
 
   it('should throw if no patient is found on LoadPatientByToken', async () => {
     loadPatientByTokenSpy.patientModel = null;
+    const promise = sut.handle(authorizationRequest);
+    await expect(promise).rejects.toThrow();
+  });
+
+  it('should throw if LoadPatientByToken throws', async () => {
+    jest.spyOn(loadPatientByTokenSpy, 'load').mockImplementationOnce(throwError);
     const promise = sut.handle(authorizationRequest);
     await expect(promise).rejects.toThrow();
   });
