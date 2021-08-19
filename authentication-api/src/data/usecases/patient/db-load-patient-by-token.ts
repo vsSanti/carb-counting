@@ -15,6 +15,7 @@ export class DbLoadPatientByToken implements LoadPatientByToken {
       id = await this.decrypter.decrypt(token);
       if (!id) return null;
     } catch (error) {
+      console.error(error);
       return null;
     }
 
