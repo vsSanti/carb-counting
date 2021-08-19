@@ -43,4 +43,10 @@ describe('Authorizer Controller', () => {
     await sut.handle(authorizationRequest);
     expect(loadPatientByTokenSpy.token).toEqual(accessToken);
   });
+
+  it('should throw if no patient is found on LoadPatientByToken', async () => {
+    loadPatientByTokenSpy.patientModel = null;
+    const promise = sut.handle(authorizationRequest);
+    await expect(promise).rejects.toThrow();
+  });
 });
