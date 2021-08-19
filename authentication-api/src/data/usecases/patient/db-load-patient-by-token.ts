@@ -6,7 +6,12 @@ export class DbLoadPatientByToken implements LoadPatientByToken {
   constructor(private readonly decrypter: Decrypter) {}
 
   async load(token: string): Promise<PatientModel> {
-    await this.decrypter.decrypt(token);
+    try {
+      await this.decrypter.decrypt(token);
+    } catch (error) {
+      return null;
+    }
+
     return null;
   }
 }
