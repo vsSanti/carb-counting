@@ -1,3 +1,4 @@
+import faker from 'faker';
 import { IBackup } from 'pg-mem';
 import { getRepository, Repository, getConnection } from 'typeorm';
 
@@ -8,7 +9,7 @@ import { PgPatient } from '@/infra/db/pg/entities';
 import { mockAddPatientParams } from '@/tests/domain/mocks';
 import { makeFakeDb } from '@/tests/infra/db/pg/mocks';
 
-describe('PgUserAccountRepository', () => {
+describe('PgUserAccount Repository', () => {
   let sut: PgPatientRepository;
   let pgPatientRepo: Repository<PgPatient>;
   let addPatientParams: AddPatientParams;
@@ -30,21 +31,6 @@ describe('PgUserAccountRepository', () => {
     addPatientParams = mockAddPatientParams();
   });
 
-  describe('load', () => {
-    it('should return a patient if email is already registered', async () => {
-      await pgPatientRepo.save(addPatientParams);
-
-      const patient = await sut.loadByEmail(addPatientParams.email);
-
-      expect(patient).toEqual(addPatientParams);
-    });
-
-    it("should return null if email isn't already registered", async () => {
-      const patient = await sut.loadByEmail(addPatientParams.email);
-      expect(patient).toBeUndefined();
-    });
-  });
-
   describe('add', () => {
     it('should return a patient on add success', async () => {
       const patient = await sut.add(addPatientParams);
@@ -56,6 +42,26 @@ describe('PgUserAccountRepository', () => {
       expect(patient.deletedAt).toBeFalsy();
 
       expect(patient).toEqual(addPatientParams);
+    });
+  });
+
+  describe('loadByEmail', () => {
+    it('should return a patient if email is already registered', async () => {
+      await pgPatientRepo.save(addPatientParams);
+      const patient = await sut.loadByEmail(addPatientParams.email);
+      expect(patient).toEqual(addPatientParams);
+    });
+
+    it("should return undefined if email isn't already registered", async () => {
+      const patient = await sut.loadByEmail(addPatientParams.email);
+      expect(patient).toBeUndefined();
+    });
+  });
+
+  describe('loadById', () => {
+    it("should return undefined if id isn't found", async () => {
+      const patient = await sut.loadById(faker.datatype.uuid());
+      expect(patient).toBeUndefined();
     });
   });
 });
