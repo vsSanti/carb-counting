@@ -9,6 +9,7 @@ import { LoadPatientByTokenSpy } from '@/tests/presentation/mocks';
 const mockRequest = (accessToken): HttpRequest => {
   return {
     authorizationToken: `Bearer ${accessToken}`,
+    authorizationArn: 'ARN',
   };
 };
 
@@ -55,5 +56,13 @@ describe('Authorizer Controller', () => {
     jest.spyOn(loadPatientByTokenSpy, 'load').mockImplementationOnce(throwError);
     const promise = sut.handle(authorizationRequest);
     await expect(promise).rejects.toThrow();
+  });
+
+  it('should return policies and patient id', async () => {
+    const response = await sut.handle(authorizationRequest);
+    expect(response).toHaveProperty('principalId');
+    expect(response.principalId).toBe(loadPatientByTokenSpy.patientModel.id);
+    expect(response).toHaveProperty('policyDocument');
+    expect(response.policyDocument.Statement[0].Action).toBe('execute-api:Invoke');
   });
 });
