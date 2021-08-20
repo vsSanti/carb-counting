@@ -2,7 +2,7 @@ import faker from 'faker';
 
 import { PatientsMeController } from '@/presentation/controllers/patient';
 import { ServerError } from '@/presentation/errors';
-import { ok, serverError, unauthorized } from '@/presentation/helpers/http/http-helper';
+import { badRequest, ok, serverError, unauthorized } from '@/presentation/helpers/http/http-helper';
 import { HttpRequest } from '@/presentation/protocols';
 
 import { ObjectValidatorSpy } from '@/tests/validation/mocks';
@@ -31,6 +31,13 @@ describe('PatientsMe Controller', () => {
   it('should call ObjectValidator with correct params', async () => {
     await sut.handle(httpRequest);
     expect(objectValidatorSpy.params).toEqual({ input: httpRequest });
+  });
+
+  it('should return 400 if ObjectValidator returns an error', async () => {
+    objectValidatorSpy.response = { hasErrors: true, errors: { field: ['error'] } };
+    const httpResponse = await sut.handle(httpRequest);
+    expect(httpResponse.statusCode).toBe(400);
+    expect(httpResponse).toEqual(badRequest({ validationErrors: { field: ['error'] } }));
   });
 
   it('should call LoadPatientById with correct value', async () => {
