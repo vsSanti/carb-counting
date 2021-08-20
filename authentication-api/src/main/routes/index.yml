@@ -1,3 +1,4 @@
+- ${file(src/main/routes/login/authorizer/stack.yml)}
 - ${file(src/main/routes/login/login/stack.yml)}
 - ${file(src/main/routes/login/refresh-tokens/stack.yml)}
 - ${file(src/main/routes/login/sign-up/stack.yml)}
