@@ -10,6 +10,6 @@ export type HttpResponse = {
 
 export type HttpRequest = {
   body?: any;
-  authorizationToken?: string;
-  authorizationArn?: string;
+  patientId?: string;
+  [key: string]: any;
 };
