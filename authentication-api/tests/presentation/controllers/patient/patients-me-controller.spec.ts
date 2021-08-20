@@ -5,24 +5,32 @@ import { ServerError } from '@/presentation/errors';
 import { ok, serverError, unauthorized } from '@/presentation/helpers/http/http-helper';
 import { HttpRequest } from '@/presentation/protocols';
 
+import { ObjectValidatorSpy } from '@/tests/validation/mocks';
 import { throwError } from '@/tests/domain/mocks';
 import { LoadPatientByIdSpy } from '@/tests/presentation/mocks';
 
-const mockRequest = (patientId): HttpRequest => {
+const mockRequest = (patientId: string): HttpRequest => {
   return { patientId };
 };
 
 describe('PatientsMe Controller', () => {
+  let objectValidatorSpy: ObjectValidatorSpy;
   let loadPatientByIdSpy: LoadPatientByIdSpy;
   let sut: PatientsMeController;
   let httpRequest: HttpRequest;
-  let id: string;
+  let patientId: string;
 
   beforeEach(() => {
+    objectValidatorSpy = new ObjectValidatorSpy();
     loadPatientByIdSpy = new LoadPatientByIdSpy();
-    sut = new PatientsMeController(loadPatientByIdSpy);
-    id = faker.datatype.uuid();
-    httpRequest = mockRequest(id);
+    sut = new PatientsMeController(objectValidatorSpy, loadPatientByIdSpy);
+    patientId = faker.datatype.uuid();
+    httpRequest = mockRequest(patientId);
+  });
+
+  it('should call ObjectValidator with correct params', async () => {
+    await sut.handle(httpRequest);
+    expect(objectValidatorSpy.params).toEqual({ input: httpRequest });
   });
 
   it('should call LoadPatientById with correct value', async () => {
