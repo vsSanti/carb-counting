@@ -1,13 +1,18 @@
 import { LoadPatientById } from '@/domain/usecases';
 import { ok, serverError, unauthorized } from '@/presentation/helpers/http/http-helper';
-import { Controller, HttpRequest, HttpResponse } from '@/presentation/protocols';
+import { Controller, HttpRequest, HttpResponse, ObjectValidator } from '@/presentation/protocols';
 
 export class PatientsMeController implements Controller {
-  constructor(private readonly loadPatientById: LoadPatientById) {}
+  constructor(
+    private readonly validation: ObjectValidator,
+    private readonly loadPatientById: LoadPatientById
+  ) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const { patientId } = httpRequest;
+
+      this.validation.validate({ input: { patientId } });
 
       const patient = await this.loadPatientById.load(patientId);
       if (!patient) return unauthorized();
