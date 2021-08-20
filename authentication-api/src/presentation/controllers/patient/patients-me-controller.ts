@@ -1,5 +1,5 @@
 import { LoadPatientById } from '@/domain/usecases';
-import { ok, serverError, unauthorized } from '@/presentation/helpers/http/http-helper';
+import { badRequest, ok, serverError, unauthorized } from '@/presentation/helpers/http/http-helper';
 import { Controller, HttpRequest, HttpResponse, ObjectValidator } from '@/presentation/protocols';
 
 export class PatientsMeController implements Controller {
@@ -12,7 +12,10 @@ export class PatientsMeController implements Controller {
     try {
       const { patientId } = httpRequest;
 
-      this.validation.validate({ input: { patientId } });
+      const validation = this.validation.validate({ input: { patientId } });
+      if (validation.hasErrors) {
+        return badRequest({ validationErrors: validation.errors });
+      }
 
       const patient = await this.loadPatientById.load(patientId);
       if (!patient) return unauthorized();
