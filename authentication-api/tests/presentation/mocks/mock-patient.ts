@@ -4,6 +4,7 @@ import {
   AddPatientParams,
   Authentication,
   AuthenticationParams,
+  LoadPatientById,
   LoadPatientByToken,
 } from '@/domain/usecases';
 
@@ -25,6 +26,16 @@ export class AuthenticationSpy implements Authentication {
 
   async auth(params: AuthenticationParams): Promise<PatientModel> {
     this.params = params;
+    return Promise.resolve(this.patientModel);
+  }
+}
+
+export class LoadPatientByIdSpy implements LoadPatientById {
+  patientModel = mockPatientModel();
+  id: string;
+
+  async load(id: string): Promise<PatientModel> {
+    this.id = id;
     return Promise.resolve(this.patientModel);
   }
 }
