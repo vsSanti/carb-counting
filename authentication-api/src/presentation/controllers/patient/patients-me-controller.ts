@@ -1,4 +1,5 @@
 import { LoadPatientById } from '@/domain/usecases';
+import { unauthorized } from '@/presentation/helpers/http/http-helper';
 import { Controller, HttpRequest, HttpResponse } from '@/presentation/protocols';
 
 export class PatientsMeController implements Controller {
@@ -9,6 +10,6 @@ export class PatientsMeController implements Controller {
 
     await this.loadPatientById.load(patientId);
 
-    return null;
+    return unauthorized();
   }
 }
