@@ -2,7 +2,7 @@ import faker from 'faker';
 
 import { PatientsMeController } from '@/presentation/controllers/patient';
 import { ServerError } from '@/presentation/errors';
-import { serverError, unauthorized } from '@/presentation/helpers/http/http-helper';
+import { ok, serverError, unauthorized } from '@/presentation/helpers/http/http-helper';
 import { HttpRequest } from '@/presentation/protocols';
 
 import { throwError } from '@/tests/domain/mocks';
@@ -42,5 +42,11 @@ describe('PatientsMe Controller', () => {
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse).toEqual(serverError(new ServerError()));
     expect(errorSpy).toHaveBeenCalled();
+  });
+
+  it('should return 200 if everything succeeds', async () => {
+    const httpResponse = await sut.handle(httpRequest);
+    delete loadPatientByIdSpy.patientModel.password;
+    expect(httpResponse).toEqual(ok({ data: loadPatientByIdSpy.patientModel }));
   });
 });
