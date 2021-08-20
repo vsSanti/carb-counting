@@ -61,7 +61,7 @@ describe('PatientsMe Controller', () => {
 
   it('should return 200 if everything succeeds', async () => {
     const httpResponse = await sut.handle(httpRequest);
-    delete loadPatientByIdSpy.patientModel.password;
     expect(httpResponse).toEqual(ok({ data: loadPatientByIdSpy.patientModel }));
+    expect(httpResponse.body.data.password).toBeFalsy();
   });
 });
