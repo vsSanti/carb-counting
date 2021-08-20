@@ -19,4 +19,10 @@ describe('DbLoadPatientById Usecase', () => {
     await sut.load(id);
     expect(loadPatientByIdRepositorySpy.id).toBe(id);
   });
+
+  it('should return null if LoadPatientByIdRepository returns null', async () => {
+    loadPatientByIdRepositorySpy.patientModel = null;
+    const account = await sut.load(id);
+    expect(account).toBeNull();
+  });
 });
