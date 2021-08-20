@@ -32,4 +32,9 @@ describe('DbLoadPatientById Usecase', () => {
     const errorPromise = sut.load(id);
     await expect(errorPromise).rejects.toThrow();
   });
+
+  it('should return a patient on success', async () => {
+    const patient = await sut.load(id);
+    expect(patient).toEqual(loadPatientByIdRepositorySpy.patientModel);
+  });
 });
