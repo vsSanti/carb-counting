@@ -20,6 +20,8 @@ export class PatientsMeController implements Controller {
       const patient = await this.loadPatientById.load(patientId);
       if (!patient) return unauthorized();
 
+      delete patient.password;
+
       return ok({ data: patient });
     } catch (error) {
       console.error(error);
