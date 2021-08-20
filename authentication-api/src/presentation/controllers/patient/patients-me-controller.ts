@@ -1,15 +1,20 @@
 import { LoadPatientById } from '@/domain/usecases';
-import { unauthorized } from '@/presentation/helpers/http/http-helper';
+import { serverError, unauthorized } from '@/presentation/helpers/http/http-helper';
 import { Controller, HttpRequest, HttpResponse } from '@/presentation/protocols';
 
 export class PatientsMeController implements Controller {
   constructor(private readonly loadPatientById: LoadPatientById) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
-    const { patientId } = httpRequest;
+    try {
+      const { patientId } = httpRequest;
 
-    await this.loadPatientById.load(patientId);
+      await this.loadPatientById.load(patientId);
 
-    return unauthorized();
+      return unauthorized();
+    } catch (error) {
+      console.error(error);
+      return serverError(error);
+    }
   }
 }
