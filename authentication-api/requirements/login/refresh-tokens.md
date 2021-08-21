@@ -19,4 +19,4 @@
 - ✅ If there's any kind of error, it should return 500;
 
 > ## Route
-**[POST]** `/refresh`
+- **[POST]** `/refresh`
