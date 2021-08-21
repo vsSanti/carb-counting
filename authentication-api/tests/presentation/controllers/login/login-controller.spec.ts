@@ -1,9 +1,10 @@
+import { ObjectValidatorSpy } from 'validations';
+
 import { LoginController } from '@/presentation/controllers/login';
 import { ServerError } from '@/presentation/errors';
 import { badRequest, ok, serverError, unauthorized } from '@/presentation/helpers/http/http-helper';
 import { HttpRequest } from '@/presentation/protocols';
 
-import { ObjectValidatorSpy } from '@/tests/validation/mocks';
 import { mockAuthenticationParams, throwError } from '@/tests/domain/mocks';
 import { AuthenticationSpy, GenerateTokensSpy } from '@/tests/presentation/mocks';
 

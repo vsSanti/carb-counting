@@ -1,6 +1,9 @@
-import { ObjectValidator } from '@/presentation/protocols';
-import { GenericObjectValidator, GenericPropertyBuilder } from '@/validation/builders';
-import { StringValidator } from '@/validation/validators/string-validators';
+import {
+  GenericObjectValidator,
+  GenericPropertyBuilder,
+  ObjectValidator,
+  StringValidator,
+} from 'validations';
 
 export const makeRefreshTokensValidation = (): ObjectValidator => {
   const stringValidator = new StringValidator();

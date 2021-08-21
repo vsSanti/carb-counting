@@ -31,7 +31,8 @@
     "reflect-metadata": "^0.1.13",
     "source-map-support": "^0.5.19",
     "typeorm": "^0.2.29",
-    "typeorm-naming-strategies": "^2.0.0"
+    "typeorm-naming-strategies": "^2.0.0",
+    "validations": "file:../libs/validations"
   },
   "devDependencies": {
     "@serverless/typescript": "^2.23.0",

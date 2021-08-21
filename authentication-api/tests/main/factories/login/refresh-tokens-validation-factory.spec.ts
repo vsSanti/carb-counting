@@ -1,8 +1,8 @@
-import { GenericObjectValidator, GenericPropertyBuilder } from '@/validation/builders';
-import { makeRefreshTokensValidation } from '@/main/factories/controllers/login/refresh-tokens/refresh-tokens-validaiton-factory';
-import { StringValidator } from '@/validation/validators/string-validators';
+import { GenericObjectValidator, GenericPropertyBuilder, StringValidator } from 'validations';
 
-jest.mock('@/validation/builders/generic-object-validator');
+import { makeRefreshTokensValidation } from '@/main/factories/controllers/login/refresh-tokens/refresh-tokens-validaiton-factory';
+
+jest.mock('../../../../node_modules/validations/dist/builders/generic-object-validator');
 
 describe('RefreshTokensValidation Factory', () => {
   it('should call GenericObjectValidator with correct validations', () => {

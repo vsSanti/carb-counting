@@ -1,13 +1,14 @@
-import { ObjectValidator } from '@/presentation/protocols';
-import { GenericObjectValidator, GenericPropertyBuilder } from '@/validation/builders';
-import { DateValidator } from '@/validation/validators/date-validators';
-import { CompareValidator } from '@/validation/validators/general-validators';
-import { NumberValidator } from '@/validation/validators/number-validators';
 import {
+  CompareValidator,
+  DateValidator,
   EmailValidator,
   EnumValidator,
+  GenericObjectValidator,
+  GenericPropertyBuilder,
+  NumberValidator,
+  ObjectValidator,
   StringValidator,
-} from '@/validation/validators/string-validators';
+} from 'validations';
 
 export const makeSignUpValidation = (): ObjectValidator => {
   const emailValidator = new EmailValidator();

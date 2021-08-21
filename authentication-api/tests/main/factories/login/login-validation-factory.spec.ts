@@ -1,8 +1,12 @@
-import { GenericObjectValidator, GenericPropertyBuilder } from '@/validation/builders';
 import { makeLoginValidation } from '@/main/factories/controllers/login/login/login-validation-factory';
-import { EmailValidator, StringValidator } from '@/validation/validators/string-validators';
+import {
+  EmailValidator,
+  GenericObjectValidator,
+  GenericPropertyBuilder,
+  StringValidator,
+} from 'validations';
 
-jest.mock('@/validation/builders/generic-object-validator');
+jest.mock('../../../../node_modules/validations/dist/builders/generic-object-validator');
 
 describe('LoginValidation Factory', () => {
   it('should call GenericObjectValidator with correct validations', () => {

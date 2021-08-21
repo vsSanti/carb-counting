@@ -1,3 +1,5 @@
+import { ObjectValidator } from 'validations';
+
 import { AddPatient, GenerateTokens } from '@/domain/usecases';
 import { ParameterInUseError } from '@/presentation/errors';
 import {
@@ -6,7 +8,7 @@ import {
   created,
   serverError,
 } from '@/presentation/helpers/http/http-helper';
-import { Controller, HttpRequest, HttpResponse, ObjectValidator } from '@/presentation/protocols';
+import { Controller, HttpRequest, HttpResponse } from '@/presentation/protocols';
 
 export class SignUpController implements Controller {
   constructor(

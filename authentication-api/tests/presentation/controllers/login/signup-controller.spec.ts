@@ -1,10 +1,11 @@
+import { ObjectValidatorSpy } from 'validations';
+
 import { SignUpController } from '@/presentation/controllers/login';
 import { badRequest, created, serverError } from '@/presentation/helpers/http/http-helper';
 import { HttpRequest } from '@/presentation/protocols';
 import { conflict } from '@/presentation/helpers/http/http-helper';
 import { ParameterInUseError, ServerError } from '@/presentation/errors';
 
-import { ObjectValidatorSpy } from '@/tests/validation/mocks';
 import { mockAddPatientParams, throwError } from '@/tests/domain/mocks';
 import { AddPatientSpy, GenerateTokensSpy } from '@/tests/presentation/mocks';
 
