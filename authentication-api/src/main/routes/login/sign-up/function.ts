@@ -1,7 +1,7 @@
 import 'source-map-support/register';
 
 import { lambdaRouteAdapter } from '@/main/adapters/lambda-route-adapter';
-import { makeSignUpController } from '@/main/factories/controllers/login/signup/signup-controller-factory';
+import { makeSignUpController } from '@/main/factories/controllers/login/sign-up/sign-up-controller-factory';
 
 export const handler = lambdaRouteAdapter({
   post: {

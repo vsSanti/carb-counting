@@ -3,7 +3,7 @@ import { makeDbAddPatient } from '@/main/factories/usecases/patient/db-add-patie
 import { SignUpController } from '@/presentation/controllers/login';
 import { Controller } from '@/presentation/protocols';
 
-import { makeSignUpValidation } from './signup-validation-factory';
+import { makeSignUpValidation } from './sign-up-validation-factory';
 
 export const makeSignUpController = (): Controller => {
   const signUpController = new SignUpController(

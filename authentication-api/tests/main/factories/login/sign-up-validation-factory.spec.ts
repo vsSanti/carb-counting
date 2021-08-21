@@ -1,5 +1,5 @@
 import { GenericObjectValidator, GenericPropertyBuilder } from '@/validation/builders';
-import { makeSignUpValidation } from '@/main/factories/controllers/login/signup/signup-validation-factory';
+import { makeSignUpValidation } from '@/main/factories/controllers/login/sign-up/sign-up-validation-factory';
 import {
   EmailValidator,
   EnumValidator,
