@@ -3,7 +3,7 @@
   "author": "Vinicius Santiago <viniciussdsilva@gmail.com>",
   "license": "MIT",
   "version": "1.2.0",
-  "description": "Carb counting API using Serverless",
+  "description": "Authentication API using Serverless",
   "main": "serverless.ts",
   "scripts": {
     "deploy": "sls deploy",

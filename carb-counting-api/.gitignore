@@ -1,0 +1,18 @@
+# package directories
+node_modules
+jspm_packages
+
+# Serverless directories
+.serverless
+
+# Webpack directories
+.webpack
+
+# Jest coverage
+coverage
+
+# Mac
+.DS_Store
+
+# Configs
+ormconfig.js
