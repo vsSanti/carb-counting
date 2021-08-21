@@ -1,10 +1,15 @@
+import {
+  badRequest,
+  conflict,
+  created,
+  HttpRequest,
+  ParameterInUseError,
+  ServerError,
+  serverError,
+} from 'presentation-common';
 import { ObjectValidatorSpy } from 'validations';
 
 import { SignUpController } from '@/presentation/controllers/login';
-import { badRequest, created, serverError } from '@/presentation/helpers/http/http-helper';
-import { HttpRequest } from '@/presentation/protocols';
-import { conflict } from '@/presentation/helpers/http/http-helper';
-import { ParameterInUseError, ServerError } from '@/presentation/errors';
 
 import { mockAddPatientParams, throwError } from '@/tests/domain/mocks';
 import { AddPatientSpy, GenerateTokensSpy } from '@/tests/presentation/mocks';

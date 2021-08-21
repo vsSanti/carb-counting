@@ -1,9 +1,7 @@
 import faker from 'faker';
+import { HttpRequest, ok, ServerError, serverError, unauthorized } from 'presentation-common';
 
 import { PatientsMeController } from '@/presentation/controllers/patient';
-import { ServerError } from '@/presentation/errors';
-import { ok, serverError, unauthorized } from '@/presentation/helpers/http/http-helper';
-import { HttpRequest } from '@/presentation/protocols';
 
 import { throwError } from '@/tests/domain/mocks';
 import { LoadPatientByIdSpy } from '@/tests/presentation/mocks';

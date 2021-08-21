@@ -1,6 +1,6 @@
+import { Controller, HttpRequest, HttpResponse, UnauthorizedError } from 'presentation-common';
+
 import { LoadPatientByToken } from '@/domain/usecases';
-import { UnauthorizedError } from '@/presentation/errors';
-import { Controller, HttpRequest, HttpResponse } from '@/presentation/protocols';
 
 export class AuthorizerController implements Controller {
   constructor(private readonly loadPatientByToken: LoadPatientByToken) {}

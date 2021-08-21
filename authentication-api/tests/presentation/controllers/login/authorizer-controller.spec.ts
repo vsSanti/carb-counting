@@ -1,7 +1,7 @@
 import faker from 'faker';
+import { HttpRequest } from 'presentation-common';
 
 import { AuthorizerController } from '@/presentation/controllers/login';
-import { HttpRequest } from '@/presentation/protocols';
 
 import { throwError } from '@/tests/domain/mocks';
 import { LoadPatientByTokenSpy } from '@/tests/presentation/mocks';

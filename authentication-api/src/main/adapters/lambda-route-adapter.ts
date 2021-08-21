@@ -1,6 +1,7 @@
-import { Controller, HttpRequest, HttpResponse } from '@/presentation/protocols';
 import { APIGatewayEvent, ProxyResult } from 'aws-lambda';
-import { openTypeORMConnection } from '../helper/open-typeorm-connection';
+import { Controller, HttpRequest, HttpResponse } from 'presentation-common';
+
+import { openTypeORMConnection } from '@/main/helper/open-typeorm-connection';
 
 type EventHandler = {
   isPrivate?: boolean;

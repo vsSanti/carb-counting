@@ -1,8 +1,15 @@
+import {
+  badRequest,
+  Controller,
+  HttpRequest,
+  HttpResponse,
+  ok,
+  serverError,
+  unauthorized,
+} from 'presentation-common';
 import { ObjectValidator } from 'validations';
 
 import { GenerateTokens, LoadPatientByToken } from '@/domain/usecases';
-import { badRequest, ok, serverError, unauthorized } from '@/presentation/helpers/http/http-helper';
-import { Controller, HttpRequest, HttpResponse } from '@/presentation/protocols';
 
 export class RefreshTokensController implements Controller {
   constructor(

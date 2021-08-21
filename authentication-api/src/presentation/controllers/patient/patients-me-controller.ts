@@ -1,6 +1,13 @@
+import {
+  Controller,
+  HttpRequest,
+  HttpResponse,
+  ok,
+  serverError,
+  unauthorized,
+} from 'presentation-common';
+
 import { LoadPatientById } from '@/domain/usecases';
-import { ok, serverError, unauthorized } from '@/presentation/helpers/http/http-helper';
-import { Controller, HttpRequest, HttpResponse } from '@/presentation/protocols';
 
 export class PatientsMeController implements Controller {
   constructor(private readonly loadPatientById: LoadPatientById) {}

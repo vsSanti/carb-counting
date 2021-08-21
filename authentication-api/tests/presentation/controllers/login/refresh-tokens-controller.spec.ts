@@ -1,9 +1,14 @@
+import {
+  badRequest,
+  HttpRequest,
+  ok,
+  ServerError,
+  serverError,
+  unauthorized,
+} from 'presentation-common';
 import { ObjectValidatorSpy } from 'validations';
 
 import { RefreshTokensController } from '@/presentation/controllers/login';
-import { ServerError } from '@/presentation/errors';
-import { badRequest, ok, serverError, unauthorized } from '@/presentation/helpers/http/http-helper';
-import { HttpRequest } from '@/presentation/protocols';
 
 import { mockTokensModel, throwError } from '@/tests/domain/mocks';
 import { GenerateTokensSpy, LoadPatientByTokenSpy } from '@/tests/presentation/mocks';
