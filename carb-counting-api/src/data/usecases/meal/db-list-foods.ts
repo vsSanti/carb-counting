@@ -6,7 +6,7 @@ export class DbListFoods implements ListFoods {
   constructor(private readonly listFoodsRepository: ListFoodsRepository) {}
 
   async list(): Promise<FoodModel[]> {
-    await this.listFoodsRepository.listAll();
-    return null;
+    const foodModels = await this.listFoodsRepository.listAll();
+    return foodModels;
   }
 }
