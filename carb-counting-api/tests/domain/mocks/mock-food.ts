@@ -5,6 +5,7 @@ import { FoodModel } from '../models';
 export const mockFoodModel = (): FoodModel => ({
   id: faker.datatype.uuid(),
   createdAt: new Date(),
+  updatedAt: new Date(),
   description: faker.random.words(3),
   group: faker.random.arrayElement([
     'cereals',

@@ -36,6 +36,7 @@
     "jest": "^27.0.6",
     "json-schema-to-ts": "^1.5.0",
     "lint-staged": "^11.1.2",
+    "pg-mem": "^1.9.15",
     "prettier": "^2.3.2",
     "serverless": "^2.23.0",
     "serverless-webpack": "^5.3.5",
