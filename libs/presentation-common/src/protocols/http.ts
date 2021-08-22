@@ -1,10 +1,14 @@
+export type BodyType = {
+  errorMessage?: string;
+  error?: Error;
+  data?: any;
+  docs?: any[];
+  count?: number;
+};
+
 export type HttpResponse = {
   statusCode: number;
-  body: {
-    errorMessage?: string;
-    error?: Error;
-    data?: any;
-  };
+  body: BodyType;
   [key: string]: any;
 };
 

@@ -1,22 +1,21 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { ServerError, UnauthorizedError } from '..';
-import { HttpResponse } from '..';
+import { HttpResponse, BodyType } from '..';
 
-export const ok = (data: any): HttpResponse => {
+export const ok = (data: BodyType): HttpResponse => {
   return {
     statusCode: 200,
     body: data,
   };
 };
 
-export const created = (data: any): HttpResponse => {
+export const created = (data: BodyType): HttpResponse => {
   return {
     statusCode: 201,
     body: data,
   };
 };
 
-export const badRequest = (data: any): HttpResponse => {
+export const badRequest = (data: BodyType): HttpResponse => {
   return {
     statusCode: 400,
     body: data,
