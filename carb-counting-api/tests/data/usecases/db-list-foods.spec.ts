@@ -22,4 +22,9 @@ describe('DbListFoods Usecase', () => {
     const promise = sut.list();
     await expect(promise).rejects.toThrow();
   });
+
+  it('should return an array of foods on success', async () => {
+    const foodModels = await sut.list();
+    expect(listFoodsRepositorySpy.foodModels).toEqual(foodModels);
+  });
 });
