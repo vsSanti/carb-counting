@@ -1,5 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-cd carb-counting-api
+cd meal-api
 npm run test:coverage
