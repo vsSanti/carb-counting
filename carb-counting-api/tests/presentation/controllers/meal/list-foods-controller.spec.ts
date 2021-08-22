@@ -1,4 +1,4 @@
-import { ServerError, serverError } from 'presentation-common';
+import { ok, ServerError, serverError } from 'presentation-common';
 
 import { ListFoodsController } from '@/presentation/controllers/meal';
 
@@ -25,5 +25,16 @@ describe('ListFoods Controller', () => {
     const httpResponse = await sut.handle();
     expect(httpResponse).toEqual(serverError(new ServerError()));
     expect(errorSpy).toHaveBeenCalled();
+  });
+
+  it('should return 200 if everything succeeds', async () => {
+    const httpResponse = await sut.handle();
+    const expectedDocs = listFoodsSpy.foodModels.map((food) => ({
+      id: food.id,
+      group: food.group,
+      description: food.description,
+    }));
+
+    expect(httpResponse).toEqual(ok({ docs: expectedDocs }));
   });
 });

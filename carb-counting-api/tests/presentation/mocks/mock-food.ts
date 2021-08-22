@@ -4,11 +4,11 @@ import { ListFoods } from '@/domain/usecases';
 import { mockFoodModelList } from '@/tests/domain/mocks';
 
 export class ListFoodsSpy implements ListFoods {
-  patientModel = mockFoodModelList();
+  foodModels = mockFoodModelList();
   timesCalled = 0;
 
   async list(): Promise<FoodModel[]> {
     this.timesCalled += 1;
-    return Promise.resolve(this.patientModel);
+    return Promise.resolve(this.foodModels);
   }
 }
