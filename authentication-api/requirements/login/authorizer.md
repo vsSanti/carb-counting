@@ -1,4 +1,4 @@
-# Refresh tokens
+# Authorizer
 
 > ## Header
 - ✅ Authorization:
