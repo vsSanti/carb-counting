@@ -10,7 +10,7 @@ This route all foods registered on database.
 - ✅ If there's any kind of error, it should return 500;
 
 > ## Route
-- 🚫 **[GET]** `/foods`
+- ✅ **[GET]** `/foods`
 
 > ## Middleware
-- 🚫 [**authorizer**](../../../authentication-api/requirements/login/authorizer.md)
+- ✅ [**authorizer**](../../../authentication-api/requirements/login/authorizer.md)
