@@ -1,0 +1,38 @@
+service: cc-meal-api
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+  - serverless-ssm-fetch
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  memorySize: 128
+  timeout: 30
+  logRetentionInDays: 60
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-east-1'}
+  lambdaHashingVersion: 20201221
+  httpApi:
+    cors: true
+  apiGateway:
+    shouldStartNameWithService: true
+    minimumCompressionSize: 1024
+  environment:
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+
+functions: ${file(src/main/routes/index.yml)}
+
+custom:
+  authorizer: ${cf:cc-authorizer-api-${self:provider.stage}.AuthorizerLambdaFunctionQualifiedArn}
+  serverlessSsmFetch: 
+    DB_HOST: /carb-counting-meal/${self:provider.stage}/DB_HOST
+    DB_DATABASE_NAME: /carb-counting-meal/${self:provider.stage}/DB_DATABASE_NAME
+    DB_USERNAME: /carb-counting-meal/${self:provider.stage}/DB_USERNAME
+    DB_PASSWORD: /carb-counting-meal/${self:provider.stage}/DB_PASSWORD
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: 
+      forceInclude:
+        - pg

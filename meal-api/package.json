@@ -8,7 +8,9 @@
     "node": ">=16.x"
   },
   "scripts": {
+    "deploy": "sls deploy",
     "lint:fix": "eslint 'src/**' --fix",
+    "offline": "export AUTHORIZER='{\"principalId\": \"e27a3275-e677-4b1e-aaaf-5c44815d254a\"}' && sls offline start --httpPort 4000 --noTimeout --noAuth",
     "prepare": "cd .. && husky install meal-api/.husky",
     "pretest": "jest --clearCache",
     "test": "jest --passWithNoTests --no-cache --silent --noStackTrace --runInBand",
@@ -40,6 +42,8 @@
     "pg-mem": "^1.9.15",
     "prettier": "^2.3.2",
     "serverless": "^2.23.0",
+    "serverless-offline": "^8.0.0",
+    "serverless-ssm-fetch": "^1.0.2",
     "serverless-webpack": "^5.3.5",
     "ts-jest": "^27.0.5",
     "ts-loader": "^8.0.15",
