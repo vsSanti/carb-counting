@@ -28,12 +28,10 @@
     "bcrypt": "^5.0.1",
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.7.1",
-    "presentation-common": "file:../libs/presentation-common",
     "reflect-metadata": "^0.1.13",
     "source-map-support": "^0.5.19",
     "typeorm": "^0.2.29",
-    "typeorm-naming-strategies": "^2.0.0",
-    "validations": "file:../libs/validations"
+    "typeorm-naming-strategies": "^2.0.0"
   },
   "devDependencies": {
     "@serverless/typescript": "^2.23.0",

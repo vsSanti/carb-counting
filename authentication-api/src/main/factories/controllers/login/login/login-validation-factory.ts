@@ -1,10 +1,6 @@
-import {
-  EmailValidator,
-  GenericObjectValidator,
-  GenericPropertyBuilder,
-  ObjectValidator,
-  StringValidator,
-} from 'validations';
+import { GenericObjectValidator, GenericPropertyBuilder } from '@/validation/builders';
+import { ObjectValidator } from '@/validation/protocols';
+import { EmailValidator, StringValidator } from '@/validation/validators';
 
 export const makeLoginValidation = (): ObjectValidator => {
   const emailValidator = new EmailValidator();

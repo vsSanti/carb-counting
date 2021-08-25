@@ -1,17 +1,11 @@
-import {
-  badRequest,
-  HttpRequest,
-  ok,
-  ServerError,
-  serverError,
-  unauthorized,
-} from 'presentation-common';
-import { ObjectValidatorSpy } from 'validations';
-
 import { LoginController } from '@/presentation/controllers/login';
+import { ServerError } from '@/presentation/errors';
+import { badRequest, ok, serverError, unauthorized } from '@/presentation/helpers';
+import { HttpRequest } from '@/presentation/protocols';
 
 import { mockAuthenticationParams, throwError } from '@/tests/domain/mocks';
 import { AuthenticationSpy, GenerateTokensSpy } from '@/tests/presentation/mocks';
+import { ObjectValidatorSpy } from '@/tests/validations/mocks';
 
 const mockRequest = (): HttpRequest => {
   return {

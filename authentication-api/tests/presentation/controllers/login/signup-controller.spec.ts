@@ -1,18 +1,11 @@
-import {
-  badRequest,
-  conflict,
-  created,
-  HttpRequest,
-  ParameterInUseError,
-  ServerError,
-  serverError,
-} from 'presentation-common';
-import { ObjectValidatorSpy } from 'validations';
-
 import { SignUpController } from '@/presentation/controllers/login';
+import { ParameterInUseError, ServerError } from '@/presentation/errors';
+import { badRequest, conflict, created, serverError } from '@/presentation/helpers';
+import { HttpRequest } from '@/presentation/protocols';
 
 import { mockAddPatientParams, throwError } from '@/tests/domain/mocks';
 import { AddPatientSpy, GenerateTokensSpy } from '@/tests/presentation/mocks';
+import { ObjectValidatorSpy } from '@/tests/validations/mocks';
 
 const mockRequest = (): HttpRequest => {
   const params = mockAddPatientParams();

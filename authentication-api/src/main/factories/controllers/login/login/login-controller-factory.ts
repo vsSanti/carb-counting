@@ -1,8 +1,7 @@
-import { Controller } from 'presentation-common';
-
 import { makeCriptographyGenerateTokens } from '@/main/factories/usecases/criptography/criptograpgy-generate-tokens-factory';
 import { makeDbAuthentication } from '@/main/factories/usecases/patient/db-authentication-factory';
 import { LoginController } from '@/presentation/controllers/login';
+import { Controller } from '@/presentation/protocols';
 
 import { makeLoginValidation } from './login-validation-factory';
 

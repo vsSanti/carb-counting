@@ -1,15 +1,7 @@
-import {
-  badRequest,
-  Controller,
-  HttpRequest,
-  HttpResponse,
-  ok,
-  serverError,
-  unauthorized,
-} from 'presentation-common';
-import { ObjectValidator } from 'validations';
-
 import { Authentication, GenerateTokens } from '@/domain/usecases';
+import { badRequest, ok, serverError, unauthorized } from '@/presentation/helpers';
+import { Controller, HttpRequest, HttpResponse } from '@/presentation/protocols';
+import { ObjectValidator } from '@/validation/protocols';
 
 export class LoginController implements Controller {
   constructor(

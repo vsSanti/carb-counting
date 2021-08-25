@@ -1,17 +1,15 @@
+import { makeSignUpValidation } from '@/main/factories/controllers/login/sign-up/sign-up-validation-factory';
+import { GenericObjectValidator, GenericPropertyBuilder } from '@/validation/builders';
 import {
   CompareValidator,
   DateValidator,
   EmailValidator,
   EnumValidator,
-  GenericObjectValidator,
-  GenericPropertyBuilder,
   NumberValidator,
   StringValidator,
-} from 'validations';
+} from '@/validation/validators';
 
-import { makeSignUpValidation } from '@/main/factories/controllers/login/sign-up/sign-up-validation-factory';
-
-jest.mock('../../../../node_modules/validations/dist/builders/generic-object-validator');
+jest.mock('@/validation/builders/generic-object-validator');
 
 describe('SignUpValidation Factory', () => {
   it('should call GenericObjectValidator with correct validations', () => {

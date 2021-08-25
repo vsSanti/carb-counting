@@ -1,16 +1,8 @@
-import {
-  badRequest,
-  conflict,
-  Controller,
-  created,
-  HttpRequest,
-  HttpResponse,
-  ParameterInUseError,
-  serverError,
-} from 'presentation-common';
-import { ObjectValidator } from 'validations';
-
 import { AddPatient, GenerateTokens } from '@/domain/usecases';
+import { ParameterInUseError } from '@/presentation/errors';
+import { badRequest, conflict, created, serverError } from '@/presentation/helpers';
+import { Controller, HttpRequest, HttpResponse } from '@/presentation/protocols';
+import { ObjectValidator } from '@/validation/protocols';
 
 export class SignUpController implements Controller {
   constructor(
