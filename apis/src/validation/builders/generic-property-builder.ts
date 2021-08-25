@@ -1,8 +1,4 @@
-import {
-  PropertyValidation,
-  PropertyBuilder,
-  PropertyBuilderParams,
-} from '@/validation/protocols';
+import { PropertyValidation, PropertyBuilder, PropertyBuilderParams } from '@/validation/protocols';
 
 export class GenericPropertyBuilder implements PropertyBuilder {
   constructor(

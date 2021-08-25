@@ -7,6 +7,11 @@ import { PgPatient } from '@/infra/db/pg/entities';
 export const makeFakeDb = async (): Promise<IMemoryDb> => {
   const db = newDb();
 
+  db.public.registerFunction({
+    implementation: () => 'test',
+    name: 'current_database',
+  });
+
   db.registerExtension('uuid-ossp', (schema) => {
     schema.registerFunction({
       name: 'uuid_generate_v4',
