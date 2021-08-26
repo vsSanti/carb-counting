@@ -2,7 +2,7 @@ import { createConnection, getConnection, ConnectionOptions } from 'typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 import env from '@/main/config/env';
-import { PgPatient } from '@/infra/db/pg/entities';
+import { PgPatient } from '@/infra/auth/db/pg/entities';
 
 export async function openTypeORMConnection(): Promise<any> {
   const options: ConnectionOptions = {

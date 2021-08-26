@@ -2,7 +2,7 @@ import { DataType, IMemoryDb, newDb } from 'pg-mem';
 import { Connection } from 'typeorm';
 import faker from 'faker';
 
-import { PgPatient } from '@/infra/db/pg/entities';
+import { PgPatient } from '@/infra/auth/db/pg/entities';
 
 export const makeFakeDb = async (): Promise<IMemoryDb> => {
   const db = newDb();

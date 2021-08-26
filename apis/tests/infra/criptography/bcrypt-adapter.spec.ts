@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt';
 
-import { BcryptAdapter } from '@/infra/criptography';
+import { BcryptAdapter } from '@/infra/auth/criptography';
 
-import { throwError } from '@/tests/domain/mocks';
+import { throwError } from '@/tests/domain/auth/mocks';
 
 jest.mock('bcrypt', () => ({
   async compare(): Promise<boolean> {

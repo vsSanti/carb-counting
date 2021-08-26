@@ -2,11 +2,11 @@ import faker from 'faker';
 import { IBackup } from 'pg-mem';
 import { getRepository, Repository, getConnection } from 'typeorm';
 
-import { AddPatientParams } from '@/domain/usecases/auth';
-import { PgPatientRepository } from '@/infra/db/pg/repositories/auth';
-import { PgPatient } from '@/infra/db/pg/entities';
+import { AddPatientParams } from '@/domain/auth/usecases';
+import { PgPatientRepository } from '@/infra/auth/db/pg/repositories';
+import { PgPatient } from '@/infra/auth/db/pg/entities';
 
-import { mockAddPatientParams } from '@/tests/domain/mocks';
+import { mockAddPatientParams } from '@/tests/domain/auth/mocks';
 import { makeFakeDb } from '@/tests/infra/db/pg/mocks';
 
 describe('PgUserAccount Repository', () => {
