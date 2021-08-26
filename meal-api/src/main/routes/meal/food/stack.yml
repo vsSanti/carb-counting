@@ -1,7 +1,0 @@
-foods:
-  handler: src/main/routes/meal/food/function.handler
-  events:
-    - http:
-        path: foods
-        method: GET
-        authorizer: ${self:custom.authorizer}
