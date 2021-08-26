@@ -19,6 +19,7 @@ export const mockPatientModel = (): PatientModel => ({
   ...mockAddPatientParams(),
   id: faker.datatype.uuid(),
   createdAt: new Date(),
+  updatedAt: new Date(),
 });
 
 export const mockAuthenticationParams = (): AuthenticationParams => ({

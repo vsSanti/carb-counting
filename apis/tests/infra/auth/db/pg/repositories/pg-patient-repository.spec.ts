@@ -7,7 +7,7 @@ import { PgPatientRepository } from '@/infra/auth/db/pg/repositories';
 import { PgPatient } from '@/infra/auth/db/pg/entities';
 
 import { mockAddPatientParams } from '@/tests/domain/auth/mocks';
-import { makeFakeDb } from '@/tests/infra/db/pg/mocks';
+import { makeFakeDb } from '@/tests/infra/auth/db/pg/mocks';
 
 describe('PgUserAccount Repository', () => {
   let sut: PgPatientRepository;
