@@ -22,7 +22,7 @@ provider:
   environment:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
 
-functions: ${file(src/main/routes/auth/index.yml)}
+functions: ${file(src/auth/main/routes/index.yml)}
 
 custom:
   serverlessSsmFetch:    

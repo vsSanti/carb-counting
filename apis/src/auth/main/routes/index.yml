@@ -1,0 +1,5 @@
+- ${file(src/auth/main/routes/login/authorizer/stack.yml)}
+- ${file(src/auth/main/routes/login/login/stack.yml)}
+- ${file(src/auth/main/routes/login/refresh-tokens/stack.yml)}
+- ${file(src/auth/main/routes/login/sign-up/stack.yml)}
+- ${file(src/auth/main/routes/patient/patients-me/stack.yml)}
