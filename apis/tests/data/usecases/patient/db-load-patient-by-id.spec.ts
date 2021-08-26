@@ -1,6 +1,6 @@
 import faker from 'faker';
 
-import { DbLoadPatientById } from '@/data/usecases/patient/db-load-patient-by-id';
+import { DbLoadPatientById } from '@/data/usecases/auth/patient/db-load-patient-by-id';
 
 import { LoadPatientByIdRepositorySpy } from '@/tests/data/mocks';
 import { throwError } from '@/tests/domain/mocks';

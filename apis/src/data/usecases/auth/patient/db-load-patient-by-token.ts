@@ -1,5 +1,5 @@
-import { Decrypter } from '@/data/protocols/criptography';
-import { LoadPatientByIdRepository } from '@/data/protocols/db';
+import { Decrypter } from '@/data/protocols/auth/criptography';
+import { LoadPatientByIdRepository } from '@/data/protocols/auth/db';
 import { PatientModel } from '@/domain/models/auth';
 import { LoadPatientByToken } from '@/domain/usecases/auth';
 

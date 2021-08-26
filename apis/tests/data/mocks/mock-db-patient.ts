@@ -2,7 +2,7 @@ import {
   AddPatientRepository,
   LoadPatientByEmailRepository,
   LoadPatientByIdRepository,
-} from '@/data/protocols/db';
+} from '@/data/protocols/auth/db';
 import { PatientModel } from '@/domain/models/auth';
 import { AddPatientParams } from '@/domain/usecases/auth';
 

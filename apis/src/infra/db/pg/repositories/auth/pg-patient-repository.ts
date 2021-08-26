@@ -4,7 +4,7 @@ import {
   AddPatientRepository,
   LoadPatientByEmailRepository,
   LoadPatientByIdRepository,
-} from '@/data/protocols/db';
+} from '@/data/protocols/auth/db';
 import { PatientModel } from '@/domain/models/auth';
 import { PgPatient } from '@/infra/db/pg/entities';
 import { AddPatientParams } from '@/domain/usecases/auth';

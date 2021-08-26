@@ -1,5 +1,5 @@
-import { Hasher } from '@/data/protocols/criptography';
-import { AddPatientRepository, LoadPatientByEmailRepository } from '@/data/protocols/db';
+import { Hasher } from '@/data/protocols/auth/criptography';
+import { AddPatientRepository, LoadPatientByEmailRepository } from '@/data/protocols/auth/db';
 import { PatientModel } from '@/domain/models/auth';
 import { AddPatient, AddPatientParams } from '@/domain/usecases/auth';
 

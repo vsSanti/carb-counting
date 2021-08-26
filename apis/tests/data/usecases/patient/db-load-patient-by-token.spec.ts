@@ -1,6 +1,6 @@
 import faker from 'faker';
 
-import { DbLoadPatientByToken } from '@/data/usecases/patient/db-load-patient-by-token';
+import { DbLoadPatientByToken } from '@/data/usecases/auth/patient/db-load-patient-by-token';
 
 import { DecrypterSpy, LoadPatientByIdRepositorySpy } from '@/tests/data/mocks';
 import { throwError } from '@/tests/domain/mocks';

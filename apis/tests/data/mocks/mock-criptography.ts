@@ -1,6 +1,6 @@
 import faker from 'faker';
 
-import { Decrypter, Encrypter, HashComparer, Hasher } from '@/data/protocols/criptography';
+import { Decrypter, Encrypter, HashComparer, Hasher } from '@/data/protocols/auth/criptography';
 
 export class DecrypterSpy implements Decrypter {
   plainText = faker.datatype.uuid();

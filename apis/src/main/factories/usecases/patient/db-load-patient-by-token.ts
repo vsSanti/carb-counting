@@ -1,4 +1,4 @@
-import { DbLoadPatientByToken } from '@/data/usecases/patient/db-load-patient-by-token';
+import { DbLoadPatientByToken } from '@/data/usecases/auth/patient/db-load-patient-by-token';
 import { LoadPatientByToken } from '@/domain/usecases/auth';
 import { JwtAdapter } from '@/infra/criptography';
 import { PgPatientRepository } from '@/infra/db/pg/repositories/auth';

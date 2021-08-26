@@ -1,4 +1,4 @@
-import { Encrypter } from '@/data/protocols/criptography';
+import { Encrypter } from '@/data/protocols/auth/criptography';
 import { TokensModel } from '@/domain/models/auth';
 import { GenerateTokens } from '@/domain/usecases/auth';
 

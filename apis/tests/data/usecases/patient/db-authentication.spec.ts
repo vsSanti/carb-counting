@@ -1,4 +1,4 @@
-import { DbAuthentication } from '@/data/usecases/patient/db-authentication';
+import { DbAuthentication } from '@/data/usecases/auth/patient/db-authentication';
 import { AuthenticationParams } from '@/domain/usecases/auth';
 
 import { mockAuthenticationParams, throwError } from '@/tests/domain/mocks';

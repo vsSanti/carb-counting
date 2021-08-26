@@ -1,4 +1,4 @@
-import { DbAuthentication } from '@/data/usecases/patient/db-authentication';
+import { DbAuthentication } from '@/data/usecases/auth/patient/db-authentication';
 import { Authentication } from '@/domain/usecases/auth';
 import { BcryptAdapter } from '@/infra/criptography';
 import { PgPatientRepository } from '@/infra/db/pg/repositories/auth';

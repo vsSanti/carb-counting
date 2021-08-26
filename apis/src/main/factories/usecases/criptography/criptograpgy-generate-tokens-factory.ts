@@ -1,4 +1,4 @@
-import { CriptographyGenerateTokens } from '@/data/usecases/criptography/criptography-generate-tokens';
+import { CriptographyGenerateTokens } from '@/data/usecases/auth/criptography/criptography-generate-tokens';
 import { GenerateTokens } from '@/domain/usecases/auth';
 import { JwtAdapter } from '@/infra/criptography';
 import env from '@/main/config/env';

@@ -1,6 +1,6 @@
 import faker from 'faker';
 
-import { CriptographyGenerateTokens } from '@/data/usecases/criptography/criptography-generate-tokens';
+import { CriptographyGenerateTokens } from '@/data/usecases/auth/criptography/criptography-generate-tokens';
 
 import { EncrypterSpy } from '@/tests/data/mocks';
 import { throwError } from '@/tests/domain/mocks';

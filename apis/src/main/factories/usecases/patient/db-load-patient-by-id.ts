@@ -1,4 +1,4 @@
-import { DbLoadPatientById } from '@/data/usecases/patient/db-load-patient-by-id';
+import { DbLoadPatientById } from '@/data/usecases/auth/patient/db-load-patient-by-id';
 import { LoadPatientById } from '@/domain/usecases/auth';
 import { PgPatientRepository } from '@/infra/db/pg/repositories/auth';
 

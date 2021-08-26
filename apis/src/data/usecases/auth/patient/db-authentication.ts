@@ -1,5 +1,5 @@
-import { HashComparer } from '@/data/protocols/criptography';
-import { LoadPatientByEmailRepository } from '@/data/protocols/db';
+import { HashComparer } from '@/data/protocols/auth/criptography';
+import { LoadPatientByEmailRepository } from '@/data/protocols/auth/db';
 import { PatientModel } from '@/domain/models/auth';
 import { Authentication, AuthenticationParams } from '@/domain/usecases/auth';
 
