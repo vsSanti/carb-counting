@@ -1,7 +1,7 @@
 import faker from 'faker';
 
-import { TokensModel } from '@/domain/models';
-import { GenerateTokens } from '@/domain/usecases';
+import { TokensModel } from '@/domain/models/auth';
+import { GenerateTokens } from '@/domain/usecases/auth';
 
 export class GenerateTokensSpy implements GenerateTokens {
   tokensModel = {

@@ -3,12 +3,12 @@ This service is responsible for implementing all sorts of authentication endpoin
 
 > ## Routes
 ### Login routes
-1. [Sign Up](./requirements/login/sign-up.md)
-2. [Login](./requirements/login/login.md)
-3. [Refresh](./requirements/login/refresh.md)
+1. [Sign Up](./requirements/auth/login/sign-up.md)
+2. [Login](./requirements/auth/login/login.md)
+3. [Refresh](./requirements/auth/login/refresh.md)
 ### Patients
-1. [Patients Me](./requirements/patient/patients-me.md)
+1. [Patients Me](./requirements/auth/patient/patients-me.md)
 
 
 > ## Middlewares
-1. [Authorizer](./requirements/login/authorizer.md)
+1. [Authorizer](./requirements/auth/login/authorizer.md)

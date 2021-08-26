@@ -1,7 +1,7 @@
 import { DbLoadPatientByToken } from '@/data/usecases/patient/db-load-patient-by-token';
-import { LoadPatientByToken } from '@/domain/usecases';
+import { LoadPatientByToken } from '@/domain/usecases/auth';
 import { JwtAdapter } from '@/infra/criptography';
-import { PgPatientRepository } from '@/infra/db/pg/repositories';
+import { PgPatientRepository } from '@/infra/db/pg/repositories/auth';
 import env from '@/main/config/env';
 
 export const makeDbLoadPatientByToken = (): LoadPatientByToken => {

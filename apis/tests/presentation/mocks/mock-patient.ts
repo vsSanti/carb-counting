@@ -1,4 +1,4 @@
-import { PatientModel } from '@/domain/models';
+import { PatientModel } from '@/domain/models/auth';
 import {
   AddPatient,
   AddPatientParams,
@@ -6,7 +6,7 @@ import {
   AuthenticationParams,
   LoadPatientById,
   LoadPatientByToken,
-} from '@/domain/usecases';
+} from '@/domain/usecases/auth';
 
 import { mockPatientModel } from '@/tests/domain/mocks';
 

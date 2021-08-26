@@ -6,10 +6,10 @@
   "description": "Authentication API using Serverless",
   "main": "serverless.ts",
   "scripts": {
-    "deploy": "sls deploy",
+    "deploy:auth": "sls deploy -c infra/cc-authorizer-api-stack.yml",
     "lint:fix": "eslint 'src/**' --fix",
     "prepare": "cd .. && husky install apis/.husky",
-    "offline": "sls offline start --httpPort 4000 --noTimeout",
+    "offline:auth": "sls offline start -c infra/cc-authorizer-api-stack.yml --httpPort 4000 --noTimeout",
     "pretest": "jest --clearCache",
     "test": "jest --passWithNoTests --no-cache --silent --noStackTrace --runInBand",
     "test:coverage": "npm test -- --coverage",

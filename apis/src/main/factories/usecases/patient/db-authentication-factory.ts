@@ -1,7 +1,7 @@
 import { DbAuthentication } from '@/data/usecases/patient/db-authentication';
-import { Authentication } from '@/domain/usecases';
+import { Authentication } from '@/domain/usecases/auth';
 import { BcryptAdapter } from '@/infra/criptography';
-import { PgPatientRepository } from '@/infra/db/pg/repositories';
+import { PgPatientRepository } from '@/infra/db/pg/repositories/auth';
 
 export const makeDbAuthentication = (): Authentication => {
   const bcryptAdapter = new BcryptAdapter(12);

@@ -1,0 +1,2 @@
+authorizer:
+  handler: src/main/routes/auth/login/authorizer/function.handler

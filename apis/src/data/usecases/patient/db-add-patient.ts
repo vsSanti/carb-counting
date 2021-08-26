@@ -1,7 +1,7 @@
 import { Hasher } from '@/data/protocols/criptography';
 import { AddPatientRepository, LoadPatientByEmailRepository } from '@/data/protocols/db';
-import { PatientModel } from '@/domain/models';
-import { AddPatient, AddPatientParams } from '@/domain/usecases';
+import { PatientModel } from '@/domain/models/auth';
+import { AddPatient, AddPatientParams } from '@/domain/usecases/auth';
 
 export class DbAddPatient implements AddPatient {
   constructor(

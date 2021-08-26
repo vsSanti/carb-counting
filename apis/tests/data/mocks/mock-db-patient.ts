@@ -3,8 +3,8 @@ import {
   LoadPatientByEmailRepository,
   LoadPatientByIdRepository,
 } from '@/data/protocols/db';
-import { PatientModel } from '@/domain/models';
-import { AddPatientParams } from '@/domain/usecases';
+import { PatientModel } from '@/domain/models/auth';
+import { AddPatientParams } from '@/domain/usecases/auth';
 
 import { mockPatientModel } from '@/tests/domain/mocks';
 

@@ -1,6 +1,6 @@
 import { LoadPatientByIdRepository } from '@/data/protocols/db';
-import { PatientModel } from '@/domain/models';
-import { LoadPatientById } from '@/domain/usecases';
+import { PatientModel } from '@/domain/models/auth';
+import { LoadPatientById } from '@/domain/usecases/auth';
 
 export class DbLoadPatientById implements LoadPatientById {
   constructor(private readonly loadPatientByIdRepository: LoadPatientByIdRepository) {}

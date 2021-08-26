@@ -1,6 +1,0 @@
-refresh-tokens:
-  handler: src/main/routes/login/refresh-tokens/function.handler
-  events:
-    - http:
-        path: refresh
-        method: POST

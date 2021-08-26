@@ -1,0 +1,7 @@
+sign-up:
+  handler: src/main/routes/auth/login/sign-up/function.handler
+  memorySize: 256
+  events:
+    - http:
+        path: sign-up
+        method: POST

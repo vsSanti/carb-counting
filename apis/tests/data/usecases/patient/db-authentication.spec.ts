@@ -1,5 +1,5 @@
 import { DbAuthentication } from '@/data/usecases/patient/db-authentication';
-import { AuthenticationParams } from '@/domain/usecases';
+import { AuthenticationParams } from '@/domain/usecases/auth';
 
 import { mockAuthenticationParams, throwError } from '@/tests/domain/mocks';
 import { HashComparerSpy, LoadPatientByEmailRepositorySpy } from '@/tests/data/mocks';

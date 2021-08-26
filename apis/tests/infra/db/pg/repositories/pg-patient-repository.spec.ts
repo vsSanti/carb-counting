@@ -2,8 +2,8 @@ import faker from 'faker';
 import { IBackup } from 'pg-mem';
 import { getRepository, Repository, getConnection } from 'typeorm';
 
-import { AddPatientParams } from '@/domain/usecases';
-import { PgPatientRepository } from '@/infra/db/pg/repositories';
+import { AddPatientParams } from '@/domain/usecases/auth';
+import { PgPatientRepository } from '@/infra/db/pg/repositories/auth';
 import { PgPatient } from '@/infra/db/pg/entities';
 
 import { mockAddPatientParams } from '@/tests/domain/mocks';

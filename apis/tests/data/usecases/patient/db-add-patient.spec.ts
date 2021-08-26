@@ -1,5 +1,5 @@
 import { DbAddPatient } from '@/data/usecases/patient/db-add-patient';
-import { AddPatientParams } from '@/domain/usecases';
+import { AddPatientParams } from '@/domain/usecases/auth';
 
 import { mockAddPatientParams, mockPatientModel, throwError } from '@/tests/domain/mocks';
 import {

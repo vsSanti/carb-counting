@@ -1,6 +1,6 @@
 import { Encrypter } from '@/data/protocols/criptography';
-import { TokensModel } from '@/domain/models';
-import { GenerateTokens } from '@/domain/usecases';
+import { TokensModel } from '@/domain/models/auth';
+import { GenerateTokens } from '@/domain/usecases/auth';
 
 export class CriptographyGenerateTokens implements GenerateTokens {
   constructor(private readonly encrypter: Encrypter) {}

@@ -1,7 +1,7 @@
 import { Decrypter } from '@/data/protocols/criptography';
 import { LoadPatientByIdRepository } from '@/data/protocols/db';
-import { PatientModel } from '@/domain/models';
-import { LoadPatientByToken } from '@/domain/usecases';
+import { PatientModel } from '@/domain/models/auth';
+import { LoadPatientByToken } from '@/domain/usecases/auth';
 
 export class DbLoadPatientByToken implements LoadPatientByToken {
   constructor(

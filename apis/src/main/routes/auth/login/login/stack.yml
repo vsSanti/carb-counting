@@ -1,0 +1,7 @@
+login:
+  handler: src/main/routes/auth/login/login/function.handler
+  memorySize: 256
+  events:
+    - http:
+        path: login
+        method: POST

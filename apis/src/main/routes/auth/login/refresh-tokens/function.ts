@@ -1,0 +1,10 @@
+import 'source-map-support/register';
+
+import { lambdaRouteAdapter } from '@/main/adapters/lambda-route-adapter';
+import { makeRefreshTokensController } from '@/main/factories/controllers/auth/login/refresh-tokens/refresh-tokens-controller-factory';
+
+export const handler = lambdaRouteAdapter({
+  post: {
+    handler: makeRefreshTokensController(),
+  },
+});

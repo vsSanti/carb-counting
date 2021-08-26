@@ -1,7 +1,7 @@
 import faker from 'faker';
 
-import { PatientModel } from '@/domain/models';
-import { AddPatientParams, AuthenticationParams } from '@/domain/usecases';
+import { PatientModel } from '@/domain/models/auth';
+import { AddPatientParams, AuthenticationParams } from '@/domain/usecases/auth';
 
 export const mockAddPatientParams = (): AddPatientParams => ({
   email: faker.internet.email(),

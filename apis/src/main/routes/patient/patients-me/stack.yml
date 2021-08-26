@@ -1,7 +1,0 @@
-patients-me:
-  handler: src/main/routes/patient/patients-me/function.handler
-  events:
-    - http:
-        path: patients/me
-        method: GET
-        authorizer: authorizer

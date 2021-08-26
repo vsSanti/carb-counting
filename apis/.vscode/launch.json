@@ -7,9 +7,9 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Serverless Offline",
+      "name": "Auth Offline",
       "program": "${workspaceFolder}/node_modules/serverless/bin/serverless",
-      "args": ["offline", "start", "--httpPort", "4000", "--noTimeout"],
+      "args": ["offline", "start", "-c", "infra/cc-authorizer-api-stack.yml", "--httpPort", "4000", "--noTimeout"],
       "protocol": "inspector",
       "sourceMaps": true,
       "runtimeArgs": ["--lazy"],
