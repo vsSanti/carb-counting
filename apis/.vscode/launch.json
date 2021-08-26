@@ -19,6 +19,23 @@
       "windows": {
         "program": "${workspaceRoot}\\node_modules\\serverless\\bin\\serverless"
       }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Meal Offline",
+      "program": "${workspaceFolder}/node_modules/serverless/bin/serverless",
+      "args": ["offline", "start", "-c", "infra/cc-meal-api-stack.yml", "--httpPort", "4000", "--noTimeout", "--noAuth"],
+      "protocol": "inspector",
+      "sourceMaps": true,
+      "envFile": "${workspaceFolder}/env/.meal.env",
+      "runtimeArgs": ["--lazy"],
+      "outFiles": ["${workspaceFolder}/src/**/*.ts"],
+      "runtimeExecutable": "node",
+      "restart": true,
+      "windows": {
+        "program": "${workspaceRoot}\\node_modules\\serverless\\bin\\serverless"
+      }
     }
   ]
 }

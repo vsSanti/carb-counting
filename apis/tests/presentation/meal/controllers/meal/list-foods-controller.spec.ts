@@ -1,6 +1,6 @@
 import { ServerError } from '@/presentation/common/errors';
 import { ok, serverError } from '@/presentation/common/helpers';
-import { ListFoodsController } from '@/presentation/meal/controllers/food';
+import { ListFoodsController } from '@/presentation/meal/controllers/meal';
 
 import { throwError } from '@/tests/domain/common';
 import { ListFoodsSpy } from '@/tests/presentation/meal/mocks';

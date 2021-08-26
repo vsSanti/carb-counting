@@ -16,4 +16,4 @@ coverage
 
 # Configs
 ormconfig.js
-.env
+*.env

@@ -1,4 +1,5 @@
 import { APIGatewayEvent, ProxyResult } from 'aws-lambda';
+import { ConnectionOptions } from 'typeorm';
 
 import { openTypeORMConnection } from '@/main/helper/open-typeorm-connection';
 import { Controller, HttpRequest, HttpResponse } from '@/presentation/common/protocols';
@@ -9,13 +10,15 @@ type EventHandler = {
 };
 
 export type LambdaRouteAdapterParams = {
+  isPrivate?: boolean;
+  typeORMOptions: ConnectionOptions;
   get?: EventHandler;
   post?: EventHandler;
 };
 
 export const lambdaRouteAdapter = (params: LambdaRouteAdapterParams) => {
   return async (event: APIGatewayEvent): Promise<ProxyResult> => {
-    await openTypeORMConnection();
+    await openTypeORMConnection(params.typeORMOptions);
 
     const method: EventHandler = params[event.httpMethod.toLowerCase()];
     if (!method) {
@@ -29,7 +32,7 @@ export const lambdaRouteAdapter = (params: LambdaRouteAdapterParams) => {
       body: JSON.parse(event.body),
     };
 
-    if (method.isPrivate) {
+    if (params.isPrivate || method.isPrivate) {
       httpRequest.patientId = event.requestContext.authorizer.principalId;
     }
 

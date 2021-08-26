@@ -19,7 +19,7 @@ module.exports = {
     '<rootDir>/src/**/*.ts',
     '!<rootDir>/src/main/**',
     '!<rootDir>/src/**/index.ts',
-    '!<rootDir>/src/infra/db/pg/migrations/**'
+    '!<rootDir>/src/infra/**/db/pg/migrations/**'
   ],
 
   // The directory where Jest should output its coverage files
