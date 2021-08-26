@@ -5,7 +5,7 @@ import { ServerError } from '@/presentation/common/errors';
 import { ok, serverError, unauthorized } from '@/presentation/common/helpers';
 import { HttpRequest } from '@/presentation/common/protocols';
 
-import { throwError } from '@/tests/domain/auth/mocks';
+import { throwError } from '@/tests/domain/common';
 import { LoadPatientByIdSpy } from '@/tests/presentation/auth/mocks';
 
 const mockRequest = (patientId: string): HttpRequest => {

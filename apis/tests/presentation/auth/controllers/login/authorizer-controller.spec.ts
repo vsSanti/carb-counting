@@ -3,7 +3,7 @@ import faker from 'faker';
 import { AuthorizerController } from '@/presentation/auth/controllers/login';
 import { HttpRequest } from '@/presentation/common/protocols';
 
-import { throwError } from '@/tests/domain/auth/mocks';
+import { throwError } from '@/tests/domain/common';
 import { LoadPatientByTokenSpy } from '@/tests/presentation/auth/mocks';
 
 const mockRequest = (accessToken): HttpRequest => {

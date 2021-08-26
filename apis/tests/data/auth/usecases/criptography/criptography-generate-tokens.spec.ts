@@ -3,7 +3,7 @@ import faker from 'faker';
 import { CriptographyGenerateTokens } from '@/data/auth/usecases/criptography/criptography-generate-tokens';
 
 import { EncrypterSpy } from '@/tests/data/auth/mocks';
-import { throwError } from '@/tests/domain/auth/mocks';
+import { throwError } from '@/tests/domain/common';
 
 describe('CriptographyGenerateTokens Usecase', () => {
   let encrypterSpy: EncrypterSpy;

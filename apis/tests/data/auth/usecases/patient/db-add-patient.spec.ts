@@ -1,7 +1,8 @@
 import { DbAddPatient } from '@/data/auth/usecases/patient/db-add-patient';
 import { AddPatientParams } from '@/domain/auth/usecases';
 
-import { mockAddPatientParams, mockPatientModel, throwError } from '@/tests/domain/auth/mocks';
+import { throwError } from '@/tests/domain/common';
+import { mockAddPatientParams, mockPatientModel } from '@/tests/domain/auth/mocks';
 import {
   AddPatientRepositorySpy,
   HasherSpy,

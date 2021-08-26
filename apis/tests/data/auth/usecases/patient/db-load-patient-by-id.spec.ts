@@ -2,8 +2,8 @@ import faker from 'faker';
 
 import { DbLoadPatientById } from '@/data/auth/usecases/patient/db-load-patient-by-id';
 
+import { throwError } from '@/tests/domain/common';
 import { LoadPatientByIdRepositorySpy } from '@/tests/data/auth/mocks';
-import { throwError } from '@/tests/domain/auth/mocks';
 
 describe('DbLoadPatientById Usecase', () => {
   let loadPatientByIdRepositorySpy: LoadPatientByIdRepositorySpy;

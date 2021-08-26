@@ -1,7 +1,8 @@
 import { DbAuthentication } from '@/data/auth/usecases/patient/db-authentication';
 import { AuthenticationParams } from '@/domain/auth/usecases';
 
-import { mockAuthenticationParams, throwError } from '@/tests/domain/auth/mocks';
+import { throwError } from '@/tests/domain/common';
+import { mockAuthenticationParams } from '@/tests/domain/auth/mocks';
 import { HashComparerSpy, LoadPatientByEmailRepositorySpy } from '@/tests/data/auth/mocks';
 
 describe('DbAuthentication Usecase', () => {

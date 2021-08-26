@@ -3,7 +3,7 @@ import faker from 'faker';
 import { DbLoadPatientByToken } from '@/data/auth/usecases/patient/db-load-patient-by-token';
 
 import { DecrypterSpy, LoadPatientByIdRepositorySpy } from '@/tests/data/auth/mocks';
-import { throwError } from '@/tests/domain/auth/mocks';
+import { throwError } from '@/tests/domain/common';
 
 describe('DbLoadPatientByToken Usecase', () => {
   let decrypterSpy: DecrypterSpy;

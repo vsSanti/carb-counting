@@ -3,7 +3,8 @@ import { ServerError } from '@/presentation/common/errors';
 import { badRequest, ok, serverError, unauthorized } from '@/presentation/common/helpers';
 import { HttpRequest } from '@/presentation/common/protocols';
 
-import { mockTokensModel, throwError } from '@/tests/domain/auth/mocks';
+import { throwError } from '@/tests/domain/common';
+import { mockTokensModel } from '@/tests/domain/auth/mocks';
 import { GenerateTokensSpy, LoadPatientByTokenSpy } from '@/tests/presentation/auth/mocks';
 import { ObjectValidatorSpy } from '@/tests/validations/mocks';
 

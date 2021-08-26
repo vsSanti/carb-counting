@@ -3,7 +3,8 @@ import { ParameterInUseError, ServerError } from '@/presentation/common/errors';
 import { badRequest, conflict, created, serverError } from '@/presentation/common/helpers';
 import { HttpRequest } from '@/presentation/common/protocols';
 
-import { mockAddPatientParams, throwError } from '@/tests/domain/auth/mocks';
+import { throwError } from '@/tests/domain/common';
+import { mockAddPatientParams } from '@/tests/domain/auth/mocks';
 import { AddPatientSpy, GenerateTokensSpy } from '@/tests/presentation/auth/mocks';
 import { ObjectValidatorSpy } from '@/tests/validations/mocks';
 
