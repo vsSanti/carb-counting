@@ -30,6 +30,7 @@ module.exports = {
   },
   optimization: {
     concatenateModules: false,
+    minimize: false,
   },
   target: 'node',
   externals: [nodeExternals()],

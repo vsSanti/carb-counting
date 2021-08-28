@@ -1,5 +1,8 @@
 foods:
   handler: src/meal/main/routes/meal/food/function.handler
+  layers:
+    - ${self:custom.layers.common}
+    - ${self:custom.layers.typeORM}
   events:
     - http:
         path: foods
