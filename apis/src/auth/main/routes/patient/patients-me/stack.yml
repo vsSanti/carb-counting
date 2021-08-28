@@ -1,5 +1,8 @@
 patients-me:
   handler: src/auth/main/routes/patient/patients-me/function.handler
+  layers:
+    - ${self:custom.layers.common}
+    - ${self:custom.layers.typeORM}
   events:
     - http:
         path: patients/me

@@ -1,2 +1,6 @@
 authorizer:
   handler: src/auth/main/routes/login/authorizer/function.handler
+  layers:
+    - ${self:custom.layers.common}
+    - ${self:custom.layers.criptography}
+    - ${self:custom.layers.typeORM}
