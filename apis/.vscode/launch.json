@@ -12,6 +12,7 @@
       "args": ["offline", "start", "-c", "infra/cc-authorizer-api-stack.yml", "--httpPort", "4000", "--noTimeout"],
       "protocol": "inspector",
       "sourceMaps": true,
+      "envFile": "${workspaceFolder}/env/.auth.env",
       "runtimeArgs": ["--lazy"],
       "outFiles": ["${workspaceFolder}/src/**/*.ts"],
       "runtimeExecutable": "node",

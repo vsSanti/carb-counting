@@ -11,7 +11,7 @@
     "deploy:meal": "sls deploy -c infra/cc-meal-api-stack.yml",
     "lint:fix": "eslint 'src/**' --fix",
     "prepare": "cd .. && husky install apis/.husky",
-    "offline:auth": "sls offline start -c infra/cc-authorizer-api-stack.yml --httpPort 4000 --noTimeout",
+    "offline:auth": "env-cmd -f ./env/.auth.env sls offline start -c infra/cc-authorizer-api-stack.yml --httpPort 4000 --noTimeout",
     "offline:meal": "env-cmd -f ./env/.meal.env sls offline start -c infra/cc-meal-api-stack.yml --httpPort 4000 --noTimeout --noAuth",
     "pretest": "jest --clearCache",
     "test": "jest --passWithNoTests --no-cache --silent --noStackTrace --runInBand",
