@@ -7,6 +7,7 @@
   "main": "serverless.ts",
   "scripts": {
     "deploy:auth": "sls deploy -c infra/cc-authorizer-api-stack.yml",
+    "deploy:layers": "sls deploy -c infra/cc-layers-stack.yml",
     "deploy:meal": "sls deploy -c infra/cc-meal-api-stack.yml",
     "lint:fix": "eslint 'src/**' --fix",
     "prepare": "cd .. && husky install apis/.husky",
