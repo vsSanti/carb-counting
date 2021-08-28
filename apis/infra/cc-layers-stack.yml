@@ -10,6 +10,8 @@ layers:
     path: ./layers/common
   criptography:
     path: ./layers/criptography
+  typeorm:
+    path: ./layers/typeorm
 
 resources:
   Outputs:
@@ -23,6 +25,11 @@ resources:
         Ref: CriptographyLambdaLayer
       Export:
         Name: CriptographyLambdaLayer
+    TypeORMLayerExport:
+      Value:
+        Ref: TypeormLambdaLayer
+      Export:
+        Name: TypeORMLambdaLayer
 
 custom:
   bundle:
