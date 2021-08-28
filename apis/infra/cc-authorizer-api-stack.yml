@@ -1,13 +1,13 @@
 service: cc-authorizer-api
+variablesResolutionMode: 20210326
 
 plugins:
   - serverless-webpack
   - serverless-offline
-  - serverless-ssm-fetch
 
 provider:
   name: aws
-  runtime: nodejs12.x
+  runtime: nodejs14.x
   memorySize: 128
   timeout: 30
   logRetentionInDays: 60
@@ -21,16 +21,15 @@ provider:
     minimumCompressionSize: 1024
   environment:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+    DB_HOST: ${ssm:/carb-counting-auth/${self:provider.stage}/DB_HOST}
+    DB_DATABASE_NAME: ${ssm:/carb-counting-auth/${self:provider.stage}/DB_DATABASE_NAME}
+    DB_USERNAME: ${ssm:/carb-counting-auth/${self:provider.stage}/DB_USERNAME}
+    DB_PASSWORD: ${ssm:/carb-counting-auth/${self:provider.stage}/DB_PASSWORD}
+    JWT_SECRET: ${ssm:/carb-counting-auth/${self:provider.stage}/JWT_SECRET}
 
 functions: ${file(src/auth/main/routes/index.yml)}
 
 custom:
-  serverlessSsmFetch:    
-    DB_HOST: /carb-counting-auth/${self:provider.stage}/DB_HOST
-    DB_DATABASE_NAME: /carb-counting-auth/${self:provider.stage}/DB_DATABASE_NAME
-    DB_USERNAME: /carb-counting-auth/${self:provider.stage}/DB_USERNAME
-    DB_PASSWORD: /carb-counting-auth/${self:provider.stage}/DB_PASSWORD
-    JWT_SECRET: /carb-counting-auth/${self:provider.stage}/JWT_SECRET
   webpack:
     webpackConfig: ./webpack.config.js
     includeModules: 
