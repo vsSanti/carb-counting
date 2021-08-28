@@ -1,0 +1,13 @@
+{
+  "name": "criptography",
+  "version": "1.0.0",
+  "description": "Criptography layer",
+  "license": "ISC",
+  "engines": {
+    "node": "14.x"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "jsonwebtoken": "^8.5.1"
+  }
+}

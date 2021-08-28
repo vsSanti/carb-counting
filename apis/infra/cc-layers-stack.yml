@@ -8,6 +8,8 @@ provider:
 layers:
   common:
     path: ./layers/common
+  criptography:
+    path: ./layers/criptography
 
 resources:
   Outputs:
@@ -16,6 +18,11 @@ resources:
         Ref: CommonLambdaLayer
       Export:
         Name: CommonLambdaLayer
+    CriptographyLayerExport:
+      Value:
+        Ref: CriptographyLambdaLayer
+      Export:
+        Name: CriptographyLambdaLayer
 
 custom:
   bundle:
