@@ -1,0 +1,22 @@
+service: cc-layers
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: ${opt:stage, 'dev'}
+
+layers:
+  common:
+    path: ./layers/common
+
+resources:
+  Outputs:
+    CommonLayerExport:
+      Value:
+        Ref: CommonLambdaLayer
+      Export:
+        Name: CommonLambdaLayer
+
+custom:
+  bundle:
+    linting: false
