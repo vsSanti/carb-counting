@@ -46,21 +46,21 @@ export class PgFood extends PgBaseModel {
     | 'legumes'
     | 'nuts_and_seeds';
 
-  @Column({ nullable: true })
+  @Column({ type: 'decimal', nullable: true })
   energy?: number;
 
-  @Column({ nullable: true })
+  @Column({ type: 'decimal', nullable: true })
   protein?: number;
 
-  @Column({ nullable: true })
+  @Column({ type: 'decimal', nullable: true })
   lipid?: number;
 
-  @Column({ nullable: true })
+  @Column({ type: 'decimal', nullable: true })
   carbohydrate?: number;
 
-  @Column({ nullable: true })
+  @Column({ type: 'decimal', nullable: true })
   fiber?: number;
 
-  @Column({ nullable: true })
+  @Column({ type: 'decimal', nullable: true })
   sodium?: number;
 }
