@@ -1,9 +1,13 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
 
 import PgBaseModel from '@/common/infra/db/pg/entities/base-model';
+import { PgMealFood } from './meal-food';
 
 @Entity('meals')
 export class PgMeal extends PgBaseModel {
+  @OneToMany(() => PgMealFood, (mealFood) => mealFood.meal)
+  mealFoods: PgMealFood[];
+
   @Column({ type: 'uuid' })
   patientId: string;
 

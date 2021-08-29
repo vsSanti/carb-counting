@@ -2,7 +2,7 @@ import { DataType, IMemoryDb, newDb } from 'pg-mem';
 import { Connection } from 'typeorm';
 import faker from 'faker';
 
-import { PgFood } from '@/meal/infra/db/pg/entities';
+import { PgFood, PgMeal, PgMealFood } from '@/meal/infra/db/pg/entities';
 
 export const makeFakeDb = async (): Promise<IMemoryDb> => {
   const db = newDb();
@@ -23,7 +23,7 @@ export const makeFakeDb = async (): Promise<IMemoryDb> => {
 
   const connection: Connection = await db.adapters.createTypeormConnection({
     type: 'postgres',
-    entities: [PgFood],
+    entities: [PgFood, PgMeal, PgMealFood],
   });
 
   await connection.synchronize();

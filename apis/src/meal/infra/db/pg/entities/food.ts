@@ -1,6 +1,7 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
 
 import PgBaseModel from '@/common/infra/db/pg/entities/base-model';
+import { PgMealFood } from './meal-food';
 
 export enum FOOD_GROUP {
   CEREALS = 'cereals',
@@ -22,6 +23,9 @@ export enum FOOD_GROUP {
 
 @Entity('foods')
 export class PgFood extends PgBaseModel {
+  @OneToMany(() => PgMealFood, (mealFood) => mealFood.food)
+  mealFoods?: PgMealFood[];
+
   @Column({ unique: true })
   taco_id: number;
 
