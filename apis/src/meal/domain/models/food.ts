@@ -1,6 +1,9 @@
 import { BaseModel } from '@/common/domain/base';
 
+import { MealFoodModel } from './meal-food';
+
 type Food = {
+  mealFoods?: MealFoodModel[];
   taco_id: number;
   group:
     | 'cereals'
