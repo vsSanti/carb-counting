@@ -2,7 +2,11 @@ import faker from 'faker';
 
 import { FoodModel } from '../models';
 
-export const mockFoodModel = (): FoodModel => ({
+type MockFoodModelParams = {
+  carbohydrate?: number;
+};
+
+export const mockFoodModel = ({ carbohydrate }: MockFoodModelParams = {}): FoodModel => ({
   id: faker.datatype.uuid(),
   createdAt: new Date(),
   updatedAt: new Date(),
@@ -25,7 +29,7 @@ export const mockFoodModel = (): FoodModel => ({
     'nuts_and_seeds',
   ]),
   taco_id: faker.datatype.number(),
-  carbohydrate: faker.datatype.number({ min: 0, max: 100 }),
+  carbohydrate: carbohydrate ?? faker.datatype.number({ min: 0, max: 100 }),
   energy: faker.datatype.number({ min: 0, max: 100 }),
   fiber: faker.datatype.number({ min: 0, max: 100 }),
   lipid: faker.datatype.number({ min: 0, max: 100 }),
