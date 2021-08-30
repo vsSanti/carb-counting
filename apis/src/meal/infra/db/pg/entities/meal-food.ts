@@ -13,12 +13,6 @@ export class PgMealFood extends PgBaseModel {
   @ManyToOne(() => PgFood, (food) => food.mealFoods)
   food: PgFood;
 
-  @Column()
-  mealId: string;
-
-  @Column()
-  foodId: string;
-
   @Column({ type: 'decimal' })
   weight: number;
 

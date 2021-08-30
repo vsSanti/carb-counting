@@ -5,9 +5,7 @@ import { MealModel } from './meal';
 
 type MealFood = {
   meal: MealModel;
-  food: FoodModel;
-  mealId: string;
-  foodId: string;
+  food: string | FoodModel;
   weight: number;
   carbohydrateTotal: number;
 };
