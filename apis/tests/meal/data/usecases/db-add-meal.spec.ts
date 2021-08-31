@@ -45,4 +45,9 @@ describe('DbAddMeal Usecase', () => {
     const errorPromise = sut.add(addMealParams);
     await expect(errorPromise).rejects.toThrow();
   });
+
+  it('should return a meal on success', async () => {
+    const meal = await sut.add(addMealParams);
+    expect(meal).toEqual(loadMealByIdRepositorySpy.mealModel);
+  });
 });
