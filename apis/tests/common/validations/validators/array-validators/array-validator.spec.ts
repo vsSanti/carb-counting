@@ -14,4 +14,11 @@ describe('Array Validator', () => {
     });
     expect(errorMessage).toBeUndefined();
   });
+
+  it("should return an error string if parameter isn't an array", () => {
+    const errorMessage = sut.validate({ fieldName: 'field', input: { field: undefined } });
+    expect(errorMessage).toBeTruthy();
+    expect(typeof errorMessage).toBe('string');
+    expect(errorMessage).toBe("It isn't an array.");
+  });
 });
