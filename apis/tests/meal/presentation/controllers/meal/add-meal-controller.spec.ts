@@ -4,6 +4,7 @@ import { AddMealController } from '@/meal/presentation/controllers/meal';
 
 import { mockAddMealParams } from '@/tests/meal/domain/mocks';
 import { ObjectValidatorSpy } from '@/tests/common/validations/mocks';
+import { AddMealSpy } from '@/tests/meal/presentation/mocks';
 
 const mockRequest = (): HttpRequest => {
   return {
@@ -13,12 +14,14 @@ const mockRequest = (): HttpRequest => {
 
 describe('AddMeal Controller', () => {
   let objectValidatorSpy: ObjectValidatorSpy;
+  let addMealSpy: AddMealSpy;
   let sut: AddMealController;
   let httpRequest: HttpRequest;
 
   beforeEach(() => {
     objectValidatorSpy = new ObjectValidatorSpy();
-    sut = new AddMealController(objectValidatorSpy);
+    addMealSpy = new AddMealSpy();
+    sut = new AddMealController(objectValidatorSpy, addMealSpy);
     httpRequest = mockRequest();
   });
 
@@ -32,5 +35,10 @@ describe('AddMeal Controller', () => {
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse.statusCode).toBe(400);
     expect(httpResponse).toEqual(badRequest({ validationErrors: { field: ['error'] } }));
+  });
+
+  it('should call AddMeal with correct params', async () => {
+    await sut.handle(httpRequest);
+    expect(addMealSpy.params).toEqual(httpRequest.body);
   });
 });
