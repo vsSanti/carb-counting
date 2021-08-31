@@ -10,7 +10,7 @@ export class DbAddMeal implements AddMeal {
 
   async add(params: AddMealParams): Promise<MealModel> {
     const mealId = await this.addMealRepository.add(params);
-    await this.loadMealByIdRepository.loadById(mealId);
-    return null;
+    const meal = await this.loadMealByIdRepository.loadById(mealId);
+    return meal;
   }
 }
