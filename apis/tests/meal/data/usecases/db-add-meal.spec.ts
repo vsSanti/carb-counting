@@ -33,4 +33,10 @@ describe('DbAddMeal Usecase', () => {
     await sut.add(addMealParams);
     expect(loadMealByIdRepositorySpy.id).toEqual(addMealRepositorySpy.mealId);
   });
+
+  it('should return null if LoadMealByIdRepository returns falsy', async () => {
+    loadMealByIdRepositorySpy.mealModel = null;
+    const meal = await sut.add(addMealParams);
+    expect(meal).toBeNull();
+  });
 });
