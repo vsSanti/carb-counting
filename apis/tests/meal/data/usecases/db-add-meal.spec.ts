@@ -39,4 +39,10 @@ describe('DbAddMeal Usecase', () => {
     const meal = await sut.add(addMealParams);
     expect(meal).toBeNull();
   });
+
+  it('should throw if LoadMealByIdRepository throws', async () => {
+    jest.spyOn(loadMealByIdRepositorySpy, 'loadById').mockImplementationOnce(throwError);
+    const errorPromise = sut.add(addMealParams);
+    await expect(errorPromise).rejects.toThrow();
+  });
 });
