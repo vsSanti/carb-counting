@@ -62,6 +62,13 @@ export class PgMealRepository implements AddMealRepository, LoadMealByIdReposito
   }
 
   async loadById(id: string): Promise<MealModel> {
-    return;
+    const pgMealRepository = getRepository(PgMeal);
+
+    const meal = await pgMealRepository.findOne({
+      where: { id },
+      relations: ['mealFoods', 'mealFoods.food'],
+    });
+
+    return meal;
   }
 }
