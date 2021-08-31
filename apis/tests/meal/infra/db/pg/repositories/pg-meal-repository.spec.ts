@@ -1,29 +1,36 @@
+import MockDate from 'mockdate';
 import faker from 'faker';
 import { IBackup } from 'pg-mem';
 import { getRepository, Repository, getConnection } from 'typeorm';
 
 import { FoodModel } from '@/meal/domain/models';
 import { AddMealParams } from '@/meal/domain/usecases';
-import { PgFood } from '@/meal/infra/db/pg/entities';
+import { PgFood, PgMeal, PgMealFood } from '@/meal/infra/db/pg/entities';
 import { PgMealRepository } from '@/meal/infra/db/pg/repositories';
 
-import { mockFoodModel, mockAddMealParams } from '@/tests/meal/domain/mocks';
+import { mockFoodModel, mockAddMealParams, mockMealModel } from '@/tests/meal/domain/mocks';
 import { makeFakeDb } from '@/tests/meal/infra/db/pg/mocks';
 
 describe('PgMeal Repository', () => {
   let sut: PgMealRepository;
   let pgFoodRepo: Repository<PgFood>;
+  let pgMealRepo: Repository<PgMeal>;
+  let pgMealFoodRepo: Repository<PgMealFood>;
   let backup: IBackup;
   let foodModels: FoodModel[];
 
   beforeAll(async () => {
+    MockDate.set(new Date());
     const db = await makeFakeDb();
     backup = db.backup();
     pgFoodRepo = getRepository(PgFood);
+    pgMealRepo = getRepository(PgMeal);
+    pgMealFoodRepo = getRepository(PgMealFood);
   });
 
   afterAll(async () => {
     await getConnection().close();
+    MockDate.reset();
   });
 
   beforeEach(async () => {
@@ -61,6 +68,17 @@ describe('PgMeal Repository', () => {
     it("should return undefined if id isn't found", async () => {
       const patient = await sut.loadById(faker.datatype.uuid());
       expect(patient).toBeUndefined();
+    });
+
+    it('should return a meal with foods if id is already registered', async () => {
+      const mealModel = mockMealModel(foodModels);
+      const insertedMeal = await pgMealRepo.save({
+        ...mealModel,
+        mealFoods: await pgMealFoodRepo.save(mealModel.mealFoods),
+      });
+      const meal = await sut.loadById(insertedMeal.id);
+      meal.mealFoods[0].meal = null;
+      expect(meal).toEqual(insertedMeal);
     });
   });
 });

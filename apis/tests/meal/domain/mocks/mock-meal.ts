@@ -1,6 +1,6 @@
 import faker from 'faker';
 
-import { MealModel } from '@/meal/domain/models';
+import { FoodModel, MealModel } from '@/meal/domain/models';
 import { AddMealParams } from '@/meal/domain/usecases';
 import { mockFoodModel } from './mock-food';
 
@@ -12,7 +12,7 @@ export const mockAddMealParams = (): AddMealParams => ({
   mealFoods: [],
 });
 
-export const mockMealModel = (): MealModel => ({
+export const mockMealModel = (foodModels: FoodModel[] = []): MealModel => ({
   id: faker.datatype.uuid(),
   createdAt: new Date(),
   updatedAt: new Date(),
@@ -27,7 +27,7 @@ export const mockMealModel = (): MealModel => ({
       createdAt: new Date(),
       updatedAt: new Date(),
       carbohydrateTotal: 10,
-      food: mockFoodModel(),
+      food: foodModels.length ? foodModels[0] : mockFoodModel(),
       meal: null,
       weight: 100,
     },
