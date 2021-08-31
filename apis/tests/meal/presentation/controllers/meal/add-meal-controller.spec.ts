@@ -1,3 +1,4 @@
+import { badRequest } from '@/common/presentation/helpers';
 import { HttpRequest } from '@/common/presentation/protocols';
 import { AddMealController } from '@/meal/presentation/controllers/meal';
 
@@ -24,5 +25,12 @@ describe('AddMeal Controller', () => {
   it('should call ObjectValidator with correct params', async () => {
     await sut.handle(httpRequest);
     expect(objectValidatorSpy.params).toEqual({ input: httpRequest.body });
+  });
+
+  it('should return 400 if ObjectValidator returns an error', async () => {
+    objectValidatorSpy.response = { hasErrors: true, errors: { field: ['error'] } };
+    const httpResponse = await sut.handle(httpRequest);
+    expect(httpResponse.statusCode).toBe(400);
+    expect(httpResponse).toEqual(badRequest({ validationErrors: { field: ['error'] } }));
   });
 });
