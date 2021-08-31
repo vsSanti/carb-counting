@@ -1,7 +1,7 @@
 import { IBackup } from 'pg-mem';
 import { getRepository, Repository, getConnection } from 'typeorm';
 
-import { AddMealParams } from '@/meal/data/protocols/db';
+import { AddMealParams } from '@/meal/domain/usecases';
 import { PgFood } from '@/meal/infra/db/pg/entities';
 import { PgMealRepository } from '@/meal/infra/db/pg/repositories';
 

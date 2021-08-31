@@ -1,6 +1,7 @@
 import { getRepository } from 'typeorm';
 
-import { AddMealParams, AddMealRepository } from '@/meal/data/protocols/db';
+import { AddMealRepository } from '@/meal/data/protocols/db';
+import { AddMealParams } from '@/meal/domain/usecases';
 import { PgFood, PgMeal, PgMealFood } from '@/meal/infra/db/pg/entities';
 
 export class PgMealRepository implements AddMealRepository {

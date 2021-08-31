@@ -1,6 +1,6 @@
 import faker from 'faker';
 
-import { AddMealParams } from '@/meal/data/protocols/db';
+import { AddMealParams } from '@/meal/domain/usecases';
 
 export const mockAddMealParams = (): AddMealParams => ({
   glucoseMeasurement: 287,
