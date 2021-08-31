@@ -1,5 +1,5 @@
 import { ServerError } from '@/common/presentation/errors';
-import { badRequest, serverError } from '@/common/presentation/helpers';
+import { badRequest, created, serverError } from '@/common/presentation/helpers';
 import { HttpRequest } from '@/common/presentation/protocols';
 import { AddMealController } from '@/meal/presentation/controllers/meal';
 
@@ -50,5 +50,10 @@ describe('AddMeal Controller', () => {
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse).toEqual(serverError(new ServerError()));
     expect(errorSpy).toHaveBeenCalled();
+  });
+
+  it('should return 201 if everything succeeds', async () => {
+    const httpResponse = await sut.handle(httpRequest);
+    expect(httpResponse).toEqual(created({ data: addMealSpy.mealModel }));
   });
 });
