@@ -1,6 +1,8 @@
+import faker from 'faker';
 import { IBackup } from 'pg-mem';
 import { getRepository, Repository, getConnection } from 'typeorm';
 
+import { FoodModel } from '@/meal/domain/models';
 import { AddMealParams } from '@/meal/domain/usecases';
 import { PgFood } from '@/meal/infra/db/pg/entities';
 import { PgMealRepository } from '@/meal/infra/db/pg/repositories';
@@ -12,6 +14,7 @@ describe('PgMeal Repository', () => {
   let sut: PgMealRepository;
   let pgFoodRepo: Repository<PgFood>;
   let backup: IBackup;
+  let foodModels: FoodModel[];
 
   beforeAll(async () => {
     const db = await makeFakeDb();
@@ -26,14 +29,14 @@ describe('PgMeal Repository', () => {
   beforeEach(async () => {
     backup.restore();
     sut = new PgMealRepository();
+    foodModels = await pgFoodRepo.save([
+      mockFoodModel({ carbohydrate: 8 }),
+      mockFoodModel({ carbohydrate: 30 }),
+    ]);
   });
 
   describe('add', () => {
     it('should return a meal with calculated values on add success', async () => {
-      const foodModels = await pgFoodRepo.save([
-        mockFoodModel({ carbohydrate: 8 }),
-        mockFoodModel({ carbohydrate: 30 }),
-      ]);
       const addMealParams: AddMealParams = {
         ...mockAddMealParams(),
         mealFoods: [
@@ -51,6 +54,13 @@ describe('PgMeal Repository', () => {
       const mealId = await sut.add(addMealParams);
 
       expect(mealId).toBeTruthy();
+    });
+  });
+
+  describe('loadById', () => {
+    it("should return undefined if id isn't found", async () => {
+      const patient = await sut.loadById(faker.datatype.uuid());
+      expect(patient).toBeUndefined();
     });
   });
 });
