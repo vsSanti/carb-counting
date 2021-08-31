@@ -2,17 +2,19 @@ import { DbAddMeal } from '@/meal/data/usecases/meal/db-add-meal';
 import { AddMealParams } from '@/meal/domain/usecases';
 
 import { throwError } from '@/tests/common/domain';
-import { AddMealRepositorySpy } from '@/tests/meal/data/mocks';
+import { AddMealRepositorySpy, LoadMealByIdRepositorySpy } from '@/tests/meal/data/mocks';
 import { mockAddMealParams } from '@/tests/meal/domain/mocks';
 
 describe('DbAddMeal Usecase', () => {
   let addMealRepositorySpy: AddMealRepositorySpy;
+  let loadMealByIdRepositorySpy: LoadMealByIdRepositorySpy;
   let sut: DbAddMeal;
   let addMealParams: AddMealParams;
 
   beforeEach(() => {
     addMealRepositorySpy = new AddMealRepositorySpy();
-    sut = new DbAddMeal(addMealRepositorySpy);
+    loadMealByIdRepositorySpy = new LoadMealByIdRepositorySpy();
+    sut = new DbAddMeal(addMealRepositorySpy, loadMealByIdRepositorySpy);
     addMealParams = mockAddMealParams();
   });
 
@@ -25,5 +27,10 @@ describe('DbAddMeal Usecase', () => {
     jest.spyOn(addMealRepositorySpy, 'add').mockImplementationOnce(throwError);
     const errorPromise = sut.add(addMealParams);
     await expect(errorPromise).rejects.toThrow();
+  });
+
+  it('should call LoadMealByIdRepository with correct id', async () => {
+    await sut.add(addMealParams);
+    expect(loadMealByIdRepositorySpy.id).toEqual(addMealRepositorySpy.mealId);
   });
 });
