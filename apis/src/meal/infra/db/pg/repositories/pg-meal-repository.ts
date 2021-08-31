@@ -1,10 +1,11 @@
 import { getRepository } from 'typeorm';
 
-import { AddMealRepository } from '@/meal/data/protocols/db';
+import { AddMealRepository, LoadMealByIdRepository } from '@/meal/data/protocols/db';
 import { AddMealParams } from '@/meal/domain/usecases';
 import { PgFood, PgMeal, PgMealFood } from '@/meal/infra/db/pg/entities';
+import { MealModel } from '@/meal/domain/models';
 
-export class PgMealRepository implements AddMealRepository {
+export class PgMealRepository implements AddMealRepository, LoadMealByIdRepository {
   private roundNumber = (num: number): number => {
     return Math.round(num * 100) / 100;
   };
@@ -58,5 +59,9 @@ export class PgMealRepository implements AddMealRepository {
     });
 
     return result.id;
+  }
+
+  async loadById(id: string): Promise<MealModel> {
+    return;
   }
 }
