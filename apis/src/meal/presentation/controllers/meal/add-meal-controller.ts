@@ -1,3 +1,4 @@
+import { badRequest } from '@/common/presentation/helpers';
 import { Controller, HttpRequest, HttpResponse } from '@/common/presentation/protocols';
 import { ObjectValidator } from '@/common/validation/protocols';
 
@@ -6,7 +7,8 @@ export class AddMealController implements Controller {
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     const { body } = httpRequest;
-    this.validation.validate({ input: body });
-    return null;
+
+    const validation = this.validation.validate({ input: body });
+    return badRequest({ validationErrors: validation.errors });
   }
 }
