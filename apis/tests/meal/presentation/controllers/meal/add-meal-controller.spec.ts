@@ -1,9 +1,11 @@
-import { badRequest } from '@/common/presentation/helpers';
+import { ServerError } from '@/common/presentation/errors';
+import { badRequest, serverError } from '@/common/presentation/helpers';
 import { HttpRequest } from '@/common/presentation/protocols';
 import { AddMealController } from '@/meal/presentation/controllers/meal';
 
-import { mockAddMealParams } from '@/tests/meal/domain/mocks';
+import { throwError } from '@/tests/common/domain';
 import { ObjectValidatorSpy } from '@/tests/common/validations/mocks';
+import { mockAddMealParams } from '@/tests/meal/domain/mocks';
 import { AddMealSpy } from '@/tests/meal/presentation/mocks';
 
 const mockRequest = (): HttpRequest => {
@@ -40,5 +42,13 @@ describe('AddMeal Controller', () => {
   it('should call AddMeal with correct params', async () => {
     await sut.handle(httpRequest);
     expect(addMealSpy.params).toEqual(httpRequest.body);
+  });
+
+  it('should return 500 if AddMeal throws', async () => {
+    jest.spyOn(addMealSpy, 'add').mockImplementationOnce(throwError);
+    const errorSpy = jest.spyOn(console, 'error');
+    const httpResponse = await sut.handle(httpRequest);
+    expect(httpResponse).toEqual(serverError(new ServerError()));
+    expect(errorSpy).toHaveBeenCalled();
   });
 });
