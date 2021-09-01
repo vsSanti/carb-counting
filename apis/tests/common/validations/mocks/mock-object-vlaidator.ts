@@ -10,9 +10,11 @@ export class ObjectValidatorSpy implements ObjectValidator {
     errors: {},
   };
   params: ObjectValidatorParams;
+  timesCalled = 0;
 
   validate(params: ObjectValidatorParams): ObjectValidatorReturn {
     this.params = params;
+    this.timesCalled += 1;
     return this.response;
   }
 }
