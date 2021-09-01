@@ -2,12 +2,14 @@ import {
   PropertyValidation,
   PropertyBuilder,
   PropertyBuilderParams,
+  ObjectValidator,
 } from '@/common/validation/protocols';
 
 export class GenericObjectArrayPropertyBuilder implements PropertyBuilder {
   constructor(
     public readonly fieldName: string,
-    private readonly arrayValidation: PropertyValidation
+    private readonly arrayValidation: PropertyValidation,
+    private readonly schemaValidation: ObjectValidator
   ) {}
 
   validate(params: PropertyBuilderParams): string[] {
@@ -19,6 +21,10 @@ export class GenericObjectArrayPropertyBuilder implements PropertyBuilder {
     });
 
     if (arrayValidationError) return [arrayValidationError];
+
+    for (const obj of params.input[this.fieldName]) {
+      this.schemaValidation.validate(obj);
+    }
 
     return errors;
   }
