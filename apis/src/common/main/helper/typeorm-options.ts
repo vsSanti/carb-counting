@@ -3,7 +3,7 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 import env from '@/common/main/config/env';
 import { PgPatient } from '@/auth/infra/db/pg/entities';
-import { PgFood } from '@/meal/infra/db/pg/entities';
+import { PgFood, PgMeal, PgMealFood } from '@/meal/infra/db/pg/entities';
 
 const typeORMOptions: ConnectionOptions = {
   name: 'default',
@@ -26,5 +26,5 @@ export const typeORMAuthOptions = {
 
 export const typeORMMealOptions = {
   ...typeORMOptions,
-  entities: [PgFood],
+  entities: [PgFood, PgMeal, PgMealFood],
 };

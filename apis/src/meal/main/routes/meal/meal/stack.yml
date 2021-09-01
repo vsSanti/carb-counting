@@ -1,0 +1,10 @@
+meals:
+  handler: src/meal/main/routes/meal/meal/function.handler
+  layers:
+    - ${self:custom.layers.common}
+    - ${self:custom.layers.typeORM}
+  events:
+    - http:
+        path: meals
+        method: POST
+        authorizer: ${self:custom.authorizer}
