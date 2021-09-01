@@ -13,10 +13,12 @@ export class GenericObjectArrayPropertyBuilder implements PropertyBuilder {
   validate(params: PropertyBuilderParams): string[] {
     const errors: string[] = [];
 
-    this.arrayValidation.validate({
+    const arrayValidationError = this.arrayValidation.validate({
       fieldName: this.fieldName,
       input: params.input,
     });
+
+    if (arrayValidationError) return [arrayValidationError];
 
     return errors;
   }
