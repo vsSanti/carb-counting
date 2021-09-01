@@ -1,7 +1,6 @@
 import { APIGatewayEvent, ProxyResult } from 'aws-lambda';
-import { ConnectionOptions } from 'typeorm';
 
-import { openTypeORMConnection } from '@/common/main/helper/open-typeorm-connection';
+import { DbNames, openTypeORMConnection } from '@/common/main/helper/open-typeorm-connection';
 import { Controller, HttpRequest, HttpResponse } from '@/common/presentation/protocols';
 
 type EventHandler = {
@@ -11,14 +10,14 @@ type EventHandler = {
 
 export type LambdaRouteAdapterParams = {
   isPrivate?: boolean;
-  typeORMOptions: ConnectionOptions;
+  dbName: DbNames;
   get?: EventHandler;
   post?: EventHandler;
 };
 
 export const lambdaRouteAdapter = (params: LambdaRouteAdapterParams) => {
   return async (event: APIGatewayEvent): Promise<ProxyResult> => {
-    await openTypeORMConnection(params.typeORMOptions);
+    await openTypeORMConnection(params.dbName);
 
     const method: EventHandler = params[event.httpMethod.toLowerCase()];
     if (!method) {

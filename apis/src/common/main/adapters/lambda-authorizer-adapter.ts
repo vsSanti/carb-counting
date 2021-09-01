@@ -1,13 +1,12 @@
 import { APIGatewayTokenAuthorizerEvent } from 'aws-lambda';
-import { ConnectionOptions } from 'typeorm';
 
-import { openTypeORMConnection } from '@/common/main/helper/open-typeorm-connection';
+import { DbNames, openTypeORMConnection } from '@/common/main/helper/open-typeorm-connection';
 import { Controller, HttpRequest } from '@/common/presentation/protocols';
 import { UnauthorizedError } from '@/common/presentation/errors';
 
-export const lambdaAuthorizerAdapter = (handler: Controller, options: ConnectionOptions) => {
+export const lambdaAuthorizerAdapter = (handler: Controller, dbName: DbNames) => {
   return async (event: APIGatewayTokenAuthorizerEvent): Promise<any> => {
-    await openTypeORMConnection(options);
+    await openTypeORMConnection(dbName);
 
     try {
       const httpRequest: HttpRequest = {
