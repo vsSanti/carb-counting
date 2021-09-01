@@ -1,4 +1,7 @@
+import { types } from 'pg';
 import { createConnection, getConnection, ConnectionOptions } from 'typeorm';
+
+types.setTypeParser(types.builtins.NUMERIC, (value: string): number => parseFloat(value));
 
 export async function openTypeORMConnection(options: ConnectionOptions): Promise<any> {
   try {
