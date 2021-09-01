@@ -23,12 +23,12 @@ export class GenericObjectArrayPropertyBuilder implements PropertyBuilder {
     if (arrayValidationError) return [arrayValidationError];
 
     params.input[this.fieldName].forEach((element, i) => {
-      const objErrors = this.schemaValidation.validate(element);
+      const objErrors = this.schemaValidation.validate({ input: element });
 
       if (objErrors.hasErrors) {
-        const allObjectErrors = Object.keys(objErrors.errors).map(
-          (key) => `[${i}]:[${key}]: ${objErrors.errors[key]}`
-        );
+        const allObjectErrors = Object.keys(objErrors.errors)
+          .map((key) => objErrors.errors[key].length && `[${i}]:[${key}]: ${objErrors.errors[key]}`)
+          .filter((msg) => msg);
 
         errors.push(...allObjectErrors);
       }
