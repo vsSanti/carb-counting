@@ -25,7 +25,7 @@ describe('Array Validator', () => {
     let sutValidFalse: ArrayValidator;
 
     beforeEach(() => {
-      sutValidTrue = new ArrayValidator({ validLength: true });
+      sutValidTrue = new ArrayValidator({});
       sutValidFalse = new ArrayValidator({ validLength: false });
     });
 
@@ -38,6 +38,11 @@ describe('Array Validator', () => {
 
     it('should return undefined if array is empty and validLength is false', () => {
       const errorMessage = sutValidFalse.validate({ fieldName: 'field', input: { field: [] } });
+      expect(errorMessage).toBeUndefined();
+    });
+
+    it('should return undefined if array is valid and validLength is true', () => {
+      const errorMessage = sutValidTrue.validate({ fieldName: 'field', input: { field: [1] } });
       expect(errorMessage).toBeUndefined();
     });
   });
