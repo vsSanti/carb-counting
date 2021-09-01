@@ -34,6 +34,20 @@ describe('GenericObjectArrayProperty Builder', () => {
   it('should call ObjectValidator for every array value', () => {
     sut.validate(params);
     expect(objectValidationSpy.timesCalled).toBe(2);
-    expect(params.input[fieldName].pop()).toEqual(objectValidationSpy.params);
+    expect(params.input[fieldName][1]).toEqual(objectValidationSpy.params);
+  });
+
+  it('should return an array of strings if one objectValidation has errors', async () => {
+    objectValidationSpy.response = {
+      hasErrors: true,
+      errors: { [fieldName]: ['error'], another: ['mocked error'] },
+    };
+    const errors = sut.validate(params);
+    expect(errors).toEqual([
+      `[0]:[${fieldName}]: error`,
+      '[0]:[another]: mocked error',
+      `[1]:[${fieldName}]: error`,
+      '[1]:[another]: mocked error',
+    ]);
   });
 });
