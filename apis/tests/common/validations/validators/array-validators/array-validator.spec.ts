@@ -1,30 +1,37 @@
 import { ArrayValidator } from '@/common/validation/validators';
 
 describe('Array Validator', () => {
-  let sut: ArrayValidator;
-  let sutWithOptions: ArrayValidator;
+  describe('Without options', () => {
+    let sut: ArrayValidator;
+    beforeEach(() => {
+      sut = new ArrayValidator();
+    });
 
-  beforeEach(() => {
-    sut = new ArrayValidator();
-    sutWithOptions = new ArrayValidator({ validLength: true });
+    it('should return undefined if parameter is an array', () => {
+      const errorMessage = sut.validate({ fieldName: 'field', input: { field: [] } });
+      expect(errorMessage).toBeUndefined();
+    });
+
+    it("should return an error string if parameter isn't an array", () => {
+      const errorMessage = sut.validate({ fieldName: 'field', input: { field: undefined } });
+      expect(errorMessage).toBeTruthy();
+      expect(typeof errorMessage).toBe('string');
+      expect(errorMessage).toBe("It isn't an array.");
+    });
   });
 
-  it('should return undefined if parameter is an array', () => {
-    const errorMessage = sut.validate({ fieldName: 'field', input: { field: [] } });
-    expect(errorMessage).toBeUndefined();
-  });
+  describe('With validLength option', () => {
+    let sut: ArrayValidator;
 
-  it("should return an error string if parameter isn't an array", () => {
-    const errorMessage = sut.validate({ fieldName: 'field', input: { field: undefined } });
-    expect(errorMessage).toBeTruthy();
-    expect(typeof errorMessage).toBe('string');
-    expect(errorMessage).toBe("It isn't an array.");
-  });
+    beforeEach(() => {
+      sut = new ArrayValidator({ validLength: true });
+    });
 
-  it('should return an error string if array is empty', () => {
-    const errorMessage = sutWithOptions.validate({ fieldName: 'field', input: { field: [] } });
-    expect(errorMessage).toBeTruthy();
-    expect(typeof errorMessage).toBe('string');
-    expect(errorMessage).toBe('Array must contain at least one record.');
+    it('should return an error string if array is empty', () => {
+      const errorMessage = sut.validate({ fieldName: 'field', input: { field: [] } });
+      expect(errorMessage).toBeTruthy();
+      expect(typeof errorMessage).toBe('string');
+      expect(errorMessage).toBe('Array must contain at least one record.');
+    });
   });
 });
