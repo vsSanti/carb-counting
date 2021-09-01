@@ -21,17 +21,24 @@ describe('Array Validator', () => {
   });
 
   describe('With validLength option', () => {
-    let sut: ArrayValidator;
+    let sutValidTrue: ArrayValidator;
+    let sutValidFalse: ArrayValidator;
 
     beforeEach(() => {
-      sut = new ArrayValidator({ validLength: true });
+      sutValidTrue = new ArrayValidator({ validLength: true });
+      sutValidFalse = new ArrayValidator({ validLength: false });
     });
 
-    it('should return an error string if array is empty', () => {
-      const errorMessage = sut.validate({ fieldName: 'field', input: { field: [] } });
+    it('should return an error string if array is empty and validLength is true', () => {
+      const errorMessage = sutValidTrue.validate({ fieldName: 'field', input: { field: [] } });
       expect(errorMessage).toBeTruthy();
       expect(typeof errorMessage).toBe('string');
       expect(errorMessage).toBe('Array must contain at least one record.');
+    });
+
+    it('should return undefined if array is empty and validLength is false', () => {
+      const errorMessage = sutValidFalse.validate({ fieldName: 'field', input: { field: [] } });
+      expect(errorMessage).toBeUndefined();
     });
   });
 });
