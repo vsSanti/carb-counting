@@ -1,5 +1,6 @@
 import faker from 'faker';
 
+import { notFound } from '@/common/presentation/helpers';
 import { HttpRequest } from '@/common/presentation/protocols';
 import { LoadMealByIdController } from '@/meal/presentation/controllers/meal';
 
@@ -25,5 +26,11 @@ describe('LoadMealById Controller', () => {
   it('should call LoadMealById with correct params', async () => {
     await sut.handle(httpRequest);
     expect(loadMealByIdSpy.id).toEqual(httpRequest.pathParameters.mealId);
+  });
+
+  it('should return 404 if LoadMealById returns falsy', async () => {
+    loadMealByIdSpy.mealModel = undefined;
+    const httpResponse = await sut.handle(httpRequest);
+    expect(httpResponse).toEqual(notFound('meal'));
   });
 });
