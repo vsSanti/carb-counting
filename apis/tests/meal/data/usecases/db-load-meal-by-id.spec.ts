@@ -32,4 +32,9 @@ describe('DbLoadMealById Usecase', () => {
     const errorPromise = sut.load(id);
     await expect(errorPromise).rejects.toThrow();
   });
+
+  it('should return a meal on success', async () => {
+    const meal = await sut.load(id);
+    expect(meal).toEqual(loadMealByIdRepositorySpy.mealModel);
+  });
 });
