@@ -2,6 +2,7 @@ import faker from 'faker';
 
 import { DbLoadMealById } from '@/meal/data/usecases/meal/db-load-meal-by-id';
 
+import { throwError } from '@/tests/common/domain';
 import { LoadMealByIdRepositorySpy } from '@/tests/meal/data/mocks';
 
 describe('DbLoadMealById Usecase', () => {
@@ -24,5 +25,11 @@ describe('DbLoadMealById Usecase', () => {
     loadMealByIdRepositorySpy.mealModel = null;
     const meal = await sut.load(id);
     expect(meal).toBeNull();
+  });
+
+  it('should throw if LoadMealByIdRepository throws', async () => {
+    jest.spyOn(loadMealByIdRepositorySpy, 'loadById').mockImplementationOnce(throwError);
+    const errorPromise = sut.load(id);
+    await expect(errorPromise).rejects.toThrow();
   });
 });
