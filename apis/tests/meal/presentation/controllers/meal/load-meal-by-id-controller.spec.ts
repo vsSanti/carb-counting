@@ -1,6 +1,6 @@
 import faker from 'faker';
 
-import { notFound, serverError } from '@/common/presentation/helpers';
+import { notFound, ok, serverError } from '@/common/presentation/helpers';
 import { HttpRequest } from '@/common/presentation/protocols';
 import { LoadMealByIdController } from '@/meal/presentation/controllers/meal';
 
@@ -42,5 +42,10 @@ describe('LoadMealById Controller', () => {
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse).toEqual(serverError(new ServerError()));
     expect(errorSpy).toHaveBeenCalled();
+  });
+
+  it('should return 200 if everything succeeds', async () => {
+    const httpResponse = await sut.handle(httpRequest);
+    expect(httpResponse).toEqual(ok({ data: loadMealByIdSpy.mealModel }));
   });
 });
