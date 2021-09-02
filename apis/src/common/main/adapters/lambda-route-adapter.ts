@@ -29,6 +29,7 @@ export const lambdaRouteAdapter = (params: LambdaRouteAdapterParams) => {
 
     const httpRequest: HttpRequest = {
       body: JSON.parse(event.body),
+      pathParameters: event.pathParameters,
     };
 
     if (params.isPrivate || method.isPrivate) {
