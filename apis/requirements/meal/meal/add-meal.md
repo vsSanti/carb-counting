@@ -39,3 +39,6 @@ This route adds a meal to the database, including calculations.
 
 > ## Route
 - **[POST]** `/meals`
+
+> ## Middleware
+- ✅ [**authorizer**](../../auth/login/authorizer.md)
