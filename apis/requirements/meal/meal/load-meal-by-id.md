@@ -15,4 +15,4 @@ This route returns a meal by its id.
 - **[GET]** `/meals/{mealId}`
 
 > ## Middleware
-- 🚫 [**authorizer**](../../auth/login/authorizer.md)
+- ✅ [**authorizer**](../../auth/login/authorizer.md)
