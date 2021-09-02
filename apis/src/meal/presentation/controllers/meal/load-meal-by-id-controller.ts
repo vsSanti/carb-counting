@@ -1,4 +1,4 @@
-import { notFound, serverError } from '@/common/presentation/helpers';
+import { notFound, ok, serverError } from '@/common/presentation/helpers';
 import { Controller, HttpRequest, HttpResponse } from '@/common/presentation/protocols';
 import { LoadMealById } from '@/meal/domain/usecases';
 
@@ -9,9 +9,10 @@ export class LoadMealByIdController implements Controller {
     try {
       const { mealId } = httpRequest.pathParameters;
 
-      await this.loadMealById.load(mealId);
+      const meal = await this.loadMealById.load(mealId);
+      if (!meal) return notFound('meal');
 
-      return notFound('meal');
+      return ok({ data: meal });
     } catch (error) {
       console.error(error);
       return serverError(error);
