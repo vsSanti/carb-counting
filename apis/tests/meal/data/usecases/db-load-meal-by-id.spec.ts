@@ -19,4 +19,10 @@ describe('DbLoadMealById Usecase', () => {
     await sut.load(id);
     expect(loadMealByIdRepositorySpy.id).toEqual(id);
   });
+
+  it('should return null if LoadMealByIdRepository returns falsy', async () => {
+    loadMealByIdRepositorySpy.mealModel = null;
+    const meal = await sut.load(id);
+    expect(meal).toBeNull();
+  });
 });
