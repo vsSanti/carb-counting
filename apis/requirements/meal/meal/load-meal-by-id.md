@@ -2,14 +2,14 @@
 This route returns a meal by its id.
 
 > ## Main flow
-1. 🚫 Load meal by id;
+1. ✅ Load meal by id;
     - It should get the id from path parameters;
     - It should also load every food;
-2. 🚫 Return meal and status code 200;
+2. ✅ Return meal and status code 200;
 
 > ## Error cases
-- 🚫 If meal isn't found, returns 404;
-- 🚫 If there's any kind of error, it should return 500;
+- ✅ If meal isn't found, returns 404;
+- ✅ If there's any kind of error, it should return 500;
 
 > ## Route
 - **[GET]** `/meals/{mealId}`
