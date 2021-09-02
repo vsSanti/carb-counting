@@ -1,9 +1,11 @@
 import faker from 'faker';
 
-import { notFound } from '@/common/presentation/helpers';
+import { notFound, serverError } from '@/common/presentation/helpers';
 import { HttpRequest } from '@/common/presentation/protocols';
 import { LoadMealByIdController } from '@/meal/presentation/controllers/meal';
 
+import { throwError } from '@/tests/common/domain';
+import { ServerError } from '@/common/presentation/errors';
 import { LoadMealByIdSpy } from '@/tests/meal/presentation/mocks';
 
 const mockRequest = (): HttpRequest => {
@@ -32,5 +34,13 @@ describe('LoadMealById Controller', () => {
     loadMealByIdSpy.mealModel = undefined;
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse).toEqual(notFound('meal'));
+  });
+
+  it('should return 500 if LoadMealById throws', async () => {
+    jest.spyOn(loadMealByIdSpy, 'load').mockImplementationOnce(throwError);
+    const errorSpy = jest.spyOn(console, 'error');
+    const httpResponse = await sut.handle(httpRequest);
+    expect(httpResponse).toEqual(serverError(new ServerError()));
+    expect(errorSpy).toHaveBeenCalled();
   });
 });
