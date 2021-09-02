@@ -18,5 +18,8 @@ export type HttpResponse = {
 export type HttpRequest = {
   body?: any;
   patientId?: string;
+  pathParameters?: {
+    [key: string]: string | undefined;
+  };
   [key: string]: any;
 };
