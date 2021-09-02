@@ -1,3 +1,4 @@
+import { notFound } from '@/common/presentation/helpers';
 import { Controller, HttpRequest, HttpResponse } from '@/common/presentation/protocols';
 import { LoadMealById } from '@/meal/domain/usecases';
 
@@ -9,6 +10,6 @@ export class LoadMealByIdController implements Controller {
 
     await this.loadMealById.load(mealId);
 
-    return null;
+    return notFound('meal');
   }
 }

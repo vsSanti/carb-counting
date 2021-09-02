@@ -1,4 +1,4 @@
-import { ServerError, UnauthorizedError } from '@/common/presentation/errors';
+import { NotFoundError, ServerError, UnauthorizedError } from '@/common/presentation/errors';
 import { HttpResponse, BodyType } from '@/common/presentation/protocols';
 
 export const ok = (data: BodyType): HttpResponse => {
@@ -27,6 +27,15 @@ export const unauthorized = (): HttpResponse => {
     statusCode: 401,
     body: {
       errorMessage: new UnauthorizedError().message,
+    },
+  };
+};
+
+export const notFound = (param: string): HttpResponse => {
+  return {
+    statusCode: 404,
+    body: {
+      errorMessage: new NotFoundError(param).message,
     },
   };
 };
