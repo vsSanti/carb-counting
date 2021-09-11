@@ -1,6 +1,7 @@
 import { DbListMeals } from '@/meal/data/usecases/meal/db-list-meals';
 import { ListMealsOptions } from '@/meal/domain/usecases';
 
+import { throwError } from '@/tests/common/domain';
 import { ListMealsRepositorySpy } from '@/tests/meal/data/mocks';
 
 describe('DbListMeals Usecase', () => {
@@ -19,5 +20,11 @@ describe('DbListMeals Usecase', () => {
   it('should call ListMealsRepository with correct options', async () => {
     await sut.list(listMealsOptions);
     expect(listMealsRepositorySpy.options).toEqual(listMealsOptions);
+  });
+
+  it('should throw if ListMealsRepository throws', async () => {
+    jest.spyOn(listMealsRepositorySpy, 'listAll').mockImplementationOnce(throwError);
+    const promise = sut.list(listMealsOptions);
+    await expect(promise).rejects.toThrow();
   });
 });
