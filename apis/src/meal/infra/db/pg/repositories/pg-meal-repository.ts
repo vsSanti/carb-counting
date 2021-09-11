@@ -1,11 +1,18 @@
 import { getRepository } from 'typeorm';
 
-import { AddMealRepository, LoadMealByIdRepository } from '@/meal/data/protocols/db';
+import {
+  AddMealRepository,
+  ListMealsRepository,
+  ListMealsRepositoryOptions,
+  LoadMealByIdRepository,
+} from '@/meal/data/protocols/db';
 import { AddMealParams } from '@/meal/domain/usecases';
 import { PgFood, PgMeal, PgMealFood } from '@/meal/infra/db/pg/entities';
 import { MealModel } from '@/meal/domain/models';
 
-export class PgMealRepository implements AddMealRepository, LoadMealByIdRepository {
+export class PgMealRepository
+  implements AddMealRepository, ListMealsRepository, LoadMealByIdRepository
+{
   private roundNumber = (num: number): number => {
     return Math.round(num * 100) / 100;
   };
@@ -59,6 +66,20 @@ export class PgMealRepository implements AddMealRepository, LoadMealByIdReposito
     });
 
     return result.id;
+  }
+
+  async listAll(options: ListMealsRepositoryOptions): Promise<MealModel[]> {
+    const pgMealRepository = getRepository(PgMeal);
+    const { page, patientId } = options;
+
+    const meals = await pgMealRepository.find({
+      where: { patientId },
+      relations: ['mealFoods', 'mealFoods.food'],
+      take: 10,
+      skip: (page - 1) * 10,
+    });
+
+    return meals;
   }
 
   async loadById(id: string): Promise<MealModel> {
