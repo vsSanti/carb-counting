@@ -33,3 +33,9 @@ export const mockMealModel = (foodModels: FoodModel[] = []): MealModel => ({
     },
   ],
 });
+
+export const mockMealModelList = (): MealModel[] => [
+  mockMealModel(),
+  mockMealModel(),
+  mockMealModel(),
+];

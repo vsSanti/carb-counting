@@ -1,10 +1,15 @@
 import faker from 'faker';
 
-import { AddMealRepository, LoadMealByIdRepository } from '@/meal/data/protocols/db';
+import {
+  AddMealRepository,
+  ListMealsRepository,
+  ListMealsRepositoryOptions,
+  LoadMealByIdRepository,
+} from '@/meal/data/protocols/db';
 import { MealModel } from '@/meal/domain/models';
 import { AddMealParams } from '@/meal/domain/usecases';
 
-import { mockMealModel } from '@/tests/meal/domain/mocks';
+import { mockMealModel, mockMealModelList } from '@/tests/meal/domain/mocks';
 
 export class AddMealRepositorySpy implements AddMealRepository {
   mealId = faker.datatype.uuid();
@@ -13,6 +18,16 @@ export class AddMealRepositorySpy implements AddMealRepository {
   async add(params: AddMealParams): Promise<string> {
     this.params = params;
     return this.mealId;
+  }
+}
+
+export class ListMealsRepositorySpy implements ListMealsRepository {
+  foodModels = mockMealModelList();
+  options: ListMealsRepositoryOptions;
+
+  async listAll(options: ListMealsRepositoryOptions): Promise<MealModel[]> {
+    this.options = options;
+    return this.foodModels;
   }
 }
 
