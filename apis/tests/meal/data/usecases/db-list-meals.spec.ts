@@ -27,4 +27,9 @@ describe('DbListMeals Usecase', () => {
     const promise = sut.list(listMealsOptions);
     await expect(promise).rejects.toThrow();
   });
+
+  it('should return an array of meals on success', async () => {
+    const foodModels = await sut.list(listMealsOptions);
+    expect(listMealsRepositorySpy.foodModels).toEqual(foodModels);
+  });
 });
