@@ -1,5 +1,5 @@
 import { ServerError } from '@/common/presentation/errors';
-import { serverError } from '@/common/presentation/helpers';
+import { ok, serverError } from '@/common/presentation/helpers';
 import { HttpRequest } from '@/common/presentation/protocols';
 import { ListMealsController } from '@/meal/presentation/controllers/meal';
 
@@ -36,5 +36,10 @@ describe('ListMeals Controller', () => {
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse).toEqual(serverError(new ServerError()));
     expect(errorSpy).toHaveBeenCalled();
+  });
+
+  it('should return 200 if everything succeeds', async () => {
+    const httpResponse = await sut.handle(httpRequest);
+    expect(httpResponse).toEqual(ok({ docs: listMealsSpy.mealModels }));
   });
 });
