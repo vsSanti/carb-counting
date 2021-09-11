@@ -64,6 +64,26 @@ describe('PgMeal Repository', () => {
     });
   });
 
+  describe('listAll', () => {
+    it('should return a meal with foods from patient', async () => {
+      const mealModel = mockMealModel(foodModels);
+      const insertedMeal = await pgMealRepo.save({
+        ...mealModel,
+        mealFoods: await pgMealFoodRepo.save(mealModel.mealFoods),
+      });
+      const meals = await sut.listAll({ page: 1, patientId: insertedMeal.patientId });
+      const mealsToCompare = meals.map((meal) => ({
+        ...meal,
+        mealFoods: meal.mealFoods.map((mealFood) => ({
+          ...mealFood,
+          meal: null,
+        })),
+      }));
+      expect(meals.length).toBe(1);
+      expect(mealsToCompare).toEqual([insertedMeal]);
+    });
+  });
+
   describe('loadById', () => {
     it("should return undefined if id isn't found", async () => {
       const patient = await sut.loadById(faker.datatype.uuid());
