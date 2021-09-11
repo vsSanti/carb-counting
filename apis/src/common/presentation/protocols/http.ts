@@ -21,5 +21,8 @@ export type HttpRequest = {
   pathParameters?: {
     [key: string]: string | undefined;
   };
+  queryStringParameters?: {
+    [key: string]: any;
+  };
   [key: string]: any;
 };
