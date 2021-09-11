@@ -1,5 +1,5 @@
 # List foods
-This route all foods registered on database.
+This route list all foods registered on database.
 
 > ## Main flow
 1. ✅ Load all foods on database;
