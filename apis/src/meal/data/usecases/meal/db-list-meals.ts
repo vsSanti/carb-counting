@@ -6,7 +6,7 @@ export class DbListMeals implements ListMeals {
   constructor(private readonly listMealsRepository: ListMealsRepository) {}
 
   async list(options: ListMealsOptions): Promise<MealModel[]> {
-    await this.listMealsRepository.listAll(options);
-    return null;
+    const mealModels = await this.listMealsRepository.listAll(options);
+    return mealModels;
   }
 }
