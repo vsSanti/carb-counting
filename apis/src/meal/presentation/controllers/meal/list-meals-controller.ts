@@ -7,9 +7,10 @@ export class ListMealsController implements Controller {
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
+      const { patientId } = httpRequest;
       const { page } = httpRequest.queryStringParameters;
 
-      const mealModels = await this.listMeals.list({ page });
+      const mealModels = await this.listMeals.list({ page, patientId });
 
       return ok({ docs: mealModels });
     } catch (error) {

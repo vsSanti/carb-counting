@@ -1,3 +1,5 @@
+import faker from 'faker';
+
 import { DbListMeals } from '@/meal/data/usecases/meal/db-list-meals';
 import { ListMealsOptions } from '@/meal/domain/usecases';
 
@@ -13,7 +15,8 @@ describe('DbListMeals Usecase', () => {
     listMealsRepositorySpy = new ListMealsRepositorySpy();
     sut = new DbListMeals(listMealsRepositorySpy);
     listMealsOptions = {
-      page: 1,
+      page: faker.datatype.number(),
+      patientId: faker.datatype.uuid(),
     };
   });
 

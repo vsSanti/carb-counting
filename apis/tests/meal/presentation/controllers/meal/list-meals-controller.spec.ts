@@ -1,3 +1,5 @@
+import faker from 'faker';
+
 import { ServerError } from '@/common/presentation/errors';
 import { ok, serverError } from '@/common/presentation/helpers';
 import { HttpRequest } from '@/common/presentation/protocols';
@@ -8,8 +10,9 @@ import { ListMealsSpy } from '@/tests/meal/presentation/mocks';
 
 const mockRequest = (): HttpRequest => {
   return {
+    patientId: faker.datatype.uuid(),
     queryStringParameters: {
-      page: 1,
+      page: faker.datatype.number(),
     },
   };
 };
@@ -27,7 +30,10 @@ describe('ListMeals Controller', () => {
 
   it('should call ListMeals with correct params', async () => {
     await sut.handle(httpRequest);
-    expect(listMealsSpy.options).toEqual({ page: httpRequest.queryStringParameters.page });
+    expect(listMealsSpy.options).toEqual({
+      page: httpRequest.queryStringParameters.page,
+      patientId: httpRequest.patientId,
+    });
   });
 
   it('should return 500 if ListFoods throws', async () => {
