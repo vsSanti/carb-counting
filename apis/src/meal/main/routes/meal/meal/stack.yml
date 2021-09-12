@@ -5,6 +5,10 @@ meals:
     - ${self:custom.layers.typeORM}
   events:
     - http:
+        path: meals
+        method: GET
+        authorizer: ${self:custom.authorizer}
+    - http:
         path: meals/{mealId}
         method: GET
         authorizer: ${self:custom.authorizer}
