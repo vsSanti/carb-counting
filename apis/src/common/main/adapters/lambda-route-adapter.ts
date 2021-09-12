@@ -12,6 +12,7 @@ export type LambdaRouteAdapterParams = {
   isPrivate?: boolean;
   dbName: DbNames;
   get?: EventHandler;
+  getById?: EventHandler & { resource: string };
   post?: EventHandler;
 };
 
@@ -19,7 +20,16 @@ export const lambdaRouteAdapter = (params: LambdaRouteAdapterParams) => {
   return async (event: APIGatewayEvent): Promise<ProxyResult> => {
     await openTypeORMConnection(params.dbName);
 
-    const method: EventHandler = params[event.httpMethod.toLowerCase()];
+    /**
+     * GET methods may have two entries, one for listing all, and another for detailing one
+     * specific data. If you want to detail something, you must pass the resource as well
+     * when informing a getById EventHandler.
+     */
+    let method: EventHandler = params[event.httpMethod.toLowerCase()];
+    if (event.httpMethod === 'GET' && params.getById?.resource === event.resource) {
+      method = params.getById;
+    }
+
     if (!method) {
       return {
         statusCode: 405,
@@ -30,6 +40,7 @@ export const lambdaRouteAdapter = (params: LambdaRouteAdapterParams) => {
     const httpRequest: HttpRequest = {
       body: JSON.parse(event.body),
       pathParameters: event.pathParameters,
+      queryStringParameters: event.queryStringParameters || {},
     };
 
     if (params.isPrivate || method.isPrivate) {
