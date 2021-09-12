@@ -77,6 +77,7 @@ export class PgMealRepository
       relations: ['mealFoods', 'mealFoods.food'],
       take: 10,
       skip: (page - 1) * 10,
+      order: { createdAt: 'DESC' },
     });
 
     return meals;
