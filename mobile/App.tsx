@@ -2,7 +2,6 @@
 import React from 'react';
 import AppLoading from 'expo-app-loading';
 import { ThemeProvider } from 'styled-components';
-
 import {
   useFonts,
   Poppins_400Regular,
@@ -10,9 +9,9 @@ import {
   Poppins_700Bold,
 } from '@expo-google-fonts/poppins';
 
-import theme from './src/global/styles/theme';
+import theme from '@/global/styles/theme';
 
-import Home from './src/screens/Home';
+import { Home } from '@/screens/Home';
 
 export default function App(): React.ReactElement {
   const [fontsLoaded] = useFonts({
