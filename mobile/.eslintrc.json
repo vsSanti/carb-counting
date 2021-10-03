@@ -26,7 +26,10 @@
   "settings": {
     "import/resolver": {
       "typescript": {}
-    }
+    },
+    "import/core-modules": [
+      "@expo/vector-icons"
+    ]
   },
   "rules": {
     "react/jsx-filename-extension": [

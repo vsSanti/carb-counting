@@ -2,6 +2,7 @@
 import 'react-native-gesture-handler';
 
 import React from 'react';
+import { StatusBar } from 'react-native';
 import AppLoading from 'expo-app-loading';
 import { ThemeProvider } from 'styled-components';
 import {
@@ -27,8 +28,12 @@ export default function App(): React.ReactElement {
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      <Routes />
-    </ThemeProvider>
+    <>
+      <StatusBar barStyle="light-content" />
+
+      <ThemeProvider theme={theme}>
+        <Routes />
+      </ThemeProvider>
+    </>
   );
 }
