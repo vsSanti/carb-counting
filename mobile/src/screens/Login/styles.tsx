@@ -1,14 +1,15 @@
 import styled from 'styled-components/native';
-import { RFValue } from 'react-native-responsive-fontsize';
+import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 import { SimpleLineIcons } from '@expo/vector-icons';
 
 export const Container = styled.View`
-  flex: 1;
+  /* flex: 1; */
+  justify-content: flex-end;
 `;
 
 export const Header = styled.View`
   width: 100%;
-  height: 70%;
+  height: 60%;
 
   background-color: ${({ theme }) => theme.colors.primary};
 
@@ -42,7 +43,6 @@ export const SignInTitle = styled.Text`
 `;
 
 export const LogoWrapper = styled.View`
-  /* flex-direction: row; */
   align-items: center;
 `;
 
@@ -57,4 +57,18 @@ export const LogoTitle = styled.Text`
   font-size: ${RFValue(30)}px;
 
   margin-top: ${RFValue(15)}px;
+`;
+
+export const Footer = styled.View`
+  width: 100%;
+  height: 40%;
+
+  /* background-color: ${({ theme }) => theme.colors.secondary}; */
+`;
+
+export const FooterWrapper = styled.View`
+  margin-top: ${RFPercentage(-4)}px;
+  padding: 0 32px;
+
+  justify-content: space-between;
 `;
