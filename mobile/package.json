@@ -11,6 +11,8 @@
     "@hookform/resolvers": "^2.8.0",
     "@react-navigation/native": "^6.0.4",
     "@react-navigation/stack": "^6.0.9",
+    "axios": "^0.22.0",
+    "babel-plugin-inline-dotenv": "^1.6.0",
     "expo": "~42.0.1",
     "expo-app-loading": "^1.1.2",
     "expo-font": "~9.2.1",
@@ -29,7 +31,8 @@
     "react-native-unimodules": "0.14.10",
     "react-native-web": "~0.13.12",
     "styled-components": "^5.3.1",
-    "yup": "^0.32.9"
+    "yup": "^0.32.9",
+    "expo-secure-store": "~10.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

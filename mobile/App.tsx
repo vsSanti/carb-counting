@@ -14,6 +14,8 @@ import {
 
 import theme from '@/global/styles/theme';
 
+import { AppProvider } from '@/hooks';
+
 import { Routes } from '@/routes';
 
 export default function App(): React.ReactElement {
@@ -32,7 +34,9 @@ export default function App(): React.ReactElement {
       <StatusBar barStyle="light-content" />
 
       <ThemeProvider theme={theme}>
-        <Routes />
+        <AppProvider>
+          <Routes />
+        </AppProvider>
       </ThemeProvider>
     </>
   );

@@ -9,6 +9,8 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
+import { useAuth } from '@/hooks/auth';
+
 import { Button } from '@/components/Button';
 import { InputForm } from '@/components/Form/InputForm';
 
@@ -44,9 +46,14 @@ export const Login: React.FC = () => {
     resolver: yupResolver(schema),
   });
 
-  const handleLogin = useCallback((data: FormData) => {
-    console.log(data);
-  }, []);
+  const { login, loadingCredentials } = useAuth();
+
+  const handleLogin = useCallback(
+    (data: FormData) => {
+      login(data);
+    },
+    [login]
+  );
 
   return (
     <KeyboardAvoidingView
@@ -90,7 +97,11 @@ export const Login: React.FC = () => {
                 error={errors.password?.message}
               />
 
-              <Button title="Entrar" onPress={handleSubmit(handleLogin)} />
+              <Button
+                title="Entrar"
+                onPress={handleSubmit(handleLogin)}
+                loading={loadingCredentials}
+              />
             </FooterWrapper>
           </Footer>
         </Container>
