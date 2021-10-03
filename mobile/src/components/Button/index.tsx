@@ -1,7 +1,8 @@
 import React from 'react';
-import { ActivityIndicator } from 'react-native';
 import { useTheme } from 'styled-components';
 import { RectButtonProps } from 'react-native-gesture-handler';
+
+import { ActivityIndicator } from '@/components/ActivityIndicator';
 
 import { Container, Title } from './styles';
 
@@ -17,11 +18,7 @@ export const Button: React.FC<Props> = ({ title, color, onPress, loading = false
 
   return (
     <Container color={color || theme.colors.secondary} onPress={onPress}>
-      {loading ? (
-        <ActivityIndicator color={theme.colors.shape} />
-      ) : (
-        <Title>{title}</Title>
-      )}
+      {loading ? <ActivityIndicator /> : <Title>{title}</Title>}
     </Container>
   );
 };
