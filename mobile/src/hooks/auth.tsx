@@ -9,6 +9,7 @@ import React, {
 import * as SecureStore from 'expo-secure-store';
 
 import { api, useFetch } from '@/services';
+import { DataProps } from '@/services/useFetch/types';
 
 interface LoginCredentials {
   email: string;
@@ -29,7 +30,7 @@ interface User {
 interface AuthContextData {
   user?: User;
   loadingCredentials: boolean;
-  loadingUser: boolean;
+  hasUser: boolean;
   login: (credentials: LoginCredentials) => Promise<void>;
   logout: () => Promise<void>;
 }
@@ -40,7 +41,7 @@ const AuthProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState<User>();
   const [credentials, setCredentials] = useState<Credentials>();
 
-  const { post: postLogin, loading: loadingCredentials } = useFetch<Credentials>({
+  const { post: postCredentials, loading: loadingCredentials } = useFetch<Credentials>({
     baseURL: 'auth',
   });
 
@@ -51,22 +52,17 @@ const AuthProvider: React.FC = ({ children }) => {
   const login = useCallback(
     async ({ email, password }: LoginCredentials) => {
       try {
-        const response = await postLogin({
+        const response = await postCredentials({
           url: '/login',
           payload: { email, password },
         });
-
-        await Promise.all([
-          SecureStore.setItemAsync('accessToken', response.data?.accessToken || ''),
-          SecureStore.setItemAsync('refreshToken', response.data?.refreshToken || ''),
-        ]);
 
         setCredentials(response.data);
       } catch (error) {
         throw new Error(error);
       }
     },
-    [postLogin]
+    [postCredentials]
   );
 
   const logout = useCallback(async () => {
@@ -78,6 +74,7 @@ const AuthProvider: React.FC = ({ children }) => {
     api!.defaults!.headers!.Authorization = '';
 
     setUser(undefined);
+    setCredentials(undefined);
   }, []);
 
   const getLoggedUser = useCallback(async (): Promise<void> => {
@@ -90,8 +87,33 @@ const AuthProvider: React.FC = ({ children }) => {
     }
   }, [getUser, logout]);
 
+  const refreshTokens = useCallback(async (): Promise<DataProps<Credentials>> => {
+    const token = await SecureStore.getItemAsync('refreshToken');
+
+    const response = await postCredentials({
+      url: '/refresh',
+      payload: { refreshToken: token },
+    });
+
+    setCredentials({
+      accessToken: response.data?.accessToken || '',
+      refreshToken: response.data?.refreshToken || '',
+    });
+
+    return response;
+  }, [postCredentials]);
+
   useEffect(() => {
     if (!credentials) return;
+
+    const setCredentialsToSecureStore = async () => {
+      await Promise.all([
+        SecureStore.setItemAsync('accessToken', credentials?.accessToken || ''),
+        SecureStore.setItemAsync('refreshToken', credentials?.refreshToken || ''),
+      ]);
+    };
+
+    setCredentialsToSecureStore();
 
     api!.defaults!.headers!.Authorization = `Bearer ${credentials.accessToken}`;
 
@@ -116,12 +138,28 @@ const AuthProvider: React.FC = ({ children }) => {
     getCredentials();
   }, [credentials]);
 
+  useEffect(() => {
+    api.interceptors.response.use(
+      (response) => response,
+      async (error) => {
+        if (
+          error?.response?.config?.url !== '/refresh' &&
+          error?.response?.status === 401
+        ) {
+          return refreshTokens();
+        }
+
+        return Promise.reject(error);
+      }
+    );
+  }, [refreshTokens]);
+
   return (
     <AuthContext.Provider
       value={{
         user,
         loadingCredentials,
-        loadingUser,
+        hasUser: !!user || !!loadingUser || !!credentials,
         login,
         logout,
       }}

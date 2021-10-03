@@ -7,11 +7,9 @@ import { AuthRoutes } from './auth.routes';
 import { AppRoutes } from './app.routes';
 
 export const Routes: React.FC = () => {
-  const { user, loadingUser } = useAuth();
+  const { hasUser } = useAuth();
 
   return (
-    <NavigationContainer>
-      {user || loadingUser ? <AppRoutes /> : <AuthRoutes />}
-    </NavigationContainer>
+    <NavigationContainer>{hasUser ? <AppRoutes /> : <AuthRoutes />}</NavigationContainer>
   );
 };
