@@ -2,17 +2,43 @@ import React from 'react';
 
 import { useAuth } from '@/hooks/auth';
 
-import { Button } from '@/components/Button';
+import { ActivityIndicator } from '@/components/ActivityIndicator';
 
-import { Container, Title } from './styles';
+import {
+  Container,
+  Header,
+  UserWrapper,
+  UserInfo,
+  Photo,
+  User,
+  UserGreeting,
+  UserName,
+  Icon,
+  LogoutButton,
+} from './styles';
 
 export const Home: React.FC = () => {
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
 
   return (
     <Container>
-      <Title>Home</Title>
-      <Button title="logout" onPress={logout} />
+      <Header>
+        <UserWrapper>
+          <UserInfo>
+            <Photo
+              source={{ uri: `https://ui-avatars.com/api/?name=${user?.name || '-'}` }}
+            />
+            <User>
+              <UserGreeting>Olá,</UserGreeting>
+              <UserName>{user ? user.name : <ActivityIndicator />}</UserName>
+            </User>
+          </UserInfo>
+
+          <LogoutButton onPress={logout}>
+            <Icon name="power" />
+          </LogoutButton>
+        </UserWrapper>
+      </Header>
     </Container>
   );
 };
