@@ -1,4 +1,6 @@
 /* eslint-disable camelcase */
+import 'react-native-gesture-handler';
+
 import React from 'react';
 import AppLoading from 'expo-app-loading';
 import { ThemeProvider } from 'styled-components';
@@ -11,7 +13,7 @@ import {
 
 import theme from '@/global/styles/theme';
 
-import { Home } from '@/screens/Home';
+import { Routes } from '@/routes';
 
 export default function App(): React.ReactElement {
   const [fontsLoaded] = useFonts({
@@ -26,7 +28,7 @@ export default function App(): React.ReactElement {
 
   return (
     <ThemeProvider theme={theme}>
-      <Home />
+      <Routes />
     </ThemeProvider>
   );
 }
