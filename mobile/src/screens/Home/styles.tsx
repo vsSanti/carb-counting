@@ -1,8 +1,11 @@
 import styled from 'styled-components/native';
-import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
-import { getStatusBarHeight } from 'react-native-iphone-x-helper';
+import { FlatList } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { getBottomSpace, getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { BorderlessButton } from 'react-native-gesture-handler';
 import { Feather } from '@expo/vector-icons';
+
+import { MealCardProps } from '@/screens/Home/components/MealCard';
 
 export const Container = styled.View`
   flex: 1;
@@ -11,7 +14,7 @@ export const Container = styled.View`
 
 export const Header = styled.View`
   width: 100%;
-  height: ${RFPercentage(42)}px;
+  padding-bottom: ${RFValue(20)}px;
 
   background-color: ${({ theme }) => theme.colors.primary};
 
@@ -67,3 +70,24 @@ export const Icon = styled(Feather)`
   color: ${({ theme }) => theme.colors.secondary};
   font-size: ${RFValue(24)}px;
 `;
+
+export const Meals = styled.View`
+  flex: 1%;
+  padding: 0 24px;
+`;
+
+export const Title = styled.Text`
+  font-size: ${RFValue(18)}px;
+  font-family: ${({ theme }) => theme.fonts.bold};
+  /* color: ${({ theme }) => theme.colors.shape}; */
+
+  margin-top: ${RFValue(15)}px;
+  margin-bottom: 16px;
+`;
+
+export const MealList = styled(FlatList as new () => FlatList<MealCardProps>).attrs({
+  showsVerticalScrollIndicator: false,
+  contentContainerStyle: {
+    paddingBottom: getBottomSpace(),
+  },
+})``;

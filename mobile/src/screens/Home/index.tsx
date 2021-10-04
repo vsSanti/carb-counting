@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 
 import { useAuth } from '@/hooks/auth';
 
 import { ActivityIndicator } from '@/components/ActivityIndicator';
+
+import { MealCard, MealCardProps } from '@/screens/Home/components/MealCard';
+
+import { useFetch } from '@/services';
 
 import {
   Container,
@@ -15,10 +20,28 @@ import {
   UserName,
   Icon,
   LogoutButton,
+  MealList,
+  Meals,
+  Title,
 } from './styles';
 
 export const Home: React.FC = () => {
   const { user, logout } = useAuth();
+  const {
+    get: getMeals,
+    response: meals,
+    loading: loadingMeals,
+  } = useFetch<MealCardProps>({ apiType: 'meal' });
+
+  const fetch = useCallback(() => {
+    getMeals({ url: '/meals' });
+  }, [getMeals]);
+
+  useFocusEffect(
+    useCallback(() => {
+      fetch();
+    }, [fetch])
+  );
 
   return (
     <Container>
@@ -39,6 +62,20 @@ export const Home: React.FC = () => {
           </LogoutButton>
         </UserWrapper>
       </Header>
+
+      <Meals>
+        <Title>Listagem de refeições</Title>
+
+        {loadingMeals ? (
+          <ActivityIndicator color="dark" />
+        ) : (
+          <MealList
+            data={meals?.docs}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => <MealCard data={item} />}
+          />
+        )}
+      </Meals>
     </Container>
   );
 };
