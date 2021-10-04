@@ -2,7 +2,7 @@ import { AxiosRequestConfig } from 'axios';
 
 export interface DataProps<T> {
   data?: T;
-  items?: T[];
+  docs?: T[];
   totalItems?: number;
   message?: string;
   [key: string]: any;

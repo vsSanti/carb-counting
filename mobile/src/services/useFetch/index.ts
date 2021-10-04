@@ -1,28 +1,34 @@
 import { AxiosResponse } from 'axios';
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { Alert } from 'react-native';
 
 import { api } from '../api';
 import { DataProps, RequestParams, UseFetchResponse } from './types';
 
 interface UseFetchProps {
-  baseURL: 'auth';
+  apiType: 'auth' | 'meal';
 }
 
-const useFetch = <T>({ baseURL }: UseFetchProps): UseFetchResponse<T> => {
+const useFetch = <T>({ apiType }: UseFetchProps): UseFetchResponse<T> => {
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState<DataProps<T> | undefined>(undefined);
   const [error, setError] = useState(undefined);
 
-  useEffect(() => {
-    switch (baseURL) {
+  const baseURL = useMemo(() => {
+    let url: string;
+    switch (apiType) {
       case 'auth':
-        api.defaults.baseURL = process.env.AUTH_BASE_URL;
+        url = process.env.AUTH_BASE_URL || '';
+        break;
+      case 'meal':
+        url = process.env.MEAL_BASE_URL || '';
         break;
       default:
         throw new Error('"baseURL" must be passed.');
     }
-  }, [baseURL]);
+
+    return url;
+  }, [apiType]);
 
   const clearData = useCallback(() => {
     setResponse(undefined);
@@ -40,22 +46,24 @@ const useFetch = <T>({ baseURL }: UseFetchProps): UseFetchResponse<T> => {
         setError(undefined);
         setLoading(true);
 
+        const fullURL = `${baseURL}${url}`;
+
         let callResponse: AxiosResponse<any> | undefined;
         switch (type) {
           case 'GET':
-            callResponse = await api.get(url, config);
+            callResponse = await api.get(fullURL, config);
             break;
           case 'POST':
-            callResponse = await api.post(url, payload, config);
+            callResponse = await api.post(fullURL, payload, config);
             break;
           case 'PUT':
-            callResponse = await api.put(url, payload, config);
+            callResponse = await api.put(fullURL, payload, config);
             break;
           case 'PATCH':
-            callResponse = await api.patch(url, payload, config);
+            callResponse = await api.patch(fullURL, payload, config);
             break;
           case 'DELETE':
-            callResponse = await api.delete(url, config);
+            callResponse = await api.delete(fullURL, config);
             break;
           default:
             callResponse = undefined;
@@ -81,7 +89,7 @@ const useFetch = <T>({ baseURL }: UseFetchProps): UseFetchResponse<T> => {
         setLoading(false);
       }
     },
-    [clearData] // eslint-disable-line react-hooks/exhaustive-deps
+    [clearData, baseURL] // eslint-disable-line react-hooks/exhaustive-deps
   );
 
   const get = useCallback(
