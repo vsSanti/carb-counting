@@ -15,14 +15,13 @@ export const PageTitle = styled.Text`
   text-align: center;
 `;
 
-export const Footer = styled.View`
-  width: 100%;
-  height: 40%;
-`;
+export const Footer = styled.View``;
 
 export const FooterWrapper = styled.View`
   margin-top: ${RFPercentage(5)}px;
-  padding: 0 32px;
+  padding-right: 32px;
+  padding-left: 32px;
+  padding-bottom: ${RFValue(50)}px;
 
   justify-content: space-between;
 `;
