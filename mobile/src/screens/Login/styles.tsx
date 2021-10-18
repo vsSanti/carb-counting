@@ -72,3 +72,5 @@ export const FooterWrapper = styled.View`
 
   justify-content: space-between;
 `;
+
+export const SignUpButton = styled.Button``;

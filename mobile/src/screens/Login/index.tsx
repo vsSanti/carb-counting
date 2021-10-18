@@ -8,11 +8,15 @@ import {
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import { useAuth } from '@/hooks/auth';
 
 import { Button } from '@/components/Button';
 import { InputForm } from '@/components/Form/InputForm';
+
+import { RootStackParamList } from '@/routes/auth.routes';
 
 import {
   Container,
@@ -25,6 +29,7 @@ import {
   SignInTitle,
   Footer,
   FooterWrapper,
+  SignUpButton,
 } from './styles';
 
 type FormData = {
@@ -32,12 +37,16 @@ type FormData = {
   password: string;
 };
 
+type LoginScreenProp = StackNavigationProp<RootStackParamList, 'Login'>;
+
 const schema = yup.object().shape({
   email: yup.string().email('E-mail precisa ser válido').required('Nome é obrigatório'),
   password: yup.string().required('Senha é obrigatório'),
 });
 
 export const Login: React.FC = () => {
+  const navigation = useNavigation<LoginScreenProp>();
+
   const {
     control,
     handleSubmit,
@@ -101,6 +110,13 @@ export const Login: React.FC = () => {
                 title="Entrar"
                 onPress={handleSubmit(handleLogin)}
                 loading={loadingCredentials}
+              />
+
+              <SignUpButton
+                title="Fazer cadastro"
+                onPress={() => {
+                  navigation.navigate('SignUp');
+                }}
               />
             </FooterWrapper>
           </Footer>

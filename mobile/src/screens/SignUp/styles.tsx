@@ -25,3 +25,14 @@ export const FooterWrapper = styled.View`
 
   justify-content: space-between;
 `;
+
+export const CancelButton = styled.TouchableOpacity``;
+
+export const CancelButtonTitle = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.medium};
+  color: ${({ theme }) => theme.colors.shape};
+  font-size: ${RFValue(15)}px;
+
+  text-align: center;
+  margin-bottom: 25px;
+`;

@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useNavigation } from '@react-navigation/native';
 
 import { useAuth } from '@/hooks/auth';
 
@@ -12,9 +13,16 @@ import { useFetch } from '@/services';
 import { Button } from '@/components/Button';
 import { InputForm } from '@/components/Form/InputForm';
 import { MaskedInputForm } from '@/components/Form/MaskedInputForm';
-
-import { Container, Footer, FooterWrapper, PageTitle } from './styles';
 import { PickerSelectForm } from '@/components/Form/PickerSelectForm';
+
+import {
+  Container,
+  Footer,
+  FooterWrapper,
+  PageTitle,
+  CancelButton,
+  CancelButtonTitle,
+} from './styles';
 
 const schema = yup.object().shape({
   name: yup.string().required('Nome é obrigatório'),
@@ -31,6 +39,7 @@ const schema = yup.object().shape({
 
 export const SignUp: React.FC = () => {
   const { setCredentials } = useAuth();
+  const navigation = useNavigation();
 
   const { post: signUpRequest, loading: loadingSignUp } = useFetch<any>({
     apiType: 'auth',
@@ -177,6 +186,10 @@ export const SignUp: React.FC = () => {
               onPress={handleSubmit(handleSignUp)}
               loading={loadingSignUp}
             />
+
+            <CancelButton onPress={navigation.goBack}>
+              <CancelButtonTitle>Cancelar</CancelButtonTitle>
+            </CancelButton>
           </FooterWrapper>
         </Footer>
       </Container>
