@@ -33,6 +33,7 @@ interface AuthContextData {
   hasCredentials: boolean;
   login: (credentials: LoginCredentials) => Promise<void>;
   logout: () => Promise<void>;
+  setCredentials: React.Dispatch<React.SetStateAction<Credentials | undefined>>;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -166,6 +167,7 @@ const AuthProvider: React.FC = ({ children }) => {
         hasCredentials: !!credentials,
         login,
         logout,
+        setCredentials,
       }}
     >
       {children}
