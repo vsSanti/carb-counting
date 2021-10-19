@@ -1,14 +1,6 @@
 import styled from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
-export const Card = styled.View`
-  background-color: ${({ theme }) => theme.colors.shape};
-  padding: 20px;
-  margin: 20px 0;
-
-  border-radius: 10px;
-`;
-
 export const MainContent = styled.View`
   flex-direction: row;
 `;

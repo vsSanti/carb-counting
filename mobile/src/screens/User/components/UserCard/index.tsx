@@ -5,16 +5,23 @@ import * as Clipboard from 'expo-clipboard';
 
 import { useAuth } from '@/hooks/auth';
 
-import { Card, MainContent, Photo, MainDetails, Title, Info, UserId } from './styles';
+import { Card } from '../styles';
+import { MainContent, Photo, MainDetails, Title, Info, UserId } from './styles';
 
 export const UserCard: React.FC = () => {
   const { user } = useAuth();
 
   const birthDateFormatted = useMemo(() => {
     if (!user) return '';
+
     const { birthDate } = user;
 
-    const date = format(parseISO(birthDate), 'dd/MM/yyyy');
+    const parsedDate = parseISO(birthDate);
+    const dtDateOnly = new Date(
+      parsedDate.valueOf() + parsedDate.getTimezoneOffset() * 60 * 1000
+    );
+
+    const date = format(dtDateOnly, 'dd/MM/yyyy');
 
     return date;
   }, [user]);
