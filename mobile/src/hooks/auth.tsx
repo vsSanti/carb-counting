@@ -26,6 +26,10 @@ interface User {
   email: string;
   name: string;
   birthDate: string;
+  weight: number;
+  height: number;
+  glycemicTarget: number;
+  insulinUnitsPerDay: number;
   createdAt: string;
 }
 
