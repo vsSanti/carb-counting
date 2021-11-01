@@ -9,9 +9,13 @@ export const Error = styled.Text`
   margin: -4px 8px 8px 8px;
 `;
 
-export const Placeholder = styled.Text`
+type FieldTitleProps = {
+  color?: 'shape' | 'text' | 'text_dark';
+};
+
+export const FieldTitle = styled.Text<FieldTitleProps>`
   font-family: ${({ theme }) => theme.fonts.regular};
   font-size: ${RFValue(14)}px;
 
-  color: ${({ theme }) => theme.colors.shape};
+  color: ${({ theme, color }) => theme.colors[color || 'shape']};
 `;

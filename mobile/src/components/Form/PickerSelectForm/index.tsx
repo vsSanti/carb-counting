@@ -2,7 +2,7 @@ import React from 'react';
 import { Control, Controller } from 'react-hook-form';
 import RNPickerSelect, { Item } from 'react-native-picker-select';
 
-import { Error, Placeholder } from '@/components/Form/styles';
+import { Error, FieldTitle } from '@/components/Form/styles';
 import { Container, PickerView } from './styles';
 
 interface Props {
@@ -27,7 +27,7 @@ export const PickerSelectForm: React.FC<Props> = ({
         control={control}
         render={({ field: { onChange, value } }) => (
           <>
-            <Placeholder>{placeholder}</Placeholder>
+            {placeholder && <FieldTitle>{placeholder}</FieldTitle>}
             <PickerView>
               <RNPickerSelect onValueChange={onChange} value={value} items={items} />
             </PickerView>

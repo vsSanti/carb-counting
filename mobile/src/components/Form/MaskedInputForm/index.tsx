@@ -2,7 +2,7 @@ import React from 'react';
 import { Control, Controller } from 'react-hook-form';
 import { Masks } from 'react-native-mask-input';
 
-import { Error, Placeholder } from '@/components/Form/styles';
+import { Error, FieldTitle } from '@/components/Form/styles';
 import { Container, MaskInputStyled } from './styles';
 
 interface Props {
@@ -25,7 +25,7 @@ export const MaskedInputForm: React.FC<Props> = ({
         control={control}
         render={({ field: { onChange, value } }) => (
           <>
-            <Placeholder>{placeholder}</Placeholder>
+            <FieldTitle>{placeholder}</FieldTitle>
             <MaskInputStyled
               keyboardType="number-pad"
               value={value}
