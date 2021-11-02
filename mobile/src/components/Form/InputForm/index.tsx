@@ -1,30 +1,41 @@
 import React from 'react';
-import { TextInputProps } from 'react-native';
+import { TextInputProps, View } from 'react-native';
 import { Control, Controller } from 'react-hook-form';
 
 import { Input } from '@/components/Form/Input';
 
 import { Error } from '@/components/Form/styles';
-import { Container } from './styles';
 
-interface Props extends TextInputProps {
+export type InputFormProps = TextInputProps & {
   name: string;
   control: Control;
   title?: string;
   titleColor?: 'shape' | 'text' | 'text_dark';
   error?: string;
-}
+  customStyles?: {
+    flex?: number;
+    display?: 'none' | 'flex';
+    marginRight?: number;
+  };
+};
 
-export const InputForm: React.FC<Props> = ({
+export const InputForm: React.FC<InputFormProps> = ({
   control,
   name,
   title,
   titleColor,
   error,
+  customStyles,
   ...rest
 }) => {
   return (
-    <Container>
+    <View
+      style={{
+        flex: customStyles?.flex || 1,
+        display: customStyles?.display,
+        marginRight: customStyles?.marginRight,
+      }}
+    >
       <Controller
         name={name}
         control={control}
@@ -41,6 +52,6 @@ export const InputForm: React.FC<Props> = ({
         )}
       />
       {error && <Error>{error}</Error>}
-    </Container>
+    </View>
   );
 };
