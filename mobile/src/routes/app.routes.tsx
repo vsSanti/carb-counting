@@ -4,6 +4,7 @@ import { useTheme } from 'styled-components';
 import { MaterialIcons } from '@expo/vector-icons';
 
 import { Home } from '@/screens/Home';
+import { Meal } from '@/screens/Meal';
 import { User } from '@/screens/User';
 
 const { Navigator, Screen } = createBottomTabNavigator();
@@ -29,6 +30,16 @@ export const AppRoutes: React.FC = () => {
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="format-list-bulleted" size={size} color={color} />
+          ),
+        }}
+      />
+
+      <Screen
+        name="Meal"
+        component={Meal}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="add" size={size} color={color} />
           ),
         }}
       />
