@@ -5,7 +5,7 @@ import AppLoading from 'expo-app-loading';
 import { useAuth } from '@/hooks/auth';
 
 import { AuthRoutes } from './auth.routes';
-import { AppRoutes } from './app.routes';
+import { AppTabRoutes } from './app.tab.routes';
 
 export const Routes: React.FC = () => {
   const { user, hasCredentials } = useAuth();
@@ -15,6 +15,6 @@ export const Routes: React.FC = () => {
   }
 
   return (
-    <NavigationContainer>{user ? <AppRoutes /> : <AuthRoutes />}</NavigationContainer>
+    <NavigationContainer>{user ? <AppTabRoutes /> : <AuthRoutes />}</NavigationContainer>
   );
 };

@@ -3,13 +3,14 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTheme } from 'styled-components';
 import { MaterialIcons } from '@expo/vector-icons';
 
-import { Home } from '@/screens/Home';
 import { Meal } from '@/screens/Meal';
 import { User } from '@/screens/User';
 
+import { AppStackRoutes } from './app.stack.routes';
+
 const { Navigator, Screen } = createBottomTabNavigator();
 
-export const AppRoutes: React.FC = () => {
+export const AppTabRoutes: React.FC = () => {
   const theme = useTheme();
 
   return (
@@ -26,7 +27,7 @@ export const AppRoutes: React.FC = () => {
     >
       <Screen
         name="Lista"
-        component={Home}
+        component={AppStackRoutes}
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="format-list-bulleted" size={size} color={color} />

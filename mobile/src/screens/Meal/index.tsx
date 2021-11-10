@@ -84,7 +84,7 @@ export const Meal: React.FC = () => {
             mealFoods,
           },
         });
-        navigation.navigate('Lista');
+        navigation.navigate('List');
 
         reset();
         fields.forEach(() => {
