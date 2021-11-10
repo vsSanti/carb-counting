@@ -25,7 +25,7 @@ export const AppRoutes: React.FC = () => {
       }}
     >
       <Screen
-        name="Home"
+        name="Lista"
         component={Home}
         options={{
           tabBarIcon: ({ color, size }) => (
@@ -35,7 +35,7 @@ export const AppRoutes: React.FC = () => {
       />
 
       <Screen
-        name="Meal"
+        name="Refeição"
         component={Meal}
         options={{
           tabBarIcon: ({ color, size }) => (
@@ -45,7 +45,7 @@ export const AppRoutes: React.FC = () => {
       />
 
       <Screen
-        name="User"
+        name="Usuário"
         component={User}
         options={{
           tabBarIcon: ({ color, size }) => (
