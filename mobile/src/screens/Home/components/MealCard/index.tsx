@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { RectButtonProps } from 'react-native-gesture-handler';
 import { format, parseISO } from 'date-fns';
 
 import {
@@ -22,11 +23,11 @@ export type MealCardProps = {
   createdAt: string;
 };
 
-type Props = {
+type Props = RectButtonProps & {
   data: MealCardProps;
 };
 
-export const MealCard: React.FC<Props> = ({ data }) => {
+export const MealCard: React.FC<Props> = ({ data, ...rest }) => {
   const createdAtFormatted = useMemo(() => {
     const { createdAt } = data;
 
@@ -36,7 +37,7 @@ export const MealCard: React.FC<Props> = ({ data }) => {
   }, [data]);
 
   return (
-    <Container>
+    <Container {...rest}>
       <MainInfos>
         <Info>
           <InfoTitle>Medição de glicose:</InfoTitle>

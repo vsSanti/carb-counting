@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
 import { useAuth } from '@/hooks/auth';
 
@@ -27,6 +27,7 @@ import {
 
 export const Home: React.FC = () => {
   const { user, logout } = useAuth();
+  const navigation = useNavigation<any>();
   const {
     get: getMeals,
     response: meals,
@@ -41,6 +42,13 @@ export const Home: React.FC = () => {
     useCallback(() => {
       fetch();
     }, [fetch])
+  );
+
+  const handleMealDetails = useCallback(
+    (meal: any) => {
+      navigation.navigate('MealDetails', { meal });
+    },
+    [navigation]
   );
 
   return (
@@ -72,7 +80,9 @@ export const Home: React.FC = () => {
           <MealList
             data={meals?.docs}
             keyExtractor={(item) => item.id}
-            renderItem={({ item }) => <MealCard data={item} />}
+            renderItem={({ item }) => (
+              <MealCard data={item} onPress={() => handleMealDetails(item)} />
+            )}
           />
         )}
       </Meals>
