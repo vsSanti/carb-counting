@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import { format, parseISO } from 'date-fns';
 
-import { Separator } from '@/components/Separator';
+import { Card } from '@/components/Card';
 
 import {
   MainInfosWrapper,
@@ -22,8 +23,18 @@ export const MainInfos: React.FC<Props> = ({
   glucoseMeasurement,
   insulinUnitsToBeApplied,
 }) => {
+  const createdAtFormatted = useMemo(() => {
+    try {
+      const date = format(parseISO(createdAt), "dd/MM/yyyy 'às' HH:mm");
+
+      return date;
+    } catch (error) {
+      return '-';
+    }
+  }, [createdAt]);
+
   return (
-    <>
+    <Card>
       <InfosWrapper>
         <MainInfosWrapper>
           <InfoDisplay>
@@ -36,9 +47,8 @@ export const MainInfos: React.FC<Props> = ({
             <ResultLabel>Qtd. de insulina aplicada</ResultLabel>
           </InfoDisplay>
         </MainInfosWrapper>
-        <Time>Criado em {createdAt || '-'}</Time>
+        <Time>Criado em {createdAtFormatted}</Time>
       </InfosWrapper>
-      <Separator />
-    </>
+    </Card>
   );
 };
