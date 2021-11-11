@@ -5,7 +5,8 @@ import * as Clipboard from 'expo-clipboard';
 
 import { useAuth } from '@/hooks/auth';
 
-import { Card } from '../styles';
+import { Card } from '@/components/Card';
+
 import { MainContent, Photo, MainDetails, Title, Info, UserId } from './styles';
 
 export const UserCard: React.FC = () => {

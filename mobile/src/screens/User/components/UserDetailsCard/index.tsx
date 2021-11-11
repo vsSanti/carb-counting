@@ -2,7 +2,8 @@ import React from 'react';
 
 import { useAuth } from '@/hooks/auth';
 
-import { Card } from '../styles';
+import { Card } from '@/components/Card';
+
 import { Title, InfoView, InfoTitle, InfoContent, InfoUnit } from './styles';
 
 export const UserDetailsCard: React.FC = () => {
