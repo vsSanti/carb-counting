@@ -4,6 +4,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   TouchableWithoutFeedback,
+  ScrollView,
 } from 'react-native';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -86,38 +87,40 @@ export const Login: React.FC = () => {
 
           <Footer>
             <FooterWrapper>
-              <InputForm
-                name="email"
-                control={control}
-                placeholder="E-mail"
-                keyboardType="email-address"
-                autoCapitalize="none"
-                autoCorrect={false}
-                error={errors.email?.message}
-              />
+              <ScrollView scrollEnabled={false}>
+                <InputForm
+                  name="email"
+                  control={control}
+                  placeholder="E-mail"
+                  keyboardType="email-address"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  error={errors.email?.message}
+                />
 
-              <InputForm
-                name="password"
-                control={control}
-                placeholder="Senha"
-                autoCapitalize="none"
-                autoCorrect={false}
-                secureTextEntry
-                error={errors.password?.message}
-              />
+                <InputForm
+                  name="password"
+                  control={control}
+                  placeholder="Senha"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  secureTextEntry
+                  error={errors.password?.message}
+                />
 
-              <Button
-                title="Entrar"
-                onPress={handleSubmit(handleLogin)}
-                loading={loadingCredentials}
-              />
+                <Button
+                  title="Entrar"
+                  onPress={handleSubmit(handleLogin)}
+                  loading={loadingCredentials}
+                />
 
-              <SignUpButton
-                title="Fazer cadastro"
-                onPress={() => {
-                  navigation.navigate('SignUp');
-                }}
-              />
+                <SignUpButton
+                  title="Fazer cadastro"
+                  onPress={() => {
+                    navigation.navigate('SignUp');
+                  }}
+                />
+              </ScrollView>
             </FooterWrapper>
           </Footer>
         </Container>
