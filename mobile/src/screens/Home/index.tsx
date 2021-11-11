@@ -1,11 +1,13 @@
 import React, { useCallback } from 'react';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
+import { Meal } from '@/@types';
+
 import { useAuth } from '@/hooks/auth';
 
 import { ActivityIndicator } from '@/components/ActivityIndicator';
 
-import { MealCard, MealCardProps } from '@/screens/Home/components/MealCard';
+import { MealCard } from '@/screens/Home/components/MealCard';
 
 import { useFetch } from '@/services';
 
@@ -32,7 +34,7 @@ export const Home: React.FC = () => {
     get: getMeals,
     response: meals,
     loading: loadingMeals,
-  } = useFetch<MealCardProps>({ apiType: 'meal' });
+  } = useFetch<Meal>({ apiType: 'meal' });
 
   const fetch = useCallback(() => {
     getMeals({ url: '/meals' });

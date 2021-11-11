@@ -3,16 +3,14 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { format, parseISO } from 'date-fns';
 
+import { Meal } from '@/@types';
+
 import { MainInfos } from './components/MainInfos';
 
 import { Container, Header, Title, Icon, Content } from './styles';
 
 type Params = {
-  meal: {
-    createdAt: string;
-    glucoseMeasurement: number;
-    insulinUnitsToBeApplied: number;
-  };
+  meal: Meal;
 };
 
 export const MealDetails: React.FC = () => {

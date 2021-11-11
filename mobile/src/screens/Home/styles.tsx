@@ -5,7 +5,7 @@ import { getBottomSpace, getStatusBarHeight } from 'react-native-iphone-x-helper
 import { BorderlessButton } from 'react-native-gesture-handler';
 import { Feather } from '@expo/vector-icons';
 
-import { MealCardProps } from '@/screens/Home/components/MealCard';
+import { Meal } from '@/@types';
 
 export const Container = styled.View`
   flex: 1;
@@ -85,7 +85,7 @@ export const Title = styled.Text`
   margin-bottom: 16px;
 `;
 
-export const MealList = styled(FlatList as new () => FlatList<MealCardProps>).attrs({
+export const MealList = styled(FlatList as new () => FlatList<Meal>).attrs({
   showsVerticalScrollIndicator: false,
   contentContainerStyle: {
     paddingBottom: getBottomSpace(),

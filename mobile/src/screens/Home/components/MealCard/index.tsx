@@ -2,6 +2,8 @@ import React, { useMemo } from 'react';
 import { RectButtonProps } from 'react-native-gesture-handler';
 import { format, parseISO } from 'date-fns';
 
+import { Meal } from '@/@types';
+
 import {
   Container,
   Footer,
@@ -16,15 +18,8 @@ import {
   InfoUnit,
 } from './styles';
 
-export type MealCardProps = {
-  id: string;
-  glucoseMeasurement: number;
-  insulinUnitsToBeApplied: number;
-  createdAt: string;
-};
-
 type Props = RectButtonProps & {
-  data: MealCardProps;
+  data: Meal;
 };
 
 export const MealCard: React.FC<Props> = ({ data, ...rest }) => {
