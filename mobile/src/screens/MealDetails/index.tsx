@@ -1,12 +1,18 @@
-import React, { useCallback, useEffect } from 'react';
-import { Text } from 'react-native';
+import React, { useCallback, useMemo } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { format, parseISO } from 'date-fns';
+
+import { MainInfos } from './components/MainInfos';
 
 import { Container, Header, Title, Icon, Content } from './styles';
 
 type Params = {
-  meal: any;
+  meal: {
+    createdAt: string;
+    glucoseMeasurement: number;
+    insulinUnitsToBeApplied: number;
+  };
 };
 
 export const MealDetails: React.FC = () => {
@@ -19,8 +25,16 @@ export const MealDetails: React.FC = () => {
     navigation.goBack();
   }, [navigation]);
 
-  useEffect(() => {
-    console.log(meal);
+  const createdAtFormatted = useMemo(() => {
+    const { createdAt } = meal;
+
+    try {
+      const date = format(parseISO(createdAt), "dd/MM/yyyy 'às' HH:mm");
+
+      return date;
+    } catch (error) {
+      return '-';
+    }
   }, [meal]);
 
   return (
@@ -40,7 +54,11 @@ export const MealDetails: React.FC = () => {
           paddingBottom: 25,
         }}
       >
-        <Text>Conteúdo</Text>
+        <MainInfos
+          createdAt={createdAtFormatted}
+          glucoseMeasurement={meal.glucoseMeasurement}
+          insulinUnitsToBeApplied={meal.insulinUnitsToBeApplied}
+        />
       </Content>
     </Container>
   );
