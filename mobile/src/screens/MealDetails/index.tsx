@@ -57,6 +57,8 @@ export const MealDetails: React.FC = () => {
           glucoseMeasurement={meal.glucoseMeasurement}
           insulinUnitsToBeApplied={meal.insulinUnitsToBeApplied}
         />
+
+        <FoodList mealFoods={meal.mealFoods} />
       </Content>
     </Container>
   );
