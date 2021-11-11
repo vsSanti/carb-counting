@@ -13,16 +13,9 @@ import { useFetch } from '@/services';
 import { Button } from '@/components/Button';
 import { InputForm } from '@/components/Form/InputForm';
 import { SearchableInput } from '@/components/Form/SearchableInput';
+import { Separator } from '@/components/Separator';
 
-import {
-  Container,
-  Header,
-  HeaderTitle,
-  Content,
-  Separator,
-  MealInputs,
-  Icon,
-} from './styles';
+import { Container, Header, HeaderTitle, Content, MealInputs, Icon } from './styles';
 
 const schema = yup.object().shape({
   // glucoseMeasurement: yup.number().required('Glicemia medida é obrigatório'),

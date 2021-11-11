@@ -28,13 +28,6 @@ export const Content = styled.ScrollView`
   margin-top: 20px;
 `;
 
-export const Separator = styled.View`
-  border-bottom-color: ${({ theme }) => theme.colors.text};
-  border-bottom-width: 1px;
-
-  margin: 6px 0;
-`;
-
 export const MealInputs = styled.View`
   flex-direction: row;
   align-items: center;
