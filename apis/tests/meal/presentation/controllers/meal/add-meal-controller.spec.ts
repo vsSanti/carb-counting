@@ -49,6 +49,16 @@ describe('AddMeal Controller', () => {
     );
   });
 
+  it("should return 400 if patientSensibilityFactor or patientInsulinCarbohydrateRatio aren't provided", async () => {
+    const httpResponse = await sut.handle({
+      body: { ...httpRequest.body, patientInsulinUnitsPerDay: undefined },
+    });
+    expect(httpResponse.statusCode).toBe(400);
+    expect(httpResponse).toEqual(
+      badRequest({ errorMessage: 'Parâmetros obrigatórios não enviados.' })
+    );
+  });
+
   it('should call AddMeal with correct params', async () => {
     await sut.handle(httpRequest);
     expect(addMealSpy.params).toEqual(httpRequest.body);
