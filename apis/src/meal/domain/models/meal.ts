@@ -5,7 +5,7 @@ import { MealFoodModel } from './meal-food';
 type Meal = {
   mealFoods: MealFoodModel[];
   patientId: string;
-  patientInsulinUnitsPerDay: number;
+  patientInsulinUnitsPerDay?: number;
   patientGlycemicTarget: number;
   glucoseMeasurement: number;
   insulinUnitsToBeApplied: number;

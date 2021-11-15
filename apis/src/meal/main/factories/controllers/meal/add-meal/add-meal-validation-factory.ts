@@ -11,10 +11,6 @@ export const makeAddMealValidation = (): ObjectValidator => {
   const numberValidator = new NumberValidator();
 
   const patientIdProperty = new GenericPropertyBuilder('patientId', [stringValidator]);
-  const patientInsulinUnitsPerDayProperty = new GenericPropertyBuilder(
-    'patientInsulinUnitsPerDay',
-    [numberValidator]
-  );
   const patientGlycemicTargetProperty = new GenericPropertyBuilder('patientGlycemicTarget', [
     numberValidator,
   ]);
@@ -37,7 +33,6 @@ export const makeAddMealValidation = (): ObjectValidator => {
 
   const objectValidator = new GenericObjectValidator([
     patientIdProperty,
-    patientInsulinUnitsPerDayProperty,
     patientGlycemicTargetProperty,
     glucoseMeasurementProperty,
     mealFoodsProperty,

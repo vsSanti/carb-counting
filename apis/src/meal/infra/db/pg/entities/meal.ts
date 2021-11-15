@@ -11,7 +11,7 @@ export class PgMeal extends PgBaseModel {
   @Column({ type: 'uuid' })
   patientId: string;
 
-  @Column()
+  @Column({ nullable: true })
   patientInsulinUnitsPerDay: number;
 
   @Column()

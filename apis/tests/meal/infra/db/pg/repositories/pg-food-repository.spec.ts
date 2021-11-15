@@ -1,23 +1,24 @@
 import { IBackup } from 'pg-mem';
 import { getRepository, Repository, getConnection } from 'typeorm';
 
+import { FoodModel } from '@/meal/domain/models';
 import { PgFood } from '@/meal/infra/db/pg/entities';
 import { PgFoodRepository } from '@/meal/infra/db/pg/repositories/pg-food-repository';
 
-import { mockFoodModel } from '@/tests/meal/domain/mocks';
+import { mockFoodModelList } from '@/tests/meal/domain/mocks';
 import { makeFakeDb } from '@/tests/meal/infra/db/pg/mocks';
 
 describe('PgFood Repository', () => {
   let sut: PgFoodRepository;
   let pgFoodRepo: Repository<PgFood>;
   let backup: IBackup;
-  let foodModelToAdd: PgFood[];
+  let foodModelToAdd: FoodModel[];
 
   beforeAll(async () => {
     const db = await makeFakeDb();
     backup = db.backup();
     pgFoodRepo = getRepository(PgFood);
-    foodModelToAdd = [mockFoodModel(), mockFoodModel(), mockFoodModel()];
+    foodModelToAdd = mockFoodModelList();
   });
 
   afterAll(async () => {
