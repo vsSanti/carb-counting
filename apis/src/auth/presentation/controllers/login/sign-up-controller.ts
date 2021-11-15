@@ -20,17 +20,7 @@ export class SignUpController implements Controller {
         return badRequest({ validationErrors: validation.errors });
       }
 
-      const {
-        email,
-        password,
-        name,
-        sex,
-        height,
-        glycemicTarget,
-        insulinUnitsPerDay,
-        weight,
-        birthDate,
-      } = body;
+      const { email, password, name, sex, height, glycemicTarget, weight, birthDate } = body;
 
       const patient = await this.addPatient.add({
         email,
@@ -39,7 +29,6 @@ export class SignUpController implements Controller {
         sex,
         height,
         glycemicTarget,
-        insulinUnitsPerDay,
         weight,
         birthDate,
       });
