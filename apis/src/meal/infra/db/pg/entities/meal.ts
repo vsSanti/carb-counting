@@ -14,6 +14,12 @@ export class PgMeal extends PgBaseModel {
   @Column({ nullable: true })
   patientInsulinUnitsPerDay: number;
 
+  @Column({ nullable: true })
+  patientSensibilityFactor?: number;
+
+  @Column({ nullable: true })
+  patientInsulinCarbohydrateRatio?: number;
+
   @Column()
   patientGlycemicTarget: number;
 

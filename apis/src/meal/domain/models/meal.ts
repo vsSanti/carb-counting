@@ -6,6 +6,8 @@ type Meal = {
   mealFoods: MealFoodModel[];
   patientId: string;
   patientInsulinUnitsPerDay?: number;
+  patientSensibilityFactor?: number;
+  patientInsulinCarbohydrateRatio?: number;
   patientGlycemicTarget: number;
   glucoseMeasurement: number;
   insulinUnitsToBeApplied: number;
