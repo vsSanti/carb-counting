@@ -30,9 +30,6 @@
 - ✅ `glycemicTarget`:
   - ✅ Type: `number`;
   - ✅ Required: `true`;
-- ✅ `insulinUnitsPerDay`:
-  - ✅ Type: `number`;
-  - ✅ Required: `true`;
 
 > ## Main flow
 1. ✅ Validate body parameters;
