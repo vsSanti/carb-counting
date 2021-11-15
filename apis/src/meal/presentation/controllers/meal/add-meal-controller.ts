@@ -15,6 +15,12 @@ export class AddMealController implements Controller {
         return badRequest({ validationErrors: validation.errors });
       }
 
+      const { patientInsulinUnitsPerDay } = body;
+
+      if (!patientInsulinUnitsPerDay) {
+        return badRequest({ errorMessage: 'Parâmetros obrigatórios não enviados.' });
+      }
+
       const meal = await this.addMeal.add(body);
 
       return created({ data: meal });
