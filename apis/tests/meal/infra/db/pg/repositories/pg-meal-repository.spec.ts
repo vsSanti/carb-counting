@@ -18,6 +18,7 @@ describe('PgMeal Repository', () => {
   let pgMealFoodRepo: Repository<PgMealFood>;
   let backup: IBackup;
   let foodModels: FoodModel[];
+  let mealFoods: any;
 
   beforeAll(async () => {
     MockDate.set(new Date());
@@ -40,26 +41,35 @@ describe('PgMeal Repository', () => {
       mockFoodModel({ carbohydrate: 8 }),
       mockFoodModel({ carbohydrate: 30 }),
     ]);
+    mealFoods = [
+      {
+        foodId: foodModels[0].id,
+        weight: 125,
+      },
+      {
+        foodId: foodModels[1].id,
+        weight: 50,
+      },
+    ];
   });
 
   describe('add', () => {
-    it('should return a meal with calculated values on add success', async () => {
+    it('should return a meal with calculated values on add success with patientInsulinUnitsPerDay', async () => {
+      const addMealParams: AddMealParams = { ...mockAddMealParams(), mealFoods };
+      const mealId = await sut.add(addMealParams);
+      expect(mealId).toBeTruthy();
+    });
+
+    it('should return a meal with calculated values on add success and special values', async () => {
       const addMealParams: AddMealParams = {
         ...mockAddMealParams(),
-        mealFoods: [
-          {
-            foodId: foodModels[0].id,
-            weight: 125,
-          },
-          {
-            foodId: foodModels[1].id,
-            weight: 50,
-          },
-        ],
+        patientInsulinUnitsPerDay: undefined,
+        patientSensibilityFactor: 40,
+        patientInsulinCarbohydrateRatio: 8,
+        mealFoods,
       };
 
       const mealId = await sut.add(addMealParams);
-
       expect(mealId).toBeTruthy();
     });
   });
