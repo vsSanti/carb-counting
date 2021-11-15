@@ -10,6 +10,12 @@ import { AddMealParams } from '@/meal/domain/usecases';
 import { PgFood, PgMeal, PgMealFood } from '@/meal/infra/db/pg/entities';
 import { MealModel } from '@/meal/domain/models';
 
+type PatientCalculationData = {
+  patientInsulinUnitsPerDay?: number;
+  patientInsulinCarbohydrateRatio?: number;
+  patientSensibilityFactor?: number;
+};
+
 export class PgMealRepository
   implements AddMealRepository, ListMealsRepository, LoadMealByIdRepository
 {
@@ -18,13 +24,22 @@ export class PgMealRepository
   };
 
   private calculateInsulinUnitsToBeApplied = (
-    insulinUnitsPerDay: number,
+    patientCalculationData: PatientCalculationData,
     glucoseMeasurement: number,
     glycemicTarget: number,
     totalAmountOfCarbohydrate: number
   ): number => {
-    const sensibilityFactor = this.roundNumber(2000 / insulinUnitsPerDay);
-    const insulinCarbohydrateRatio = this.roundNumber(400 / insulinUnitsPerDay);
+    const { patientInsulinUnitsPerDay, patientInsulinCarbohydrateRatio, patientSensibilityFactor } =
+      patientCalculationData;
+
+    let sensibilityFactor = patientSensibilityFactor;
+    let insulinCarbohydrateRatio = patientInsulinCarbohydrateRatio;
+
+    if (!patientInsulinCarbohydrateRatio || !patientSensibilityFactor) {
+      sensibilityFactor = this.roundNumber(2000 / patientInsulinUnitsPerDay);
+      insulinCarbohydrateRatio = this.roundNumber(400 / patientInsulinUnitsPerDay);
+    }
+
     const correctionBolus = Math.round((glucoseMeasurement - glycemicTarget) / sensibilityFactor);
     const mealBolus = Math.round(totalAmountOfCarbohydrate / insulinCarbohydrateRatio);
 
@@ -53,7 +68,11 @@ export class PgMealRepository
     );
 
     const insulinUnitsToBeApplied = this.calculateInsulinUnitsToBeApplied(
-      data.patientInsulinUnitsPerDay,
+      {
+        patientInsulinUnitsPerDay: data.patientInsulinUnitsPerDay,
+        patientInsulinCarbohydrateRatio: data.patientInsulinCarbohydrateRatio,
+        patientSensibilityFactor: data.patientSensibilityFactor,
+      },
       data.glucoseMeasurement,
       data.patientGlycemicTarget,
       totalAmountOfCarbohydrate
