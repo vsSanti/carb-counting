@@ -6,6 +6,8 @@ type Patient = {
   sex: 'masculine' | 'feminine';
   glycemicTarget: number;
   insulinUnitsPerDay?: number;
+  sensibilityFactor?: number;
+  insulinCarbohydrateRatio?: number;
 };
 
 export type PatientModel = AccountModel & Patient;

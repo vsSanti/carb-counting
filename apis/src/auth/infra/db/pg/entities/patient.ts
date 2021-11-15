@@ -15,4 +15,10 @@ export class PgPatient extends PgAccount {
 
   @Column({ type: 'int', nullable: true })
   insulinUnitsPerDay?: number;
+
+  @Column({ type: 'int', nullable: true })
+  sensibilityFactor?: number;
+
+  @Column({ type: 'int', nullable: true })
+  insulinCarbohydrateRatio?: number;
 }
