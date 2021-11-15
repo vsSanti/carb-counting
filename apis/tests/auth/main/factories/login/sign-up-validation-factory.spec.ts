@@ -32,9 +32,6 @@ describe('SignUpValidation Factory', () => {
     ]);
     const heightProperty = new GenericPropertyBuilder('height', [numberValidator]);
     const glycemicTargetProperty = new GenericPropertyBuilder('glycemicTarget', [numberValidator]);
-    const insulinUnitsPerDayProperty = new GenericPropertyBuilder('insulinUnitsPerDay', [
-      numberValidator,
-    ]);
     const weightProperty = new GenericPropertyBuilder('weight', [numberValidator]);
     const birthDateProperty = new GenericPropertyBuilder('birthDate', [dateValidator]);
 
@@ -46,7 +43,6 @@ describe('SignUpValidation Factory', () => {
       sexProperty,
       heightProperty,
       glycemicTargetProperty,
-      insulinUnitsPerDayProperty,
       weightProperty,
       birthDateProperty,
     ]);

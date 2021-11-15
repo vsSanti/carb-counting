@@ -13,6 +13,6 @@ export class PgPatient extends PgAccount {
   @Column({ type: 'int' })
   glycemicTarget: number;
 
-  @Column({ type: 'int' })
-  insulinUnitsPerDay: number;
+  @Column({ type: 'int', nullable: true })
+  insulinUnitsPerDay?: number;
 }

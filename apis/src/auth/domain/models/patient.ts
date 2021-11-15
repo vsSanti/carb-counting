@@ -5,7 +5,7 @@ type Patient = {
   height: number;
   sex: 'masculine' | 'feminine';
   glycemicTarget: number;
-  insulinUnitsPerDay: number;
+  insulinUnitsPerDay?: number;
 };
 
 export type PatientModel = AccountModel & Patient;
