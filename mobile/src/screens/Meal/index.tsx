@@ -1,9 +1,10 @@
 import React, { useCallback, useMemo } from 'react';
+import { Alert } from 'react-native';
 import { useForm, useFieldArray } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
 import { useAuth } from '@/hooks/auth';
 import { useFood } from '@/hooks/food';
@@ -18,7 +19,7 @@ import { Separator } from '@/components/Separator';
 import { Container, Header, HeaderTitle, Content, MealInputs, Icon } from './styles';
 
 const schema = yup.object().shape({
-  // glucoseMeasurement: yup.number().required('Glicemia medida é obrigatório'),
+  glucoseMeasurement: yup.number().required('Glicemia medida é obrigatório'),
 });
 
 export const Meal: React.FC = () => {
@@ -62,16 +63,39 @@ export const Meal: React.FC = () => {
       try {
         const glucoseMeasurement = Number(data?.glucoseMeasurement);
 
-        const mealFoods = data?.mealFoods?.map((mealFood: any) => ({
-          foodId: mealFood?.foodId,
-          weight: Number(mealFood?.weight),
-        }));
+        const mealFoods: any[] =
+          data?.mealFoods?.map((mealFood: any) => ({
+            foodId: mealFood?.foodId,
+            weight: Number(mealFood?.weight),
+          })) || [];
+
+        if (!mealFoods.length) {
+          Alert.alert(
+            'Erro ao validar campos',
+            'Certifique-se que a refeição possua ao menos um alimento.'
+          );
+          return;
+        }
+
+        const hasIncompleteMealFood = mealFoods?.some(
+          (mealFood) => !mealFood.foodId || !mealFood.weight
+        );
+
+        if (hasIncompleteMealFood) {
+          Alert.alert(
+            'Erro ao validar campos',
+            'Certifique-se que todos os alimentos possuem um peso e nome.'
+          );
+          return;
+        }
 
         await postMeal({
           url: '/meals',
           payload: {
             patientId: user?.id,
             patientInsulinUnitsPerDay: user?.insulinUnitsPerDay,
+            patientSensibilityFactor: user?.sensibilityFactor,
+            patientInsulinCarbohydrateRatio: user?.insulinCarbohydrateRatio,
             patientGlycemicTarget: user?.glycemicTarget,
             glucoseMeasurement,
             mealFoods,
@@ -88,6 +112,22 @@ export const Meal: React.FC = () => {
       }
     },
     [fields, navigation, postMeal, remove, reset, user]
+  );
+
+  useFocusEffect(
+    useCallback(() => {
+      const { insulinCarbohydrateRatio, insulinUnitsPerDay, sensibilityFactor } =
+        user || {};
+
+      if (insulinUnitsPerDay || (insulinCarbohydrateRatio && sensibilityFactor)) return;
+
+      Alert.alert(
+        'Dados insuficientes',
+        'Contate um especialista para completar o seu cadastro.'
+      );
+
+      navigation.navigate('List');
+    }, [navigation, user])
   );
 
   return (

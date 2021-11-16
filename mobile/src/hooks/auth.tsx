@@ -29,8 +29,10 @@ interface User {
   weight: number;
   height: number;
   glycemicTarget: number;
-  insulinUnitsPerDay: number;
   createdAt: string;
+  insulinUnitsPerDay?: number;
+  sensibilityFactor?: number;
+  insulinCarbohydrateRatio?: number;
 }
 
 interface AuthContextData {

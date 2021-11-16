@@ -23,6 +23,7 @@ export const ResultText = styled.Text`
 export const ResultLabel = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
   font-size: ${RFValue(12)}px;
+  text-align: center;
 `;
 
 export const Time = styled.Text`
