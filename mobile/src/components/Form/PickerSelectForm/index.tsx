@@ -29,7 +29,12 @@ export const PickerSelectForm: React.FC<Props> = ({
           <>
             {placeholder && <FieldTitle>{placeholder}</FieldTitle>}
             <PickerView>
-              <RNPickerSelect onValueChange={onChange} value={value} items={items} />
+              <RNPickerSelect
+                onValueChange={onChange}
+                value={value}
+                items={items}
+                style={{ inputAndroid: { color: 'black' } }}
+              />
             </PickerView>
           </>
         )}

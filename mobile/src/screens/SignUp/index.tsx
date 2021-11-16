@@ -34,7 +34,6 @@ const schema = yup.object().shape({
   weight: yup.number().required('Peso é obrigatório.'),
   height: yup.number().required('Altura é obrigatório.'),
   glycemicTarget: yup.number().required('Meta glicêmica é obrigatório.'),
-  insulinUnitsPerDay: yup.number().required('Unidades de insulina diária é obrigatório.'),
 });
 
 export const SignUp: React.FC = () => {
@@ -55,12 +54,14 @@ export const SignUp: React.FC = () => {
 
   const handleSignUp = useCallback(
     async (data: any) => {
+      const parsedBirthDate = data.birthDate.split('/').reverse().join('-');
       const payload = {
         ...data,
         weight: Number(data.weight),
         height: Number(data.height),
         glycemicTarget: Number(data.glycemicTarget),
         insulinUnitsPerDay: Number(data.insulinUnitsPerDay),
+        birthDate: parsedBirthDate,
       };
 
       try {
