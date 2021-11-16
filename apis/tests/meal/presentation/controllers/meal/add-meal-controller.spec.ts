@@ -51,7 +51,11 @@ describe('AddMeal Controller', () => {
 
   it("should return 400 if patientSensibilityFactor or patientInsulinCarbohydrateRatio aren't provided", async () => {
     const httpResponse = await sut.handle({
-      body: { ...httpRequest.body, patientInsulinUnitsPerDay: undefined },
+      body: {
+        ...httpRequest.body,
+        patientInsulinUnitsPerDay: undefined,
+        patientInsulinCarbohydrateRatio: 1,
+      },
     });
     expect(httpResponse.statusCode).toBe(400);
     expect(httpResponse).toEqual(
