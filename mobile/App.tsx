@@ -31,7 +31,7 @@ export default function App(): React.ReactElement {
 
   return (
     <>
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle="light-content" backgroundColor={theme.colors.primary} />
 
       <ThemeProvider theme={theme}>
         <AppProvider>
