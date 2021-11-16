@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { Alert, KeyboardAvoidingView, Platform } from 'react-native';
+import { Alert, KeyboardAvoidingView, Platform, View } from 'react-native';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -131,21 +131,25 @@ export const SignUp: React.FC = () => {
               error={errors.password?.message}
             />
 
-            <InputForm
-              name="height"
-              control={control}
-              placeholder="Altura"
-              keyboardType="number-pad"
-              error={errors.height?.message}
-            />
+            <View style={{ flexDirection: 'row' }}>
+              <InputForm
+                name="height"
+                control={control}
+                placeholder="Altura"
+                keyboardType="number-pad"
+                error={errors.height?.message}
+                customStyles={{ flex: 1, marginRight: 4 }}
+              />
 
-            <InputForm
-              name="weight"
-              control={control}
-              placeholder="Peso"
-              keyboardType="number-pad"
-              error={errors.weight?.message}
-            />
+              <InputForm
+                name="weight"
+                control={control}
+                placeholder="Peso"
+                keyboardType="number-pad"
+                error={errors.weight?.message}
+                customStyles={{ flex: 1, marginLeft: 4 }}
+              />
+            </View>
 
             <InputForm
               name="glycemicTarget"
@@ -153,14 +157,6 @@ export const SignUp: React.FC = () => {
               placeholder="Meta glicêmica"
               keyboardType="number-pad"
               error={errors.glycemicTarget?.message}
-            />
-
-            <InputForm
-              name="insulinUnitsPerDay"
-              control={control}
-              placeholder="Unidades de insulina diária"
-              keyboardType="number-pad"
-              error={errors.insulinUnitsPerDay?.message}
             />
 
             <MaskedInputForm

@@ -16,6 +16,7 @@ export type InputFormProps = TextInputProps & {
     flex?: number;
     display?: 'none' | 'flex';
     marginRight?: number;
+    marginLeft?: number;
   };
 };
 
@@ -34,6 +35,7 @@ export const InputForm: React.FC<InputFormProps> = ({
         flex: customStyles?.flex || 1,
         display: customStyles?.display,
         marginRight: customStyles?.marginRight,
+        marginLeft: customStyles?.marginLeft,
       }}
     >
       <Controller
