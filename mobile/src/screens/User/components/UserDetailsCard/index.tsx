@@ -39,13 +39,35 @@ export const UserDetailsCard: React.FC = () => {
         </InfoContent>
       </InfoView>
 
-      <InfoView>
-        <InfoTitle>Unidades de insulina diária:</InfoTitle>
-        <InfoContent>
-          {user.insulinUnitsPerDay}
-          <InfoUnit> UI</InfoUnit>
-        </InfoContent>
-      </InfoView>
+      {user.insulinUnitsPerDay && (
+        <InfoView>
+          <InfoTitle>Unidades de insulina diária:</InfoTitle>
+          <InfoContent>
+            {user.insulinUnitsPerDay}
+            <InfoUnit> UI</InfoUnit>
+          </InfoContent>
+        </InfoView>
+      )}
+
+      {user.sensibilityFactor && (
+        <InfoView>
+          <InfoTitle>Fator de sensibilidade:</InfoTitle>
+          <InfoContent>
+            {user.sensibilityFactor}
+            <InfoUnit> mg/dL</InfoUnit>
+          </InfoContent>
+        </InfoView>
+      )}
+
+      {user.insulinCarbohydrateRatio && (
+        <InfoView>
+          <InfoTitle>Razão insulina carboidrato:</InfoTitle>
+          <InfoContent>
+            {user.insulinCarbohydrateRatio}
+            <InfoUnit>g = 1 UI</InfoUnit>
+          </InfoContent>
+        </InfoView>
+      )}
     </Card>
   );
 };
