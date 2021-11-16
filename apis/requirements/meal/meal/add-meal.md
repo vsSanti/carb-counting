@@ -16,7 +16,13 @@ This route adds a meal to the database, including calculations.
   - ✅ Required: `true`;
 - ✅ `patientInsulinUnitsPerDay`:
   - ✅ Type: `number`;
-  - ✅ Required: `true`;
+  - ✅ Required: `false`;
+- ✅ `patientInsulinCarbohydrateRatio`:
+  - ✅ Type: `number`;
+  - ✅ Required: `false`;
+- ✅ `patientSensibilityFactor`:
+  - ✅ Type: `number`;
+  - ✅ Required: `false`;
 - ✅ `glucoseMeasurement`:
   - ✅ Type: `number`;
   - ✅ Required: `true`;
