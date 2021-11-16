@@ -40,10 +40,10 @@ export class PgMealRepository
       insulinCarbohydrateRatio = this.roundNumber(400 / patientInsulinUnitsPerDay);
     }
 
-    const correctionBolus = Math.round((glucoseMeasurement - glycemicTarget) / sensibilityFactor);
-    const mealBolus = Math.round(totalAmountOfCarbohydrate / insulinCarbohydrateRatio);
+    const correctionBolus = (glucoseMeasurement - glycemicTarget) / sensibilityFactor;
+    const mealBolus = totalAmountOfCarbohydrate / insulinCarbohydrateRatio;
 
-    return mealBolus + correctionBolus;
+    return this.roundNumber(mealBolus + correctionBolus);
   };
 
   async add(data: AddMealParams): Promise<string> {
@@ -94,8 +94,8 @@ export class PgMealRepository
     const meals = await pgMealRepository.find({
       where: { patientId },
       relations: ['mealFoods', 'mealFoods.food'],
-      take: 10,
-      skip: (page - 1) * 10,
+      take: 20,
+      skip: (page - 1) * 20,
       order: { createdAt: 'DESC' },
     });
 
