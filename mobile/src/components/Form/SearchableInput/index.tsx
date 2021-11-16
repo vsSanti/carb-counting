@@ -72,6 +72,7 @@ export const SearchableInput: React.FC<Props> = ({
               placeholder="filtro"
               placeholderTextColor="darkgray"
               autoCompleteType="off"
+              autoCorrect={false}
               onChangeText={setFilterValue}
             />
           </InputView>
