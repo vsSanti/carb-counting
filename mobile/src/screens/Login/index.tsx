@@ -31,6 +31,7 @@ import {
   Footer,
   FooterWrapper,
   SignUpButton,
+  SignUpButtonTitle,
 } from './styles';
 
 type FormData = {
@@ -115,11 +116,12 @@ export const Login: React.FC = () => {
                 />
 
                 <SignUpButton
-                  title="Fazer cadastro"
                   onPress={() => {
                     navigation.navigate('SignUp');
                   }}
-                />
+                >
+                  <SignUpButtonTitle>Fazer cadastro</SignUpButtonTitle>
+                </SignUpButton>
               </ScrollView>
             </FooterWrapper>
           </Footer>
