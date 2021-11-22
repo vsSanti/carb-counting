@@ -1,8 +1,7 @@
 /* eslint-disable camelcase */
 import 'react-native-gesture-handler';
-
 import React from 'react';
-import { StatusBar } from 'react-native';
+import { LogBox, StatusBar } from 'react-native';
 import AppLoading from 'expo-app-loading';
 import { ThemeProvider } from 'styled-components';
 import {
@@ -17,6 +16,9 @@ import theme from '@/global/styles/theme';
 import { AppProvider } from '@/hooks';
 
 import { Routes } from '@/routes';
+
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs(); // Ignore all log notifications
 
 export default function App(): React.ReactElement {
   const [fontsLoaded] = useFonts({

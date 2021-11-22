@@ -1,6 +1,5 @@
 import styled from 'styled-components/native';
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
-import { RectButton } from 'react-native-gesture-handler';
 import { SimpleLineIcons } from '@expo/vector-icons';
 
 export const Container = styled.View`
@@ -74,7 +73,7 @@ export const FooterWrapper = styled.View`
   justify-content: space-between;
 `;
 
-export const SignUpButton = styled(RectButton)`
+export const SignUpButton = styled.Button`
   width: 100%;
   height: 25px;
 
@@ -86,10 +85,4 @@ export const SignUpButton = styled(RectButton)`
   margin-bottom: 8px;
 
   border-radius: 10px;
-`;
-
-export const SignUpButtonTitle = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.medium};
-  color: ${({ theme }) => theme.colors.primary};
-  font-size: ${RFValue(15)}px;
 `;

@@ -5,6 +5,7 @@ import {
   Platform,
   TouchableWithoutFeedback,
   ScrollView,
+  Alert,
 } from 'react-native';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -31,7 +32,6 @@ import {
   Footer,
   FooterWrapper,
   SignUpButton,
-  SignUpButtonTitle,
 } from './styles';
 
 type FormData = {
@@ -60,8 +60,12 @@ export const Login: React.FC = () => {
   const { login, loadingCredentials } = useAuth();
 
   const handleLogin = useCallback(
-    (data: FormData) => {
-      login(data);
+    async (data: FormData) => {
+      try {
+        await login(data);
+      } catch (error) {
+        Alert.alert('Erro ao fazer login', 'Dados informados estão incorretos.');
+      }
     },
     [login]
   );
@@ -119,9 +123,8 @@ export const Login: React.FC = () => {
                   onPress={() => {
                     navigation.navigate('SignUp');
                   }}
-                >
-                  <SignUpButtonTitle>Fazer cadastro</SignUpButtonTitle>
-                </SignUpButton>
+                  title="Fazer cadastro"
+                />
               </ScrollView>
             </FooterWrapper>
           </Footer>
