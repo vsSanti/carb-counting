@@ -1,0 +1,10 @@
+.patient-overview {
+  .ant-col {
+    max-height: 60vh;
+    overflow: auto;
+
+    & + .ant-col {
+      padding-left: 10px;
+    }
+  }
+}

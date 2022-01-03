@@ -1,0 +1,11 @@
+.meal-charts {
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+
+  .chart-wrapper {
+    flex: 2;
+    max-height: 500px;
+    overflow: hidden;
+  }
+}

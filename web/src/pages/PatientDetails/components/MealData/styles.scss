@@ -1,0 +1,44 @@
+.meal-data-header {
+  display: inline-flex;
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    & + .info {
+      margin-left: 20px;
+    }
+
+    .main-data,
+    .label {
+      margin-bottom: 0;
+    }
+
+    .main-data {
+      font-weight: bold;
+      color: #12A454;
+    }
+  }
+}
+
+.meal-data {
+  .meal-data-row {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .food-weight {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+
+  .divider {
+    margin: 8px 0;
+  }
+}

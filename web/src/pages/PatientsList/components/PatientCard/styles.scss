@@ -1,0 +1,38 @@
+.patient-card-wrapper {
+  border-radius: 25px !important;
+  margin: 12px !important;
+
+  .ant-card-body {
+    display: flex;
+
+    .patient-image {
+      height: 100px;
+      width: 100px;
+    }
+
+    .general-infos {
+      display: flex;
+      flex-direction: column;
+
+      margin-left: 25px;
+
+      .patient-main-info {
+        font-size: 25px;
+        font-weight: bold;
+      }
+    }
+
+    .details-icon {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex: 1;
+
+      svg {
+        height: 30px;
+        width: 30px;
+        color: darkblue;
+      }
+    }
+  }
+}
