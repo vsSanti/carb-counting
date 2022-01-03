@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
+import Checkbox from 'expo-checkbox';
 
 import { useAuth } from '@/hooks/auth';
 
@@ -22,6 +23,9 @@ import {
   PageTitle,
   CancelButton,
   CancelButtonTitle,
+  CheckboxWrapper,
+  CheckboxLabel,
+  LegalTerms,
 } from './styles';
 
 const schema = yup.object().shape({
@@ -177,6 +181,13 @@ export const SignUp: React.FC = () => {
               ]}
               error={errors.sex?.message}
             />
+
+            <CheckboxWrapper>
+              <Checkbox value />
+              <CheckboxLabel>
+                Aceito os <LegalTerms>termos de uso</LegalTerms> do sistema
+              </CheckboxLabel>
+            </CheckboxWrapper>
 
             <Button
               title="Cadastrar-me"

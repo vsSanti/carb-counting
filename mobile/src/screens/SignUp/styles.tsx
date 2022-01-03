@@ -36,3 +36,26 @@ export const CancelButtonTitle = styled.Text`
   text-align: center;
   margin-bottom: 25px;
 `;
+
+export const CheckboxWrapper = styled.View`
+  margin: 10px 0 15px 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const CheckboxLabel = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.medium};
+  color: ${({ theme }) => theme.colors.shape};
+  font-size: ${RFValue(12)}px;
+
+  margin-left: 10px;
+`;
+
+export const LegalTerms = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.medium};
+  color: #007fff;
+  font-size: ${RFValue(12)}px;
+
+  margin-left: 10px;
+`;
